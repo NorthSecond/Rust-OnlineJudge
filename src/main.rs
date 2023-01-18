@@ -7,6 +7,7 @@ use actix_web::{get, post,HttpResponse, Responder};
 use clap::Arg;
 
 mod handler;
+mod config;
 
 
 //状态机
@@ -52,6 +53,15 @@ async fn main() -> std::io::Result<()> {
 
     let mut address:String = "127.0.0.1".to_string();
     let mut port:u16=8000;
+    let config_path:String="./config.json".to_string();
+
+
+    let config: config::Config =
+        config::parse_from_file(config_path).expect("Config file format error.");
+    let (address, port) = (
+        config.server.bind_address.to_string(),
+        config.server.bind_port,
+    );
 
 
     if(matches.is_present("host")){
@@ -66,6 +76,9 @@ async fn main() -> std::io::Result<()> {
         } 
         println!("有port参数输入{}",port);
     }
+
+
+
 
 
     log::info!("starting HTTP server at http://{}:{}", address, port); //config.server.bind_address, config.server.bind_port);

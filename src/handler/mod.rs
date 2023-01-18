@@ -15,12 +15,20 @@ async fn exit() -> impl Responder {
 
 pub fn route(config: &mut web::ServiceConfig) {
     config.service(hello);
-
 }
 
 
+
+//测试案例
+struct user{
+    name:String,
+    id:u32,
+}
 
 #[get("/hello")]
 async fn hello(req_body: String) -> impl Responder {
+    
+
     HttpResponse::Ok().body("hello boy")
 }
+
