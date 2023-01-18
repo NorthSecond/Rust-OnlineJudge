@@ -8,20 +8,12 @@ use std::time::{Duration, Instant};
 
 mod config;
 
+mod job;
 
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct PostJob {
-    pub source_code: String,
-    pub language: String,
-    pub user_id: u32,
-    pub contest_id: u32,
-    pub problem_id: u32,
-}
 
 
 pub async fn compile(
-    body: PostJob,
+    body: job::PostJob,
     config: Data<Config>,
     job_id: u32,
 ) {
@@ -68,6 +60,19 @@ pub async fn compile(
         lang.command[output_index.unwrap()] = bin_path.to_string();
     }
 
-    
+    let mut compiler = Command::new(&lang.command[0])
+    .args(&lang.command[1..])
+    .stdout(Stdio::null())
+    .stderr(Stdio::null())
+    .spawn()
+    .unwrap();
+    let wait_time = Duration::from_secs(15); //compiling for at most 15 seconds
+    let status_code = match compiler.wait_timeout(wait_time).unwrap() {
+        Some(status) => status.code(),
+        None => {
+            compiler.kill().unwrap();
+            compiler.wait().unwrap().code()
+        }
+    };
 
 }

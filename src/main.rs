@@ -72,11 +72,14 @@ async fn main() -> std::io::Result<()> {
 
     log::info!("starting HTTP server at http://{}:{}", address, port); //config.server.bind_address, config.server.bind_port);
 
-    HttpServer::new(|| {
+    HttpServer::new(move|| {
         App::new()
             .app_data(web::Data::new(AppState {
                 app_name: String::from("Actix Web"),
             }))
+            .app_data(web::Data::new(
+                config.clone()
+            ))
             .service(echo)
             .service(index)
             .configure(handler::route)
