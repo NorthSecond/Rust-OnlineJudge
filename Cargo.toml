@@ -6,7 +6,7 @@ authors = ["yanyf83 <yangyf83@outllook.com>"]
 description = "Rust-OnlineJudge, Our term project in the Rust class."
 readme = "README.md"
 repository = "https://github.com/NorthSecond/Rust-OnlineJudge"
-license = "MIT"
+license = "GPL-3.0"
 keywords = ["Rust", "OnlineJudge", "OJ", "actix-web", "mysql"]
 
 

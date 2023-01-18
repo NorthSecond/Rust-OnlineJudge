@@ -1,6 +1,6 @@
-drop database if exists rustoj;
-create database rustoj;
-use rustoj;
+drop database if exists `rustoj`;
+create database `rustoj`;
+use `rustoj`;
 /*==============================================================*/
 /* Table: tb_user                                               */
 /*==============================================================*/
@@ -22,8 +22,8 @@ create table `tb_problem` (
 	`problem_total` int,
 	`problem_acrate` double,
 	`problem_content` text not null,
-  `problem_data` text,
-  `problem_answer` text
+	`problem_data` text,
+	`problem_answer` text
 );
 /*==============================================================*/
 /* Table: tb_contest                                               */
