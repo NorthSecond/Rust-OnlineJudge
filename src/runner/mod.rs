@@ -4,19 +4,20 @@ use std::io::Write;
 use std::process::{Command, Stdio};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
+use actix_web::web::Data;
+use wait_timeout::ChildExt;
+
+use super::job;
+use super::config;
 
 
-mod config;
-
-mod job;
-
-
-
-pub async fn compile(
+pub  fn compile(
     body: job::PostJob,
-    config: Data<Config>,
+    config: Data<config::Config>,
     job_id: u32,
 ) {
+    
+
     let _ = std::fs::create_dir("oj_runtime_dir");
     let _ = std::fs::remove_dir_all(format!("oj_runtime_dir/job_{}", job_id));
     let _ = std::fs::create_dir(format!("oj_runtime_dir/job_{}", job_id));
@@ -35,6 +36,7 @@ pub async fn compile(
     }
 
     println!("Language: {:?}", lang);
+
     let mut file =
         std::fs::File::create(format!("{}/{}", path, lang.file_name)).expect("Cannot create file.");
     let _ = file.write_all(body.source_code.as_bytes());
@@ -53,6 +55,7 @@ pub async fn compile(
         false => format!("{}/job", path).to_string(),
     };
 
+    println!("{}",bin_path);
     if input_index.is_some() {
         lang.command[input_index.unwrap()] = format!("{}/{}", path, lang.file_name);
     }
@@ -67,6 +70,9 @@ pub async fn compile(
     .spawn()
     .unwrap();
     let wait_time = Duration::from_secs(15); //compiling for at most 15 seconds
+
+    // compiler.
+  
     let status_code = match compiler.wait_timeout(wait_time).unwrap() {
         Some(status) => status.code(),
         None => {
