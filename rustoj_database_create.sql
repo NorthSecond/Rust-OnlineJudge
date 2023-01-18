@@ -4,6 +4,7 @@ use rustoj;
 /*==============================================================*/
 /* Table: tb_user                                               */
 /*==============================================================*/
+drop table if exists `tb_user`;
 create table `tb_user` (
 	`user_name` varchar(64) primary key not null,
 	`user_password` varchar(32) not null,
@@ -11,19 +12,23 @@ create table `tb_user` (
 	`email` varchar(32) not null
 );
 /*==============================================================*/
-/* Table: tb_problem                                               */
+/* Table: tb_problem                                            */
 /*==============================================================*/
+drop table if exists `tb_problem`;
 create table `tb_problem` (
 	`problem_id` int primary key auto_increment,
 	`problem_title` varchar(64) not null,
 	`problem_level` varchar(32) not null,
 	`problem_total` int,
 	`problem_acrate` double,
-	`problem_content` text not null
+	`problem_content` text not null,
+  `problem_data` text,
+  `problem_answer` text
 );
 /*==============================================================*/
 /* Table: tb_contest                                               */
 /*==============================================================*/
+drop table if exists `tb_contest`;
 create table `tb_contest` (
 	`contest_id` int primary key auto_increment,
 	`contest_name` varchar(64) not null,
@@ -39,6 +44,7 @@ create table `tb_contest` (
 /*==============================================================*/
 /* Table: tb_rank                                               */
 /*==============================================================*/
+drop table if exists `tb_rank`;
 create table `tb_rank` (
 	`rank` int,
 	`contest_id` int,
