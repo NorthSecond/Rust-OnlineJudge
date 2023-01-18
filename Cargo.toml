@@ -1,15 +1,29 @@
 [package]
-name = "OJ"
+name = "Rust-OnlineJudge"
 version = "0.1.0"
 edition = "2021"
+authors = ["yanyf83 <yangyf83@outllook.com>"]
+description = "Rust-OnlineJudge, Our term project in the Rust class."
+readme = "README.md"
+repository = "https://github.com/NorthSecond/Rust-OnlineJudge"
+license = "GPL-3.0"
+keywords = ["Rust", "OnlineJudge", "OJ", "actix-web", "mysql"]
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-web = "4.1.0"
-env_logger = "0.9.0"
-log = "0.4.17"
-clap = "3.2.17"
+actix-web = ">=4.1.0"
+env_logger = ">=0.9.0"
+log = ">=0.4.17"
+clap = ">=3.2.17"
 
-serde = { version = "1.0.144" , features = ["derive"] }
-serde_json = "1.0"
+serde = { version = ">=1.0.144" , features = ["derive"] }
+serde_json = ">=1.0"
+
+# mysql
+# mysql = ">=23.0.1"
+
+# 更换UTSC源后防止 Windows 报错
+[http]
+check-revoke = false

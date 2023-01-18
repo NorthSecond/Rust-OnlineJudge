@@ -10,7 +10,10 @@
 			"type": "standard",
 			"misc": {
 				"packing": [
-					[1, 2]
+					[
+						1,
+						2
+					]
 				]
 			},
 			"cases": [
@@ -30,21 +33,21 @@
 				}
 			]
 		},
-    	{
-    		"id": 1,
-    		"name": "hello_world",
-    		"type": "standard",
-    		"misc": {},
-    		"cases": [
-    		  {
-    		    "time_limit": 2000000,
-    		    "memory_limit": 0,
-    		    "score": 100,
-    		    "input_file": "./tests/data/hello_world/1.in",
-    		    "answer_file": "./tests/data/hello_world/1.ans"
-    		  }
-    		]
-    	}
+		{
+			"id": 1,
+			"name": "hello_world",
+			"type": "standard",
+			"misc": {},
+			"cases": [
+				{
+					"time_limit": 2000000,
+					"memory_limit": 0,
+					"score": 100,
+					"input_file": "./tests/data/hello_world/1.in",
+					"answer_file": "./tests/data/hello_world/1.ans"
+				}
+			]
+		}
 	],
 	"languages": [
 		{
