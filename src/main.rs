@@ -64,21 +64,18 @@ async fn main() -> std::io::Result<()> {
     );
 
 
-    if(matches.is_present("host")){
-        if let Some(arg) = matches.value_of("host") {
-            address = String::from(arg);
-        } 
-        println!("有host参数输入{}",address);
-    }
-    if(matches.is_present("port")){
-        if let Some(arg) = matches.value_of("port") {
-            port = arg.parse::<u16>().unwrap();
-        } 
-        println!("有port参数输入{}",port);
-    }
-
-
-
+    // if(matches.is_present("host")){
+    //     if let Some(arg) = matches.value_of("host") {
+    //         address = String::from(arg);
+    //     } 
+    //     println!("有host参数输入{}",address);
+    // }
+    // if(matches.is_present("port")){
+    //     if let Some(arg) = matches.value_of("port") {
+    //         port = arg.parse::<u16>().unwrap();
+    //     } 
+    //     println!("有port参数输入{}",port);
+    // }
 
 
     log::info!("starting HTTP server at http://{}:{}", address, port); //config.server.bind_address, config.server.bind_port);
