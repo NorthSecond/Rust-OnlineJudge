@@ -19,7 +19,6 @@ mod compileTest {
     #[test]
     fn readfile() {
 
-
         let contents=fs::read_to_string("./tests/data/main.rs").unwrap();
         println!("{}",contents);
 
