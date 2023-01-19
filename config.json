@@ -9,52 +9,6 @@
         "db_ip":"localhost:3306",
         "db_name":"rustoj"
     },
-	"problems": [
-		{
-			"id": 0,
-			"name": "aplusb",
-			"type": "standard",
-			"misc": {
-				"packing": [
-					[
-						1,
-						2
-					]
-				]
-			},
-			"cases": [
-				{
-					"score": 50,
-					"input_file": "./tests/data/aplusb/1.in",
-					"answer_file": "./tests/data/aplusb/1.ans",
-					"time_limit": 2000000,
-					"memory_limit": 1048576
-				},
-				{
-					"score": 50,
-					"input_file": "./tests/data/aplusb/2.in",
-					"answer_file": "./tests/data/aplusb/2.ans",
-					"time_limit": 2000000,
-					"memory_limit": 1048576
-				}
-			]
-		},
-		{
-			"id": 1,
-			"name": "hello_world",
-			"type": "standard",
-			"misc": {},
-			"cases": [
-				{
-					"time_limit": 2000000,
-					"memory_limit": 0,
-					"score": 100,
-					"input_file": "./tests/data/hello_world/1.in",
-					"answer_file": "./tests/data/hello_world/1.ans"
-				}
-			]
-		}
-	],
 	"languages": [
 		{
 			"name": "Rust",

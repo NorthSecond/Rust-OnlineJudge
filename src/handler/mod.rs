@@ -4,7 +4,7 @@ use actix_web::{delete, get, post, web};
 use actix_web::{HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
 
-pub mod userHandler;
+mod userHandler;
 
 #[post("/internal/exit")]
 #[allow(unreachable_code)]
@@ -15,26 +15,29 @@ async fn exit() -> impl Responder {
 }
 
 pub fn route(config: &mut web::ServiceConfig) {
-    config.service(hello);
+    // config.service(hello);
+    config.service(userHandler::dbtest);
+    config.service(userHandler::extractor_multiple);
     config.service(userHandler::userlogin);
-    // config.service()
+    config.service(userHandler::postTest);
+        // config.service()
 }
 
 
 
 //测试案例
-#[derive(Deserialize, Serialize, Clone, Default, Debug)]
-pub struct User {
-    pub name: String,
-    pub id: u32,
-}
+// #[derive(Deserialize, Serialize, Clone, Default, Debug)]
+// pub struct User {
+//     pub name: String,
+//     pub id: u32,
+// }
 
-#[get("/hello")]
-async fn hello(req_body: String) -> impl Responder {
-    let user: User = User {
-        name: "hello".to_string(),
-        id: 32,
-    };
-    HttpResponse::Ok().body(serde_json::to_string_pretty(&user).unwrap())
-    // HttpResponse::Ok().body("hello boy")
-}
+// #[get("/hello")]
+// async fn hello(req_body: String) -> impl Responder {
+//     let user: User = User {
+//         name: "hello".to_string(),
+//         id: 32,
+//     };
+//     HttpResponse::Ok().body(serde_json::to_string_pretty(&user).unwrap())
+//     // HttpResponse::Ok().body("hello boy")
+// }

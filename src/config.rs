@@ -36,7 +36,7 @@ macro_rules! pub_struct {
 pub_struct!( Config {
     server: Server,
     database:Database,
-    problems: Vec<Problem>,
+    // problems: Vec<Problem>,
     languages: Vec<Language>,
 });
 

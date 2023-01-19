@@ -2,14 +2,21 @@ use actix_web::web::{self, route, Data};
 use actix_web::{middleware::Logger, App, HttpServer};
 
 use actix_web::{get, post, HttpResponse, Responder};
+
 use mysql::*;
 use mysql::prelude::*;
-
 use tokio::sync::Mutex;
+
 use clap::Arg;
 
+
+mod user;
+mod runner;
 mod config;
+mod error_log;
+mod job;
 mod handler;
+
 
 //状态机
 struct AppState {
@@ -93,7 +100,6 @@ async fn main() -> std::io::Result<()> {
             let r: (String, String, i32, String) = from_row(row.unwrap());
             log::info!("查询默认用户{}, {}, {}, {}", r.0, r.1, r.2, r.3);
         });
-
 
     HttpServer::new(move|| {
         App::new()

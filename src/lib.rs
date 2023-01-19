@@ -1,4 +1,4 @@
-
+mod user;
 mod runner;
 mod config;
 mod error_log;
@@ -44,4 +44,16 @@ mod compileTest {
     fn another() {
         panic!("Make this test fail");
     }
+}
+
+#[cfg(test)]
+mod UserGetTest{
+    use super::user::User;
+    use super::user;
+
+    #[test]
+    fn GetUser() {
+    //    user::getUser()
+    }
+
 }
