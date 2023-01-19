@@ -171,25 +171,13 @@ class FPSHelper(object):
 
 
 
-    def save_problem_info_mysql(self, problem, db, index):
+    def save_problem_info_mysql(self, problem, db, base_dir, index):
         cursor = db.cursor()
         problem_id = index + 1
         problem_title = problem["title"]
-        problem_content = problem["description"]
-        problem_solution = problem["solution"][0]["code"]
-        problem_title = problem_title.replace("\\", "\\\\")
-        problem_title = problem_title.replace("'", "\\'")
-        print(problem_content)
-        problem_content = problem_content.replace("\\", "\\\\")
-        print(problem_content)
-        problem_content = problem_content.replace("'", "\\'")
-        print(problem_content)
-        problem_solution = problem_solution.replace("\\", "\\\\")
-        problem_solution = problem_solution.replace("'", "\\'")
-        sql = "INSERT INTO `tb_problem` (`problem_id`, problem_title, problem_content) VALUES ({0}, '{1}', '{2}')".format(problem_id, problem_title, problem_content)
+        sql = "INSERT INTO tb_problem (problem_id, problem_title, problem_path) VALUES ({}, '{}', '{}')".format(problem_id, problem_title, base_dir)
         cursor.execute(sql)
-        cursor.close()
-        
+        db.commit()
 
 def init_db():
     db = pymysql.connect(
@@ -213,7 +201,7 @@ if __name__ == "__main__":
     for index, problem in enumerate(problems):
         path = os.path.join("./problems/", str(index + 1))
         os.makedirs(path)
-        # helper.save_problem_info_mysql(problem, db, index)
+        helper.save_problem_info_mysql(problem, db, path, index)
         helper.save_test_case(problem, path)
 
 
