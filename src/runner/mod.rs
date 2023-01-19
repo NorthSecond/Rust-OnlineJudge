@@ -9,7 +9,7 @@ use wait_timeout::ChildExt;
 
 use super::job;
 use super::config;
-
+mod diff;
 
 pub  fn compile(
     body: job::PostJob,
