@@ -23,7 +23,8 @@ serde_json = ">=1.0"
 
 wait-timeout = "0.2.0"
 
-# mysql
+mysql = "*"
+chrono = "0.4" # 使用chrono来处理日期和时间列
 # mysql = ">=23.0.1"
 
 # 更换UTSC源后防止 Windows 报错
