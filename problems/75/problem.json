@@ -1,0 +1,42 @@
+{
+    "title": "查找元素(线性表)",
+    "description": "<p>（线性表）试编写一个算法，在带表头结点的单链表中寻找一个数。</p>\n<p>若找到，则函数返回该数在列表中的地址(i [1~n])；</p>\n<p>若找不到，则函数返回0。</p>",
+    "input": "<p>第一行 原始数列：</p>\n<p>2 3 4 5 6 7 8 9</p>\n<p>第二行 需要找的数：</p>\n<p>1</p>",
+    "output": "<p>找到则输出数在数列中的位置，第一个位置输出1依次类推</p>\n<p>若没有找到输出0</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "2 3 4 5 6 7 8 9\n5",
+            "output": "4"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": null,
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<stdlib.h>\n#define ElemType int\ntypedef struct LNode{\n\tElemType data;\n\tstruct LNode *next;\n}LNode,*LinkList;\nvoid initial(LinkList L){\n\tchar temp;\n\tElemType data;\n\tLNode *p = L;\n\twhile(scanf(\"%d\",&data)!=NULL){\n\t\tLNode *s = (LNode *)malloc(sizeof(LNode));\n\t\ts->data = data;\n\t\tp->next = s;\n\t\tp = p->next;\n\t\ttemp=getchar();\n\t\tif(temp=='\\n'||temp==NULL)\n\t\t\tbreak;\n\t}\n\tp->next = NULL;\n}\n\nint find(LinkList L,ElemType data){\n\tint no = 0;\n\tLNode *p = L->next;\n\twhile(p){\n\t\tno++;\n\t\tif(p->data==data)\n\t\t\tbreak;\n\t\telse\n\t\t\tp=p->next;\n\t}\n\treturn no;\n}\n\nint main(){\n\tElemType data;\n\tLinkList L = (LNode *)malloc(sizeof(LNode));\n\tinitial(L);\n\tscanf(\"%d\",&data);\n\tprintf(\"%d\",find(L,data));\n\treturn 0;\n}\n"
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<stdlib.h>\nusing namespace std;\n//定义一个链表节点 \n\n\ntypedef struct BNode{\n\tint data;\n\tstruct BNode *next;\n}BNode;\nint Sort(int e,BNode *C);\nint main(){\n\tBNode *s,*r;\n\tBNode *C;\n\tint e;\n\tint a[9];\n\tC=(BNode*)malloc(sizeof(BNode));\n\tC->next=NULL;\n\tr=C;\n\tfor(int i=1;i<=8;i++){\n\t\ts=(BNode*)malloc(sizeof(BNode));\n\t\tcin>>a[i];\n\t\ts->data=a[i];\n\t\tr->next=s; \n\t\tr=r->next;\n\t\t\n\t}\n\tr->next=NULL;\n\tcin>>e;\n\tint t=Sort(e,C);\n\tcout<<t<<endl;\n\treturn 0;\n} \n\nint Sort(int e,BNode *C){\n\tBNode *r;\n\t//C->next=NULL;\n\tr=C;\n\tint i=1;\n\twhile(r->next!=NULL){\n\t\tr=r->next;\n\t\tif(r->data==e){\n\t\t\treturn i;\n\t\t}\n\t\ti++;\n\t} \n}"
+        },
+        {
+            "language": "Python",
+            "code": "# coding=utf-8\nlist1 = input().split(\" \")\nnum = input()\nif num not in list1:\n    print(0)\nelse:\n    for i in list1:\n        if i == num:\n            print(list1.index(i) + 1)\n            break"
+        }
+    ]
+}

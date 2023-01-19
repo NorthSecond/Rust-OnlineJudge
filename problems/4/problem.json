@@ -1,0 +1,63 @@
+{
+    "title": "C语言1.1",
+    "description": "<p>\n\t输出一行信息。\n</p>",
+    "input": "<p>\n\t&nbsp;无。\n</p>",
+    "output": "<p>\n\t只有一行，“This is a C program.”。\n</p>\n<p>\n\t请注意不需要输出引号，行尾输出换行。&nbsp;\n</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 32
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "无。",
+            "output": "This is a C program."
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [
+        {
+            "input": null,
+            "output": "This is a C program.\n"
+        }
+    ],
+    "hint": null,
+    "source": "教学题-C语言",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n\nint main()\n{\n  printf(\"This is a C program.\\n\");\n  return 0;\n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint main()\n{\n  cout<<\"This is a C program.\";\n  return 1;\n}"
+        },
+        {
+            "language": "Pascal",
+            "code": "program t;\nbegin\n writeln('This is a C program.');\nend."
+        },
+        {
+            "language": "Java",
+            "code": "public class Main{\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"This is a C program.\");\n\t}\n}"
+        },
+        {
+            "language": "Bash",
+            "code": "echo 'This is a C program.\n'"
+        },
+        {
+            "language": "Python",
+            "code": "print(\"This is a C program.\")"
+        },
+        {
+            "language": "C#",
+            "code": "using System;\n\n\nnamespace Worx\n{\n    class Class1\n    {\n        static void Main()\n        {\n            Console.WriteLine(\"This is a C program.\");\n       \n      //      Console.ReadLine();\n\n        }\n       \n    }\n}\n\n"
+        }
+    ]
+}

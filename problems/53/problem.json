@@ -1,0 +1,46 @@
+{
+    "title": "《C语言程序设计》江宝钏主编-习题1-3-新年好",
+    "description": "<p>编写程序在屏幕上显示：</p>\n<p>*****************************</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Happy New Year!</p>\n<p>*****************************</p>\n<p>注意：</p>\n<p>29个星号，Happy New Year!首字母大写，中间1个空格隔开，末尾有英文叹号。</p>\n<p>H之前7个空格，叹号之后没有空格。</p>\n<p>一共3行，中间没有空行。</p>",
+    "input": "<p>没有输入</p>",
+    "output": "<p>*****************************</p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Happy New Year!</p>\n<p>*****************************</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "没有输入",
+            "output": "*****************************\n       Happy New Year!\n*****************************"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "<p>复制样例输出，改成程序代码。</p>",
+    "source": null,
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "int main(int argc, char* argv[])\n{\n\tprintf(\"*****************************\\n\");\n\tprintf(\"       Happy New Year!\\n\");\n\tprintf(\"*****************************\\n\");\n\treturn 0;\n}\n"
+        },
+        {
+            "language": "C++",
+            "code": "#include<stdio.h> \nint main()\n{\n\tprintf(\"*****************************\\n       Happy New Year!\\n*****************************\");\n}"
+        },
+        {
+            "language": "Pascal",
+            "code": "program aa;\nbegin\n  writeln('*****************************');\n  writeln('       Happy New Year!');\n  writeln('*****************************');\nend.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        },
+        {
+            "language": "Python",
+            "code": "# coding=utf-8\nprint(\"*\"*29)\nprint(\" \"*7,end=\"\")\nprint(\"Happy New Year!\")\nprint(\"*\"*29)"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题8.6",
+    "description": "写一函数concat，将两个字符串连接",
+    "input": "两行字符串",
+    "output": "连接后的字符串",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "123\nabc",
+            "output": "123abc"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cstdio>\nusing namespace std;\nchar s1[201],s2[101];\nvoid catenate(char a[],char b[])\n{\n\tint i;\n\tfor (i=0; a[i]!='\\0'; i++) ;\n\tfor (int j=0; b[j]!='\\0'; j++)\n\t\ta[i++]=b[j];\n\ta[i]='\\0';\n}\nint main()\n{\n\tgets(s1);\n\tgets(s2);\n\tcatenate(s1,s2);\n\tcout<<s1<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题6.5",
+    "description": "求以下三数的和,保留2位小数 1~a之和 1~b的平方和 1~c的倒数和",
+    "input": "a b c",
+    "output": "<p>1+2+...+a + 1^2+2^2+...+b^2 + 1/1+1/2+...+1/c</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "100 50 10",
+            "output": "47977.93"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cstdio>\nusing namespace std;\nint main()\n{\n\tint a,b,c;\n\tcin>>a>>b>>c;\n\tdouble sum=0;\n\tfor (int i=1; i<=a; i++) sum+=i;\n\tfor (int i=1; i<=b; i++) sum+=i*i;\n\tfor (int i=1; i<=c; i++) sum+=1.0/i;\n\tprintf(\"%.2lf\\n\",sum);\n\treturn 0;\n}"
+        },
+        {
+            "language": "Python",
+            "code": "# coding=utf-8\nimport sys\ndef main():\n    while True:\n        a,b,c=sys.stdin.readline().strip().split(' ')\n        a=int(a)\n        b=int(b)\n        c=int(c)\n        sum=0\n        for i in range(1,a+1):\n            sum+=i\n        sum1=0\n        for i in range(1,b+1):\n            sum1+=i**2\n        sum2=0\n        for i in range(1,c+1):\n            sum2+=1/i\n        sum3=round(sum+sum1+sum2,2)\n        print(sum3)\nif __name__ == '__main__':\n    main() \n"
+        }
+    ]
+}

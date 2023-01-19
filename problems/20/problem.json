@@ -1,0 +1,38 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题7.3",
+    "description": "<p>求一个3&times;3矩阵对角线元素之和。 </p>",
+    "input": "矩阵",
+    "output": "主对角线 副对角线 元素和",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "1 2 3\n1 1 1\n3 2 1",
+            "output": "3 7"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<math.h>\nint main()\n{\n\tint a[3][3];\n\tint i,j,sum;\n\tfor(i=0;i<3;i++)\n\t  for(j=0;j<3;j++)\n\t{\n\t\tscanf(\"%d\",&a[i][j]);\n\t}\n\tprintf(\"%d %d\",a[0][0]+a[1][1]+a[2][2],a[0][2]+a[1][1]+a[2][0]);\n\treturn 0;\n} "
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint a[4][4];\nint main()\n{\n\tfor (int i=1; i<=3; i++)\n\t\tfor (int j=1; j<=3; j++) cin>>a[i][j];\n\tint sum1=0,sum2=0;\n\tfor (int i=1; i<=3; i++)\n\t{\n\t\tsum1+=a[i][i];\n\t\tsum2+=a[i][4-i];\n\t}\n\tcout<<sum1<<\" \"<<sum2<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

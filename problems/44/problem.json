@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题10.7",
+    "description": "有一字符串，包含n个字符。写一函数cpystr，将此字符串中从第m个字符开始的全部字符复制成为另一个字符串。",
+    "input": "数字n 一行字符串数字m",
+    "output": "从m开始的子串",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "6\nabcdef\n3",
+            "output": "cdef"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nchar from[100],to[100];\nvoid solve(char *p,int n,char *q)\n{\n\tp+=n-1;\n\twhile (*q++=*p++) ;\n}\nint main()\n{\n\tint n,m;\n\tcin>>n;\n\tfor (int i=0; i<n; i++) cin>>from[i];\n\tcin>>m;\n\tsolve(from,m,to);\n\tcout<<to<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

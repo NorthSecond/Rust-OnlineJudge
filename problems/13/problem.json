@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题6.7",
+    "description": "<p>一个数如果恰好等于它的因子之和，这个数就称为&quot;完数&quot;。 例如，6的因子为1、2、3，而6=1+2+3，因此6是&quot;完数&quot;。 编程序找出N之内的所有完数，并按下面格式输出其因子：</p>",
+    "input": "N",
+    "output": "<p>? its factors are ? ? ?</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 5.0
+    },
+    "samples": [
+        {
+            "input": "1000",
+            "output": "6 its factors are 1 2 3 \n28 its factors are 1 2 4 7 14 \n496 its factors are 1 2 4 8 16 31 62 124 248"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint main()\n{\n\tint n;\n\tcin>>n;\n\tfor (int i=6; i<=n; i++)\n\t{\n\t\tint sum=0;\n\t\tfor (int j=1; j<=i/2; j++)\n\t\t\tif (i%j==0) sum+=j;\n\t\tif (i==sum)\n\t\t{\n\t\t\tcout<<i<<\" its factors are \";\n\t\t\tfor (int j=1; j<=i/2; j++)\n\t\t\t\tif (i%j==0) cout<<j<<\" \";\n\t\t\tcout<<endl;\n\t\t}\n\t}\n\treturn 0;\n}"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题9.8",
+    "description": "分别用函数和带参的宏，从三个数中找出最大的数。",
+    "input": "3个实数",
+    "output": "最大的数,输出两遍，先用函数，再用宏。保留3位小数。",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "1 2 3",
+            "output": "3.000\n3.000"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<stdio.h>\n#define\tMAX(a,b,c) ((a>b?a:b)>c?(a>b?a:b):c)\nusing namespace std;\ndouble max(double a,double b,double c)\n{\n\treturn (a>b?a:b)>c?(a>b?a:b):c;\n}\nint main()\n{\n\tdouble a,b,c;\n\tcin>>a>>b>>c;\n\tprintf(\"%.3lf\\n\",max(a,b,c));\n\tprintf(\"%.3lf\\n\",MAX(a,b,c));\n\treturn 0;\n}"
+        }
+    ]
+}

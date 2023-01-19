@@ -25,7 +25,7 @@ drop table if exists `tb_problem`;
 create table `tb_problem` (
 	`problem_id` int primary key auto_increment,
 	`problem_title` varchar(64) not null,
-	`problem_level` varchar(32) not null,
+	`problem_level` varchar(32),
 	`problem_total` int,
 	`problem_acrate` double,
 	`problem_content` text not null,

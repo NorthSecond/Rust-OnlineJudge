@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题9.2",
+    "description": "输入两个整数，求他们相除的余数。用带参的宏来实现，编程序。",
+    "input": "a b两个数",
+    "output": "a/b的余数",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "3 2",
+            "output": "1"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#define ZC(x,y) x%y\nusing namespace std;\nint main()\n{\n\tint a,b;\n\tcin>>a>>b;\n\tcout<<ZC(a,b)<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

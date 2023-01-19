@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题10.2",
+    "description": "输入三个字符串，按由小到大的顺序输出",
+    "input": "3行字符串",
+    "output": "按照从小到大输出成3行",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "cde\nafg\nabc",
+            "output": "abc\nafg\ncde"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cstdio>\n#include<cstring>\nusing namespace std;\nvoid swap(char *p,char *q)\n{\n\tchar str[50];\n\tstrcpy(str,p);\n\tstrcpy(p,q);\n\tstrcpy(q,str);\n}\nint main()\n{\n\tchar s1[50],s2[50],s3[50];\n\tchar *p1=s1,*p2=s2,*p3=s3;\n\tgets(p1); gets(p2); gets(p3);\n\tif (strcmp(p1,p2)>0) swap(p1,p2);\n\tif (strcmp(p1,p3)>0) swap(p1,p3);\n\tif (strcmp(p2,p3)>0) swap(p2,p3);\n\tprintf(\"%s\\n%s\\n%s\\n\",p1,p2,p3);\n\treturn 0;\n}"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题10.4",
+    "description": "有n个整数，使前面各数顺序向后移m个位置，最后m个数变成前面m个数。写一函数move：实现以上功能，在主函数中输入n个数和输出调整后的n个数。",
+    "input": "输入数据的个数n n个整数移动的位置m",
+    "output": "移动后的n个数",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "10\n1 2 3 4 5 6 7 8 9 10\n2",
+            "output": "9 10 1 2 3 4 5 6 7 8"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint a[50];\nvoid move(int *q,int n,int m)\n{\n\tint *p,t=*(q+n-1);\n\tfor (p=q+n-1; p>q; p--) *p=*(p-1);\n\t*q=t;\n\tif (--m) move(a,n,m);\t//递归\n}\nint main()\n{\n\tint n,m;\n\tcin>>n;\n\tfor (int i=0; i<n; i++) cin>>a[i];\n\tcin>>m;\n\tmove(a,n,m);\n\tfor (int i=0; i<n; i++) cout<<a[i]<<\" \";\n\tcout<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

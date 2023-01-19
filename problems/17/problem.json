@@ -1,0 +1,39 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题6.11",
+    "description": "用迭代法求X的平方根。求平方根的迭代公式为： X[n+1]=1/2(X[n]+a/X[n]) 要求前后两次求出的差的绝对值少于0.00001。输出保留3位小数",
+    "input": "X",
+    "output": "X的平方根",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "4",
+            "output": "2.000"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [
+        {
+            "input": "16\n",
+            "output": "4.000\n"
+        }
+    ],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cmath>\n#include<cstdio>\nusing namespace std;\nint main()\n{\n\tdouble a,x0,x1;\n\tcin>>a;\n\tx0=a/2;\n\tx1=(x0+a/x0)/2;\n\twhile (fabs(x1-x0)>1e-5)\n\t{\n\t\tx0=x1;\n\t\tx1=(x0+a/x0)/2;\n\t}\n\tprintf(\"%.3lf\\n\",x1);\n\treturn 0;\n}"
+        }
+    ]
+}

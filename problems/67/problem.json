@@ -1,0 +1,38 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题3.7",
+    "description": "<p>要将&quot;China&quot;译成密码，译码规律是：用原来字母后面的第4个字母代替原来的字母．例如，字母&quot;A&quot;后面第4个字母是&quot;E&quot;．&quot;E&quot;代替&quot;A&quot;。因此，&quot;China&quot;应译为&quot;Glmre&quot;。请编一程序，用赋初值的方法使cl、c2、c3、c4、c5五个变量的值分别为，&rsquo;C&rsquo;、&rsquo;h&rsquo;、&rsquo;i&rsquo;、&rsquo;n&rsquo;、&rsquo;a&rsquo;，经过运算，使c1、c2、c3、c4、c5分别变为&rsquo;G&rsquo;、&rsquo;l&rsquo;、&rsquo;m&rsquo;、&rsquo;r&rsquo;、&rsquo;e&rsquo;，并输出。</p>",
+    "input": "<p>China</p>",
+    "output": "<p>加密后的China</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "China",
+            "output": "Glmre"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "so easy",
+    "source": null,
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\nint main()\n{\n\tchar a,b,c,d,e;\n\ta='C'+4;\n\tb='h'+4;\n\tc='i'+4;\n\td='n'+4;\n\te='a'+4;\n    putchar(a);\n    putchar(b);\n\tputchar(c);\n\tputchar(d);\n\tputchar(e);\n\tputchar('\\n');\nreturn 0;\n}\n"
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint main()\n{\n\tchar c1='C',c2='h',c3='i',c4='n',c5='a';\n\tc1+=4; c2+=4; c3+=4; c4+=4; c5+=4;\n\tcout<<c1<<c2<<c3<<c4<<c5<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+{
+    "title": "反序数",
+    "description": "<p>\n\t<span style=\"color:#333333;font-family:'MicroSoft Yahei', Helvetica, Arial, Georgia, Simsun;font-size:14px;line-height:25px;\">设N是一个四位数，它的9倍恰好是其反序数（例如：1234的反序数是4321）</span><br />\n<span style=\"color:#333333;font-family:'MicroSoft Yahei', Helvetica, Arial, Georgia, Simsun;font-size:14px;line-height:25px;\">求N的值</span>\n</p>",
+    "input": "<p>\n\t<span style=\"color:#333333;font-family:'MicroSoft Yahei', Helvetica, Arial, Georgia, Simsun;font-size:14px;line-height:25px;\">程序无任何输入数据。</span>\n</p>",
+    "output": "<p>\n\t<span style=\"color:#333333;font-family:'MicroSoft Yahei', Helvetica, Arial, Georgia, Simsun;font-size:14px;line-height:25px;\">输出题目要求的四位数，如果结果有多组，则每组结果之间以回车隔开。</span>\n</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 32
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": null,
+            "output": null
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [
+        {
+            "input": "0",
+            "output": "1089"
+        }
+    ],
+    "hint": null,
+    "source": "算法笔记 名校复试机考真题-清华大学",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\nint main(){\n  printf(\"1089\\n\");\n  return 0;\n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include<cstdio>\n#include<cstring>\n#include<algorithm>\nusing namespace std;\n\nint main()\n{\n\tint i;\n\tchar a[5],b[6];\n\tfor(i=1000;i<=9999;i++)\n\t{\n\t\tsprintf(a,\"%d\",i);\n\t\tsprintf(b,\"%d\",i*9);\n\t\treverse(b,b+strlen(b));\n\t\tif(!strcmp(a,b))\n\t\t\tprintf(\"%d\\n\",i);\n\t}\n\treturn 0;\n}"
+        },
+        {
+            "language": "Pascal",
+            "code": "var\n n,a,b,c,d,s:longint;\nbegin\n for n:=1000 to 9999 do\n begin\n  a:=n div 1000;\n  b:=n mod 1000 div 100;\n  c:=n mod 100 div 10;\n  d:=n mod 10;\n  s:=d*1000+c*100+b*10+a;\n  if s div 9=n then writeln(n);\n end;\nend."
+        },
+        {
+            "language": "Java",
+            "code": "\n\npublic class Main {\n\tpublic static void main(String[] args) {\n\t\tfor (int i = 1000; i < 1111; i++) {\n             if(f(i)==i*9){\n            \t System.out.println(i);\n             }\n\t\t}\n\t\t\n\t}\n\n\tprivate static int f(int n) {\n\t\tint a[] = new int[4];\n\t\tint i = 3;\n\t\twhile (n > 0) {\n\t\t\ta[i] = n % 10;\n\t\t\tn = n / 10;\n\t\t\ti-- ;\n\t\t}\n\t\t\n\t\t\n\t\tint s = 0 ;\n\t\t\n\t\tfor (int j = 0; j < a.length; j++) {\n\t\t\ts = (int) (s + a[j]*Math.pow(10, j)) ;\n\t\t}\n\t\t\n\t\treturn s ;\n\t}\n}\n"
+        }
+    ]
+}

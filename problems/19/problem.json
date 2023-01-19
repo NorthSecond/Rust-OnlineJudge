@@ -1,0 +1,38 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题7.2",
+    "description": "用选择法对10个整数从小到大排序。",
+    "input": "10个整数",
+    "output": "排序好的10个整数",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "4 85 3 234 45 345 345 122 30 12",
+            "output": "3\n4\n12\n30\n45\n85\n122\n234\n345\n345"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<math.h>\nint main()\n{\n\tint a[10];\n\tint i,j,t;\n\tfor(i=0;i<10;i++)\n\t{\n\t\tscanf(\"%d\",&a[i]);\n\t}\n\tfor(i=0;i<10;i++)\n\t  for(j=0;j<9-i;j++)\n\t{\n\t\tif(a[j]>a[j+1])  {\n\t\t\t t=a[j];\n\t\t\ta[j]=a[j+1];\n\t\t\ta[j+1]=t;\n\t\t}\n\t}\n\tfor(i=0;i<10;i++)\n\t{\n\t\tprintf(\"%d\\n\",a[i]);\n\t}\n\treturn 0;\n} "
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint a[11];\nint main()\n{\n\tfor (int i=1; i<=10; i++) cin>>a[i];\n\tfor (int i=1; i<10; i++)\t//选择排序\n\t{\n\t\tint k=i;\n\t\tfor (int j=i+1; j<=10; j++)\n\t\t\tif (a[k]>a[j]) k=j;\n\t\tif (k!=i)\n\t\t{\n\t\t\tint t=a[k];\n\t\t\ta[k]=a[i];\n\t\t\ta[i]=t;\n\t\t}\n\t}\n\tfor (int i=1; i<=10; i++) cout<<a[i]<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

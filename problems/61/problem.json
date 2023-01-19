@@ -1,0 +1,46 @@
+{
+    "title": "邮票",
+    "description": "<div>\n\t某人有8 角的邮票5 张，1 元的邮票4 张，1 元8 角的邮票6 张，用这些邮票中的一张或若干张可以得到多少中不同的邮资？\n</div>",
+    "input": "<p>\n\t无\n</p>",
+    "output": "<p>\n\t&nbsp;输出一行，表示题目所求。\n</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 32
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": null,
+            "output": null
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "名校复试机考真题-北京理工大学",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<stdlib.h>\n//8*5=40   10*4=40   18*6=108    188\nint main()\n{\n  int i,j,k,a[200];\n  for(i=0;i<200;i++)a[i]=0;\n  for(i=0;i<6;i++)\n    for(j=0;j<5;j++)\n    for(k=0;k<7;k++)\n    a[i*8+j*10+k*18]=1;\n  for(i=1,k=0;i<200;i++)if(a[i])k++;\n    printf(\"%d\",k);\n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cstdio>\nusing namespace std;\n\nbool f[10000];\n\nint main()\n{\n    //freopen(\"text.out\", \"w\", stdout);\n    for(int i=0; i<=5; i++)\n        for(int j=0; j<=4; j++)\n            for(int k=0; k<=6; k++)\n                f[8 * i + 10 * j + 18 * k] = true;\n    int sum = 0;\n    for (int i = 0; i < 10000; ++i)\n        sum += f[i];\n    cout<<sum<<endl;\n    return 0;\n}\n"
+        },
+        {
+            "language": "Pascal",
+            "code": "begin\n  writeln('1');\nend."
+        },
+        {
+            "language": "Java",
+            "code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(82);\n\t}\n}"
+        }
+    ]
+}

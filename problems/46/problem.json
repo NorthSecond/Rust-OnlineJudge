@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题11.3",
+    "description": "<p>现有N个学生的数据记录，每个记录包括学号、姓名、三科成绩。编写一个函数input,用来输入一个学生的数据记录。编写一个函数print,打印一个学生的数据记录。在主函数调用这两个函数，读取N条记录输入，再按要求输出。 N&lt;100</p>",
+    "input": "学生数量N占一行每个学生的学号、姓名、三科成绩占一行，空格分开。",
+    "output": "每个学生的学号、姓名、三科成绩占一行，逗号分开。",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "2\na100 zhblue 70 80 90\nb200 newsclan 90 85 75",
+            "output": "a100,zhblue,70,80,90\nb200,newsclan,90,85,75"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<string>\nusing namespace std;\nstruct student{\n\tstring num;\n\tstring name;\n\tint score[3];\n};\nstudent a[105];\nvoid input(student a[],int n)\n{\n\tfor (int i=0; i<n; i++)\n\t\tcin>>a[i].num>>a[i].name>>a[i].score[0]>>a[i].score[1]>>a[i].score[2];\n}\nvoid output(student a[],int n)\n{\n\tfor (int i=0; i<n; i++)\n\t{\n\t\tcout<<a[i].num<<\",\"<<a[i].name;\n\t\tfor (int j=0; j<3; j++) cout<<\",\"<<a[i].score[j];\n\t\tcout<<endl;\n\t}\n}\nint main()\n{\n\tint n;\n\tcin>>n;\n\tinput(a,n);\n\toutput(a,n);\n\treturn 0;\n}"
+        }
+    ]
+}

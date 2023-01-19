@@ -1,0 +1,38 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题6.9",
+    "description": "一球从M米高度自由下落，每次落地后返回原高度的一半，再落下。它在第N次落地时反弹多高？共经过多少米？保留两位小数",
+    "input": "M N",
+    "output": "它在第N次落地时反弹多高？共经过多少米？保留两位小数，空格隔开，放在一行",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "1000 5",
+            "output": "31.25 2875.00"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<math.h>\ndouble total(double m,int n)\n{\n\tif(n==1)  return m;\n\telse return total(m,n-1)+m/pow(2,n-2);\n} \nint main()\n{\n\tint i,j;\n\tint n;\n\tdouble m;\n\tscanf(\"%lf%d\",&m,&n);\n\tdouble gaodu=m/pow(2,n);\n\tdouble zong=total(m,n);\n\tprintf(\"%.2lf %.2lf\",gaodu,zong);\n } "
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cstdio>\nusing namespace std;\nint main()\n{\n\tdouble n,sum;\n\tint m;\n\tcin>>n>>m;\n\tsum=-n;\n\tfor (int i=1; i<=m; i++)\n\t{\n\t\tsum+=2*n;\n\t\tn/=2;\n\t}\n\tprintf(\"%.2lf %.2lf\\n\",n,sum);\n\treturn 0;\n}"
+        }
+    ]
+}

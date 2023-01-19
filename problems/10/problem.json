@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题6.4",
+    "description": "<p>求Sn=1!+2!+3!+4!+5!+&hellip;+n!之值，其中n是一个数字。</p>",
+    "input": "n",
+    "output": "和",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "5",
+            "output": "153"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "<p>n的取值比较大，Sn需要定义成long long型，输出使用%lld<br />\n如果使用VC6调试，Sn定义成__int64，输出使用%I64d，提交时记得改回来。</p>",
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint main()\n{\n\tint n,t=1;\n\tcin>>n;\n\tlong long sn=0;\n\tfor (int i=1; i<=n; i++)\n\t{\n\t\tt*=i;\n\t\tsn+=t;\n\t}\n\tcout<<sn<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

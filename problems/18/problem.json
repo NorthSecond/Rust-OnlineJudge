@@ -1,0 +1,42 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题7.1",
+    "description": "用筛法求N之内的素数。",
+    "input": "N",
+    "output": "0～N的素数",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "100",
+            "output": "2\n3\n5\n7\n11\n13\n17\n19\n23\n29\n31\n37\n41\n43\n47\n53\n59\n61\n67\n71\n73\n79\n83\n89\n97"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "数组大小动态定义？函数？",
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<math.h>\nint main()\n{\n\tint i,n,k;\n\tint a[1000]={0};\n\tscanf(\"%d\",&n);\n\tfor(i=2;i<=n;i++)\n\t{\n\t\tif(a[i]!=0)   continue;\n\t\tk=i+i;\n\t\twhile(k<=n)\n\t\t{\n\t\t\ta[k]=1;\n\t\t\tk+=i;\n\t\t}\n\t\t\n\t}\n\tfor(i=2;i<=n;i++)\n\t{\n\t if(a[i]==0) printf(\"%d\\n\",i);\n\t}\n\treturn 0;\n} "
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cmath>\nusing namespace std;\nint a[10000];\nint main()\n{\n\tint n;\n\tcin>>n;\n\tint t=sqrt(n);\n\tfor (int i=1; i<=n; i++) a[i]=1;\n\tfor (int i=2; i<=t; i++)\t//筛选法求素数表\n\t\tif (a[i])\n\t\t\tfor (int j=2*i; j<=n; j+=i) a[j]=0;\n\tfor (int i=2; i<=n; i++)\n\t\tif (a[i]) cout<<i<<endl;\n\treturn 0;\n}"
+        },
+        {
+            "language": "Python",
+            "code": "# coding=utf-8\nn=int(input())\na=[1]*(n+1)\nfor i in range(2,n+1):\n    if a[i]:\n        j=i*2\n        while j<n+1:\n            a[j]=0\n            j+=i\nfor i in range(2,n+1):\n    if a[i]:\n        print(i)"
+        }
+    ]
+}

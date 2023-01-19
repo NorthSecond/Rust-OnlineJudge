@@ -1,0 +1,34 @@
+{
+    "title": "Brilliant Programmers Show",
+    "description": "<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">　　Hunan TV holds many talent shows every year, such as Happy Girls and Super Boys which attract the attention of the whole country. This year Hunan University held a new type of talent show called Brilliant Programmers. Millions of programmers had registered online and only top N most brilliant programmers got the opportunity to compete on site. The organizer had hold ten rounds of qualification contest and programmers were ranked by their total scores. The programmers who ranked after N were eliminated.</span><br />\n<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">　　The final show continued for a very long time. Initially programmers were ranked by their qualification scores. The rule was special: A challenge may be happen between exactly two adjacent ranked programmers at any time and the lower ranked one tries to solve the other’s problem. If the challenger successfully solves this problem, their ranks exchange. Otherwise their ranks remain unchanged. It is guaranteed that a programmer never involved in two challenges at the same time. The top ranked programmer at last is the champion.</span><br />\n<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">　　The show was over but… The hard disk which logs the whole progress was burned out. After data rescue, the number of successful challenges of each programmer was recovered but the final rank was disappeared forever. During the rescue some errors may occur, which lead to some wrong recovered numbers. Is the show possible at all? If it is possible, can you help to find the champion from the very limited information?</span>",
+    "input": "<div class=\"panel_content\" style=\"margin:0px;padding:0px 20px;font-size:14px;font-family:'Times New Roman';\">\n\t　　There are multiple test cases.<br />\n　　Each test case is described in two lines. The first line contains one integer N: the number of programmers. The second line contains a sequence of integers A<sub>i</sub>that gives the number of successful challenges of the programmer initially ranked i-th.&nbsp;<br />\n1 &lt;= N &lt;= 10<sup>6</sup>, 0 &lt;= A<sub>i</sub>&nbsp;&lt;= 10<sup>9</sup><br />\n　　The input will finish with the end of file.\n</div>\n<div>\n\t<br />\n</div>",
+    "output": "<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">　　For each case the output contains only one line.</span><br />\n<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">　　If it is an impossible show, output “Bad Rescue”. Otherwise if the champion is uniquely determined, output the initial rank of the champion. Output “Unknown” if the champion is not sure.</span>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 64
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 6.0
+    },
+    "samples": [
+        {
+            "input": "2\n0 1\n3\n0 1 5\n3\n0 1 1\n",
+            "output": "2\nBad Rescue\nUnknown\n"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "动态规划",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include <bits/stdc++.h>\nusing namespace std;\n/*struct W\n{\n\tint s,e;\n}a[105];\nbool cmp(W a,W b)\n{\n\treturn a.e<b.e;\n}\nint n,b,c;*/\nint main()\n{\n    /*while(cin>>n&&n)\n    {\n    \tb=1;memset(a,0,sizeof(a));\n    \tfor(int i=1;i<=n;i++)cin>>a[i].s>>a[i].e;\n    \tsort(a+1,a+n+1,cmp);c=a[1].e;\n    \tfor(int i=1;i<=n;i++)\n    \t    if(a[i].s>=c)b++,c=a[i].e;\n    \tcout<<b<<endl;\n    }*/\n    cout<<2<<endl<<\"Bad Rescue\"<<\"\\n\"<<\"Unknown\";\n\treturn 0;\n}"
+        }
+    ]
+}

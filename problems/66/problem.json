@@ -1,0 +1,43 @@
+{
+    "title": "2005年春浙江省计算机等级考试二级C 编程题(2)",
+    "description": "<p><!--[if gte mso 9]><xml>\n<w:WordDocument>\n<w:View>Normal</w:View>\n<w:Zoom>0</w:Zoom>\n<w:PunctuationKerning />\n<w:DrawingGridVerticalSpacing>7.8 磅</w:DrawingGridVerticalSpacing>\n<w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>\n<w:DisplayVerticalDrawingGridEvery>2</w:DisplayVerticalDrawingGridEvery>\n<w:ValidateAgainstSchemas />\n<w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>\n<w:IgnoreMixedContent>false</w:IgnoreMixedContent>\n<w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>\n<w:Compatibility>\n<w:SpaceForUL />\n<w:BalanceSingleByteDoubleByteWidth />\n<w:DoNotLeaveBackslashAlone />\n<w:ULTrailSpace />\n<w:DoNotExpandShiftReturn />\n<w:AdjustLineHeightInTable />\n<w:BreakWrappedTables />\n<w:SnapToGridInCell />\n<w:WrapTextWithPunct />\n<w:UseAsianBreakRules />\n<w:DontGrowAutofit />\n<w:UseFELayout />\n</w:Compatibility>\n<w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>\n</w:WordDocument>\n</xml><![endif]--><!--[if gte mso 9]><xml>\n<w:LatentStyles DefLockedState=\"false\" LatentStyleCount=\"156\">\n</w:LatentStyles>\n</xml><![endif]--><!--[if !mso]><object\nclassid=\"clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D\" id=ieooui></object>\n<style>\nst1\\:*{behavior:url(#ieooui) }\n</style>\n<![endif]--><!--[if gte mso 10]>\n<style>\n/* Style Definitions */\ntable.MsoNormalTable\n{mso-style-name:普通表格;\nmso-tstyle-rowband-size:0;\nmso-tstyle-colband-size:0;\nmso-style-noshow:yes;\nmso-style-parent:\"\";\nmso-padding-alt:0cm 5.4pt 0cm 5.4pt;\nmso-para-margin:0cm;\nmso-para-margin-bottom:.0001pt;\nmso-pagination:widow-orphan;\nfont-size:10.0pt;\nfont-family:\"Times New Roman\";\nmso-fareast-font-family:\"Times New Roman\";\nmso-ansi-language:#0400;\nmso-fareast-language:#0400;\nmso-bidi-language:#0400;}\n</style>\n<![endif]--></p>\n<p style=\"margin-top: 2pt; text-indent: 21pt; line-height: 16pt;\" class=\"MsoNormal\"><span style=\"font-family: 宋体;\">输出一张摄氏一华氏温度转换表，摄氏温度的取值区间是<span lang=\"EN-US\">[-100<sup>0</sup> C</span>，<span lang=\"EN-US\">150<sup>0</sup>C</span><span lang=\"EN-US\"> ]</span>，温度间隔<span lang=\"EN-US\">5<sup>0</sup>C</span>。要求定义和调用函数<span lang=\"EN-US\"> ctof(c),</span>将摄氏温度<span lang=\"EN-US\">C</span>转换成华氏温度<span lang=\"EN-US\">F</span>，计算公式：<span lang=\"EN-US\"> </span></span></p>\n<p><span lang=\"EN-US\" style=\"font-size: 10.5pt; font-family: 宋体;\">F = 32 + C* 9/5</span><span style=\"font-size: 10.5pt; font-family: 宋体;\">。</span></p>\n<p>例如</p>\n<p>c=0-&gt;f=32<br />\nc=5-&gt;f=41<br />\nc=10-&gt;f=50<br />\nc=15-&gt;f=59<br />\nc=20-&gt;f=68<br />\nc=25-&gt;f=77<br />\nc=30-&gt;f=86<br />\nc=35-&gt;f=95<br />\nc=40-&gt;f=104<br />\nc=45-&gt;f=113<br />\nc=50-&gt;f=122<br />\nc=55-&gt;f=131<br />\nc=60-&gt;f=140<br />\nc=65-&gt;f=149</p>",
+    "input": null,
+    "output": null,
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": null,
+            "output": null
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [
+        {
+            "input": "?\n",
+            "output": "c=-100->f=-148\nc=-95->f=-139\nc=-90->f=-130\nc=-85->f=-121\nc=-80->f=-112\nc=-75->f=-103\nc=-70->f=-94\nc=-65->f=-85\nc=-60->f=-76\nc=-55->f=-67\nc=-50->f=-58\nc=-45->f=-49\nc=-40->f=-40\nc=-35->f=-31\nc=-30->f=-22\nc=-25->f=-13\nc=-20->f=-4\nc=-15->f=5\nc=-10->f=14\nc=-5->f=23\nc=0->f=32\nc=5->f=41\nc=10->f=50\nc=15->f=59\nc=20->f=68\nc=25->f=77\nc=30->f=86\nc=35->f=95\nc=40->f=104\nc=45->f=113\nc=50->f=122\nc=55->f=131\nc=60->f=140\nc=65->f=149\nc=70->f=158\nc=75->f=167\nc=80->f=176\nc=85->f=185\nc=90->f=194\nc=95->f=203\nc=100->f=212\nc=105->f=221\nc=110->f=230\nc=115->f=239\nc=120->f=248\nc=125->f=257\nc=130->f=266\nc=135->f=275\nc=140->f=284\nc=145->f=293\nc=150->f=302"
+        }
+    ],
+    "hint": null,
+    "source": null,
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include <stdio.h>\n#include <stdlib.h>\n\n/* run this program using the console pauser or add your own getch, system(\"pause\") or input loop */\n\nint ctof(int c)\n{\n\tint f;\n\tf=32+c*9/5;\n\treturn f;\n} \nint main(int argc, char *argv[]) {\n\tint c,f;\n\tfor(c=-100;c<=150;c+=5)\n\t{\n\t\tf=ctof(c);\n\t\tprintf(\"c=%d->f=%d\\n\",c,f);\n\t}\n\treturn 0;\n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint ctof(int c)\n{\n\treturn 32+c*9/5;\n}\nint main()\n{\n\tfor (int c=-100; c<=150; c+=5)\n\t\tcout<<\"c=\"<<c<<\"->f=\"<<ctof(c)<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

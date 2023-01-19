@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题8.5",
+    "description": "写一函数inverse，使输入的一个字符串按反序存放，在主函数中输入输出反序后的字符串。",
+    "input": "一行字符",
+    "output": "逆序后的字符串",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "123456abcdef",
+            "output": "fedcba654321"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "样例输入字符串结尾有空格，而输出没有空格。另外，测试数据的字符串中间不会有空格。",
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\n#include<cstdio>\n#include<cstring>\nusing namespace std;\nchar s[101];\nvoid change(char s[])\n{\n\tint len=strlen(s);\n\tfor (int i=0,j=len-1; i<j; i++,j--)\n\t\t{ char c=s[i]; s[i]=s[j]; s[j]=c; }\n}\nint main()\n{\n\tcin>>s;\n\tchange(s);\n\tcout<<s<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题8.4",
+    "description": "<p>写一个函数convert，使给定的一个二维数组（３&times;３）转置，即行列互换。</p>",
+    "input": "一个3x3的矩阵",
+    "output": "转置后的矩阵",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "1 2 3\n4 5 6\n7 8 9",
+            "output": "1 4 7 \n2 5 8 \n3 6 9"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "输出每一行末尾有空格",
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint a[4][4];\nvoid change(int a[][4])\n{\n\tfor (int i=1; i<=3; i++)\n\t\tfor (int j=i+1; j<=3; j++)\n\t\t{\n\t\t\tint t=a[i][j];\n\t\t\ta[i][j]=a[j][i];\n\t\t\ta[j][i]=t;\n\t\t}\n}\nint main()\n{\n\tfor (int i=1; i<=3; i++)\n\t\tfor (int j=1; j<=3; j++) cin>>a[i][j];\n\tchange(a);\n\tfor (int i=1; i<=3; i++)\n\t{\n\t\tfor (int j=1; j<=3; j++) cout<<a[i][j]<<\" \";\n\t\tcout<<endl;\n\t}\n\treturn 0;\n}"
+        }
+    ]
+}

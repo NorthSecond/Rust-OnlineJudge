@@ -1,0 +1,34 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题8.8",
+    "description": "<p>写一函数insert，输入一个四位数字，要求输出这四个数字字符，但每两个数字间空格。如输入1990，应输出&quot;1 9 9 0&quot;。</p>",
+    "input": "一个四位数",
+    "output": "增加空格输出",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "1990",
+            "output": "1 9 9 0"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nchar s[10];\nvoid change(char s[],int n)\n{\n\tfor (int i=6; n; i--)\n\t{\n\t\ts[i]=n%10+'0';\n\t\tn/=10;\n\t\ts[--i]=' ';\n\t}\n\ts[7]=' ';\n}\nint main()\n{\n\tint n;\n\tcin>>n;\n\tchange(s,n);\n\tcout<<s<<endl;\n\treturn 0;\n}"
+        }
+    ]
+}

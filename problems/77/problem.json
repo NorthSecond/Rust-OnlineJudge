@@ -1,0 +1,39 @@
+{
+    "title": "常数与常量实验",
+    "description": "<p>\n\t<span style=\"font-family:SimSun;\">\n</p>\n<p>\n\t<span style=\"font-family:SimSun;\"></span>\n</p>\n<p>\n\t体验常量的定义方法以及特殊字符的使用\n</p>\n<p>\n\t请根据以下要求编程</span>&nbsp;&nbsp;\n\t<table style=\"width:500px;\" border=\"1\" cellspacing=\"1\" bordercolor=\"#000000\" cellpadding=\"1\">\n\t\t<tbody>\n\t\t\t<tr>\n\t\t\t\t<td>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">用define命令定义常量oct1，并设置为八进制数77</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">用const命令定义整型常量hex1，并设置为十六进制数FF</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">用const命令定义字符串常量str1，并设置为“Welcome”</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">用const命令定义字符常量dq1，并设置为一个双引号。（参考特殊字符）</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">用</span><span style=\"font-family:SimSun;\">define</span><span style=\"font-family:SimSun;\">命令定义字符常量nl</span><span style=\"font-family:SimSun;\">1，并设置为一个<strong>换行</strong>符</span><span style=\"font-family:SimSun;\">。（参考特殊字符）</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">用</span><span style=\"font-family:SimSun;\">define</span><span style=\"font-family:SimSun;\">命令定义字符串</span><span style=\"font-family:SimSun;\">常量str2</span><span style=\"font-family:SimSun;\">，并设置为“Gre</span><span style=\"font-family:SimSun;\">at!</span><span style=\"font-family:SimSun;\">”</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">用const命令定义常量pi，并设置为3.14159</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">输出常量oct1的值并换行</span> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">输出常量hex1的值并换行\n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">输出常量str1的值并换行</span><span style=\"font-family:SimSun;\"> \n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">输出常量dq1的值并换行\n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">输出常量nl1的值并换行\n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">输出常量str2的值并换行\n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<span style=\"font-family:SimSun;\">输出常量pi*100的值并换行</span></span></span></span></span></span> \n\t\t\t\t\t</p>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t</tbody>\n\t</table>\n</p>\n<p>\n\t<span style=\"font-family:SimSun;\">部分样例输出</span> \n</p>\n<p>\n\t<span style=\"font-family:SimSun;\">63</span> \n</p>\n<p>\n\t<span style=\"font-family:SimSun;\"></span>&nbsp;\n</p>\n<p>\n\t<span style=\"font-family:SimSun;\">提示：</span> \n</p>\n<p>\n\t<span style=\"font-family:SimSun;\">#define 不用加类型说明，不用加等号，最后面不用加分号</span> \n</p>\n<p>\n\t<span style=\"font-family:SimSun;\"></span><span style=\"font-family:SimSun;\">const 要加类型说明，要用等号，后面要加英文分号</span> \n</p>\n<p>\n\t<span style=\"font-family:SimSun;\">特殊字符r '\\t'等，是用英文单引号括起来&nbsp;</span> \n</p>\n<p>\n\t<strong><span style=\"font-family:SimSun;\">字符串</span></strong><span style=\"font-family:SimSun;\">用英文</span><strong><span style=\"font-family:SimSun;\">双引号</span></strong><span style=\"font-family:SimSun;\">括起来，</span> 字符串的类型说明为 string\n</p>\n<p>\n\t<strong><span style=\"font-family:SimSun;\">字符</span></strong><span style=\"font-family:SimSun;\">用英文</span><strong><span style=\"font-family:SimSun;\">单引号</span></strong><span style=\"font-family:SimSun;\">括起来。</span> \n</p>",
+    "input": null,
+    "output": null,
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": null,
+            "output": null
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [
+        {
+            "input": "0\n",
+            "output": "63\n255\nWelcome\n\"\n\n\nGreat!\n314.159\n"
+        }
+    ],
+    "hint": null,
+    "source": "C++基础教程-常量",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nusing namespace std;\nint hex1,oct1;\nfloat pi;\nchar dp1,nl1;\nstring str1,str2;\nint main()\n{\n    oct1=63;\n    hex1=255;\n    str1='Welcome';\n    dp1='\"';\n    str2='Great!';\n    pi=3.1415926;\n    cout<<oct1<<endl;\n    cout<<hex1<<endl;\n    cout<<\"Welcome\"<<endl;\n    cout<<dp1<<endl;\n    cout<<endl<<endl;\n    cout<<\"Great!\"<<endl;\n    cout<<pi*100<<endl;\n    return 0;\n}\n\n\n//用define命令定义常量oct1，并设置为八进制数77\n//用const命令定义整型常量hex1，并设置为十六进制数FF\n//用const命令定义字符串常量str1，并设置为“Welcome”\n//用const命令定义字符常量dq1，并设置为一个双引号。（参考特殊字符）\n//用define命令定义字符常量nl1，并设置为一个回车符。（参考特殊字符）\n//用define命令定义字符串常量str2，并设置为“Great!”\n//用const命令定义常量pi，并设置为3.14159\n"
+        }
+    ]
+}

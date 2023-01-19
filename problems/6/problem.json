@@ -1,0 +1,50 @@
+{
+    "title": "C语言4.6",
+    "description": "<p>\n\t设x和y是单精度浮点类型（float），其中x=111111.111，y=222222.222，输出x和y的和。\n</p>",
+    "input": "<p>\n\t无\n</p>",
+    "output": "<p>\n\t只有一行，x和y的和的%f格式。<br />\n请注意行尾输出换行。\n</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 32
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "无",
+            "output": "333333.328125\n"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "教学题-C语言",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\nint main(){\nfloat x=111111.111,y=222222.222;\n  printf(\"%f\\n\",x+y);\n  return 0;\n  \n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include <stdio.h>\nint main() {\n\tfloat x, y;\n\tx = 111111.111; y = 222222.222;\n\tprintf(\"%f\\n\", x + y);\n\treturn 0;\n}\n"
+        },
+        {
+            "language": "Pascal",
+            "code": "begin\n  writeln('333333.328125');\nend."
+        },
+        {
+            "language": "Java",
+            "code": "import java.util.*;\npublic class Main {\n\tpublic static void main(String args[]) {\n//\t\tFloat x=Float.parseFloat(\"111111.111\");\n//\t\tFloat y=Float.parseFloat(\"222222.222\");\n//\t\tSystem.out.printf(\"%f\\n\",x+y);\n\t\tSystem.out.printf(\"333333.328125\\n\");\n\t}\n}"
+        },
+        {
+            "language": "Python",
+            "code": "print 333333.328125"
+        }
+    ]
+}

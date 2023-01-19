@@ -1,0 +1,38 @@
+{
+    "title": "链表查找(线性表)",
+    "description": "<div style=\"line-height: 22pt\"><span style=\"font-size: 14pt\">\n<div style=\"line-height: 22pt\"><span style=\"font-size: 14pt\">&nbsp;线性表(a1,a2,a3,&hellip;,an)中元素递增有序且按顺序存储于计算机内。要求设计一算法完成：</span></div>\n<div style=\"line-height: 22pt\"><span style=\"font-size: 14pt\">（1） 用最少时间在表中查找数值为x的元素。</span></div>\n<div style=\"line-height: 22pt\"><span style=\"font-size: 14pt\">（2） 若找到将其与后继元素位置相交换。</span></div>\n<span style=\"font-size: 14pt\">（3） 若找不到将其插入表中并使表中元素仍递增有序。</span></span></div>",
+    "input": "<p>输入：x=3</p>\n<p>输入长度：9</p>\n<p>输入数据：2 3 5 7 12 15 17 23 45</p>",
+    "output": "<p>相同元素为：3</p>\n<p>交换后的链表为：2 5 3 7 12 15 17 23 45</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 128
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "4\n9\n2 3 5 7 12 15 17 23 45\n",
+            "output": "no\n2 3 4 5 7 12 15 17 23 45 \n"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": null,
+    "source": "算法笔记 ",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<stdlib.h>\n#include<string.h>\ntypedef struct Node{\n\tint n;\n\tstruct Node * next;\n}node,*LN;\nvoid print(LN list){\n\twhile(list){\n\t\tprintf(\"%d \",list->n);\n\t\tlist=list->next;\n\t}\n}\nint main(){\n\tLN list,p,t,q;\n\tint x,n;\n\tscanf(\"%d%d\",&x,&n);\n\tlist=(LN)malloc(sizeof(node));\n\tscanf(\"%d\",&list->n);\n\tp=list;\n\twhile(n>1){\n\t\tt=(LN)malloc(sizeof(node));\n\t\tscanf(\"%d\",&t->n);\n\t\tp->next=t;\n\t\tp=t;\n\t\tn--;\n\t}\n\tp->next=NULL;\n\tp=list;\n\tif(p==NULL || x<p->n){\n\t\tprintf(\"no\\n\");\n\t\tprintf(\"%d \",x);\n\t\tprint(list);\n\t\treturn 0;\n\t}\n\tif(p->n==x){\n\t\tt=p->next;\n\t\tlist=t;\n\t\tp->next=t->next;\n\t\tt->next=p;\n\t\tprint(list);\n\t\treturn 0;\n\t}\n\tq=p;\n\twhile(p){\n\t\tif(p->n==x){\n\t\t\tprintf(\"%d\\n\",x);\n\t\t\tt=p->next;\n\t\t\tif(t==NULL)break;\n\t\t\tq->next=t;\n\t\t\tp->next=t->next;\n\t\t\tt->next=p;\n\t\t\tbreak;\n\t\t}\n\t\tif(p->n>x){\n\t\t\t/*t=(LN)malloc(sizeof(node));\n\t\t\tt->n=x;\n\t\t\tq->next=t;\n\t\t\tt->next=p;*/\n\t\t\tbreak;\n\t\t}\n\t\tq=p;\n\t\tp=p->next;\n\t\tcontinue;\n\t}\n\tif(p==NULL || p->n!=x){\n\t\tprintf(\"no\\n\");\n\t\tt=(LN)malloc(sizeof(node));\n\t\tt->n=x;\n\t\tq->next=t;\n\t\tt->next=p;\n\t}\n\tprint(list);\n\treturn 0;\n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include <stdio.h>\n#include <algorithm>\nusing namespace std;\nint a[10002];\nint main(){\n\t//freopen(\"cin.txt\",\"r\",stdin);\n   int x;\n   while(scanf(\"%d\",&x)!=EOF){\n     int n,i;\n\t scanf(\"%d\",&n);\n\t for(i=0;i<n;i++)\n\t\t scanf(\"%d\",&a[i]);\n     int* upperPos=upper_bound(a,a+n,x);\n\t  int len=upperPos-a;\n\t  //printf(\"len=%d\\n\",len);\n\t  if(a[len-1]==x)\n\t  {\n\t\t  printf(\"%d\\n\",len+1);\n\t\t  int temp=a[len-1];\n\t\t       a[len-1]=a[len];\n\t\t\t   a[len]=temp;\n\t\t\t   for(i=0;i<n;i++)\n\t\t  {\n\t\t\t\t  printf(\"%d \",a[i]);\n\t\t  }\n\t\t  printf(\"\\n\");\n\t  }\n\t  else\n\t  {\n\t\t  printf(\"no\\n\");\n           for(i=n-1;i>=len;i--)\n\t\t\t  a[i+1]=a[i];\n\t\t   a[len]=x;\n\t\t  for(i=0;i<n+1;i++)\n\t\t  {\n\t\t\t  \n\t\t\t\t  printf(\"%d \",a[i]);\n\t\t  }\n\t\t  printf(\"\\n\");\n\t  }\n   }\n   return 0;\n}"
+        }
+    ]
+}

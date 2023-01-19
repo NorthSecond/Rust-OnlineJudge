@@ -1,0 +1,42 @@
+{
+    "title": "排名",
+    "description": "<p class=\"p0\">\n\t<span style=\"color:#333333;font-size:10.5pt;font-family:微软雅黑;\">今天的上机考试虽然有实时的Ranklist，但上面的排名只是根据完成的题数排序，没有考虑每题的分值，所以并不是最后的排名。给定录取分数线，请你写程序找出最后通过分数线的考生，并将他们的成绩按降序打印。</span> \n</p>",
+    "input": "<p class=\"p0\">\n\t<span style=\"color:#333333;font-size:10.5pt;font-family:微软雅黑;\">测试输入包含若干场考试的信息。每场考试信息的第1行给出考生人数N&nbsp;(&nbsp;0&nbsp;&lt;&nbsp;N&nbsp;&lt;&nbsp;1000&nbsp;)、考题数M&nbsp;(&nbsp;0&nbsp;&lt;&nbsp;M&nbsp;&lt;&nbsp;=&nbsp;10&nbsp;)、分数线（正整数）G；第2行排序给出第1题至第M题的正整数分值；以下N行，每行给出一名考生的准考证号（长度不超过20的字符串）、该生解决的题目总数m、以及这m道题的题号（题目号由1到M）。&nbsp;</span><span style=\"color:#333333;font-size:10.5pt;font-family:微软雅黑;\"><br />\n</span><span style=\"color:#333333;font-size:10.5pt;font-family:微软雅黑;\">当读入的考生人数为0时，输入结束，该场考试不予处理。</span> \n</p>",
+    "output": "<p class=\"p0\">\n\t<span style=\"color:#333333;font-size:10.5pt;font-family:微软雅黑;\">对每场考试，首先在第1行输出不低于分数线的考生人数n，随后n行按分数从高到低输出上线考生的考号与分数，其间用1空格分隔。若有多名考生分数相同，则按他们考号的升序输出。</span> \n</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 32
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "3 5 32\n17 10 12 9 15\nCS22003 5 1 2 3 4 5\nCS22004 3 5 1 3\nCS22002 2 1 5\n0",
+            "output": "3\nCS22003 63\nCS22004 44\nCS22002 32"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "<div class=\"Section0\">\n\t<p class=\"p0\">\n\t\t<span style=\"font-size:10.5000pt;font-family:'宋体';\">这题比较简单，计算好每个人的分数后按题目要求排序即可。</span>\n\t</p>\n</div>",
+    "source": "算法笔记 名校复试机考真题-浙江大学",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<string.h>\ntypedef struct Record\n{\n  char no[20];\n  int source;\n}Record;\nint main()\n{\n  int N,M,G;\n  int source[20];\n  Record student[1000];\n  scanf(\"%d\",&N);\n  while(N!=0)\n  {\n    scanf(\"%d%d\",&M,&G);\n    int i=0;\n    int count=0;\n    while(i<M)\n    {\n      scanf(\"%d\",&source[i]);\n      i++;\n    }\n    for(i=0;i<N;i++)\n    {\n      char ch[20];\n      scanf(\"%s\",ch);\n      int n;\n      scanf(\"%d\",&n);\n      int j=0;\n      int grade;\n      int sum=0;\n      while(j<n)\n      {\n        scanf(\"%d\",&grade);\n        int nn=grade;\n        sum+=source[nn-1];\n        j++;\n      }\n      if(sum>=G)\n      {\n        for(j=count-1;j>=0;j--)\n        {\n          if(student[j].source<sum)\n          {\n            strcpy(student[j+1].no,student[j].no);\n            student[j+1].source=student[j].source;\n          }\n          else\n          {\n            break;\n          }\n        }\n        strcpy(student[j+1].no,ch);\n        student[j+1].source=sum;\n        count++;\n      }\n    }\n    if(count>0)\n          printf(\"%d\\n\",count);\n    for(i=0;i<count;i++)\n    {\n      printf(\"%s %d\\n\",student[i].no,student[i].source);\n    }\n    scanf(\"%d\",&N);\n  }\n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include <cstdio>\n#include <string>\n#include <algorithm>\n#include <vector>\nusing namespace std;\n\nstruct Student {\n    int score;\n    string id;\n};\n\nStudent a[1005];\n\nbool cmp(const Student & l, const Student & r) {\n    if (l.score != r.score)\n        return l.score > r.score;\n    return l.id < r.id;\n}\n\nint main() {\n    int n, m, g;\n    int score[13];\n    while (EOF != scanf(\"%d\", &n) && n > 0) {\n        scanf(\"%d %d\", &m, &g);\n        for (int i = 1; i <= m; ++i)\n            scanf(\"%d\", &score[i]);\n        for (int i = 0; i < n; ++i) {\n            char str[30];\n            scanf(\"%s\", str);\n            a[i].id = string(str);\n            int m, x, sum = 0;\n            scanf(\"%d\", &m);\n            while (m--) {\n                scanf(\"%d\", &x);\n                sum += score[x];\n            }\n            a[i].score = sum;\n        }\n        sort(a, a + n, cmp);\n        vector < Student > ans;\n        for (int i = 0; i < n; ++i)\n            if (a[i].score >= g)\n                ans.push_back(a[i]);\n        printf(\"%u\\n\", ans.size());\n        for (vector < Student >::iterator it = ans.begin(); it != ans.end(); ++it)\n            printf(\"%s %d\\n\", it->id.c_str(), it->score);\n    }\n    return 0;\n}\n"
+        },
+        {
+            "language": "Java",
+            "code": "import java.util.Scanner;\n\npublic class Main{\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        while(sc.hasNext()){\n            int n=sc.nextInt();\n            if(n==0){\n                return ;\n            }\n            int m = sc.nextInt();\n            int g = sc.nextInt();\n\n            int[] gm = new int[m+1];\n            for(int i=1;i<gm.length;i++){\n                gm[i]=sc.nextInt();\n            }\n            String[] str = new String[n];\n            int k=0;\n            String[] idstr = new String[n];\n            int[] idn = new int[n];\n            for(int i=0;i<n;i++){\n                idstr[i] = sc.next();\n//                System.out.println(id);\n                idn[i] = sc.nextInt();\n                int[] idnm = new int[idn[i]];\n                int sum=0;\n                for(int j=0;j<idn[i];j++){\n                    idnm[j]=sc.nextInt();\n                    sum= sum + gm[idnm[j]];\n                }\n                if(sum>=g){\n                    str[k++]=idstr[i]+\" \"+sum;\n                }\n            }\n\n            if(k==0){\n                System.out.println(0);\n                continue;\n            }\n            //System.out.println(\"aaa\");\n//          else{\n//              for(int i=0;i<k;i++){\n//                  System.out.println(str[i]);\n//              }\n//          }\n\n            String[] strs= new String[k];\n            int strm[] = new int[k];\n            for(int i=0;i<k;i++){\n                String[] strTemp = new String[2];\n                strTemp = str[i].split(\" \");\n                strs[i]=strTemp[0];\n                strm[i]=Integer.parseInt(strTemp[1]);\n            }\n\n            for(int i=0;i<k-1;i++){\n                for(int j=i+1;j<k;j++){\n                    if(strm[i]<strm[j]){\n                        strm[i]=strm[i]^strm[j];\n                        strm[j]=strm[i]^strm[j];\n                        strm[i]=strm[i]^strm[j];\n\n                        String s=strs[i];\n                        strs[i]=strs[j];\n                        strs[j]=s;\n                    }\n\n                    if(strm[i]==strm[j]){\n                        if(strs[i].compareTo(strs[j])>0){\n                            strm[i]=strm[i]^strm[j];\n                            strm[j]=strm[i]^strm[j];\n                            strm[i]=strm[i]^strm[j];\n\n                            String s=strs[i];\n                            strs[i]=strs[j];\n                            strs[j]=s;\n                        }\n                    }\n                }\n            }\n\n            System.out.println(k);\n            for(int i=0;i<k;i++){\n                System.out.print(strs[i]);\n                System.out.println(\" \"+strm[i]);\n            }\n        }\n    }\n}"
+        }
+    ]
+}

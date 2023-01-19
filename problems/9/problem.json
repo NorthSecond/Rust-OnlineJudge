@@ -1,0 +1,46 @@
+{
+    "title": "C语言程序设计教程（第三版）课后习题3.7",
+    "description": "<p>要将&quot;China&quot;译成密码，译码规律是：用原来字母后面的第4个字母代替原来的字母．例如，字母&quot;A&quot;后面第4个字母是&quot;E&quot;．&quot;E&quot;代替&quot;A&quot;。请编一程序，用赋初值的方法使cl、c2、c3、c4、c5五个变量的值分别为，'C&rsquo;、'h&rsquo;、'i&rsquo;、'n&rsquo;、'a&rsquo;，经过运算，输出变换后的密码。</p>",
+    "input": null,
+    "output": "加密后的China",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 64
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "no input needed",
+            "output": "Glmre"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [],
+    "hint": "so easy",
+    "source": "教学题-C语言习题",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include <stdio.h>  \nmain()   \n{\nchar c1='C',c2='h',c3='i',c4='n',c5='a';  \n  c1+=4;  \n  c2+=4;  \n  c3+=4;  \n  c4+=4;  \n  c5+=4;  \n  printf(\"%c%c%c%c%c\\n\",c1,c2,c3,c4,c5);  \n}"
+        },
+        {
+            "language": "C++",
+            "code": "#include<iostream>\nint main()\n{\n  printf(\"Glmre\");\n  return 0;\n}"
+        },
+        {
+            "language": "Pascal",
+            "code": "begin\n   writeln('Glmre');\n  end."
+        },
+        {
+            "language": "Java",
+            "code": "\n\npublic class Main {\n   public static void main(String[] args) {\n\t  String s = \"China\" ;\n\t  char c[] = s.toCharArray() ;\n\t  for (int i = 0; i < c.length; i++) {\n\t\tSystem.out.print((char)(c[i]+4)) ;\n\t   }\n   }\n}\n"
+        }
+    ]
+}
