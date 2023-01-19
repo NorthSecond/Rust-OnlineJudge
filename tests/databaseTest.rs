@@ -6,7 +6,7 @@ mod tests {
     
     #[test]
     fn connect() {
-        let url = "mysql://root:123456@localhost:3306/rustoj";
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
         let pool = Pool::new(url).unwrap(); // 获取连接池
         let mut conn = pool.get_conn().unwrap();// 获取链接
 
