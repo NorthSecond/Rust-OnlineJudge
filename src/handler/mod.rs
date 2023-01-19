@@ -4,6 +4,8 @@ use actix_web::{delete, get, post, web};
 use actix_web::{HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
 
+pub mod userHandler;
+
 #[post("/internal/exit")]
 #[allow(unreachable_code)]
 async fn exit() -> impl Responder {
@@ -14,7 +16,11 @@ async fn exit() -> impl Responder {
 
 pub fn route(config: &mut web::ServiceConfig) {
     config.service(hello);
+    config.service(userHandler::userlogin);
+    // config.service()
 }
+
+
 
 //测试案例
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
