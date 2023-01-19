@@ -7,7 +7,7 @@ description = "Rust-OnlineJudge, Our term project in the Rust class."
 readme = "README.md"
 repository = "https://github.com/NorthSecond/Rust-OnlineJudge"
 license = "GPL-3.0"
-keywords = ["Rust", "OnlineJudge", "OJ", "actix-web", "mysql"]
+keywords = ["Rust", "OnlineJudge", "OJ", "actix-web"]
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -21,13 +21,12 @@ clap = ">=3.2.17"
 serde = { version = ">=1.0.144" , features = ["derive"] }
 serde_json = ">=1.0"
 # 进程运行超时检测
-wait-timeout = "0.2.0"
+wait-timeout = ">=0.2.0"
 # 文章差异性检验
-file_diff = "1.0.0"
+file_diff = ">=1.0.0"
 
-mysql = "*"
-chrono = "0.4" # 使用chrono来处理日期和时间列
-# mysql = ">=23.0.1"
+chrono = ">=0.4" # 使用chrono来处理日期和时间列
+mysql = ">=23"
 
 # 更换UTSC源后防止 Windows 报错
 [http]

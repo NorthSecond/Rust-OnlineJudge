@@ -4,8 +4,8 @@
 		"bind_port": 12345
 	},
     "database":{
-        "name":"root",
-        "password":"123",
+        "name":"RUST-OJ",
+        "password":"123456",
         "db_host":"localhost:3306",
         "db_name":"rustoj"
     },
