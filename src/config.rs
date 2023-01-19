@@ -35,9 +35,18 @@ macro_rules! pub_struct {
 
 pub_struct!( Config {
     server: Server,
+    database:Database,
     problems: Vec<Problem>,
     languages: Vec<Language>,
 });
+
+pub_struct!( Database{
+    name:String,
+    password:String,
+    db_ip:String,
+    db_name:String,
+});
+
 
 pub_struct!(Server {
     bind_address: String,
