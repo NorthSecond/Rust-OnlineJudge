@@ -51,6 +51,30 @@ set TARGET=http://Your-backend
 npm run dev
 ```
 
+### <font color='red'> 注意：Windows PowerShell请按如下配置： </font>
+
+```bash
+# 如果有高版本的cnpm的话 可能会报错
+# 重新安装一下低版本的cnpm即可
+npm uninstall -g cnpm
+npm install cnpm@7.1.0 -g --registry=https://registry.npm.taobao.org
+
+npm install
+# 一些依赖npm install不上的话 可以使用cnpm install
+cnpm install
+
+# we use webpack DllReference to decrease the build time,
+# this command only needs execute once unless you upgrade the package in build/webpack.dll.conf.js
+$Env:NODE_ENV='development' 
+npm run build:dll
+
+# the dev-server will set proxy table to your backend
+$Env:TARGET='http:127.0.0.1:12345'
+
+# serve with hot reload at localhost:8080
+npm run dev
+```
+
 ## Screenshots
 
 [Check here.](https://github.com/QingdaoU/OnlineJudge)
