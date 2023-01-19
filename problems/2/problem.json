@@ -1,11 +1,11 @@
 {
-    "title": "Circle Game",
-    "description": "<div class=\"panel_content\" style=\"margin:0px;padding:0px 20px;font-size:14px;font-family:'Times New Roman';\">\n\t　　You must have some knowledge with circle games in ACM problems, such as Joseph Ring problem. Today we are going to introduce a new circle game described as follows. There is a circle which contains&nbsp;<strong>M</strong>&nbsp;points, numbered from 0 to M-1. At first, n students stand in different points of the circle. It is possible that more than one student stand in the same point. For each second, each student moves one step forward in clockwise direction. The following picture gives us an example of that M equals to 8 and n equals to 3. Initially, the first student S1 stands in the point 0, the second student S2 stands in the point 2 and the third student stands in the point 7. After 2 seconds, they will change their positions as the right part of the picture.<br />\n<img src=\"http://acm.hdu.edu.cn/data/images/C468-1002-1.jpg\" /><br />\nAt the beginning of the game, Tracy writes down the positions of all students. Then he will go to sleep and students will abide by the above rules to make this game run until Tracy wake up. After a period of time, Tracy wakes up. He finds it is very hard to identify where the first student S1 stands in and where the second student S2 stands in and so on, because all students are the exactly similar and unable to be distinguished. So Tracy records all the positions of students and writes down the XOR sum of these positions (The XOR sum of an array A means A[0] xor A[1] xor … A[n-2] xor A[n-1] and xor is the exclusive or operation, for example 0111 xor 1011 = 1100). Now Tracy wants you to help him to know how many seconds he had slept. To simplify the problem, the number of points is always a power of 2 like 2<sup>m</sup>.&nbsp;<br />\nFurthermore, Tracy knows that the time he slept is not greater than&nbsp;<strong>T</strong>. Please note that the time Tracy slept must be greater than zero. There may have many different periods of time corresponding with the above conditions.\n</div>\n<div>\n\t<br />\n</div>",
-    "input": "<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">　　There are several test cases, each test case firstly contains four integers&nbsp;</span><strong>n, m, S, T</strong><span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">. S is the XOR sum of students’ positions when Tracy wakes up. Another 3 integers n, m, T are described as the above. Then n integers will follow in the next line, which represent the positions of students initially. The input will finish with the end of file.</span><br />\n<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">0 &lt; n &lt;= 100000, 0 &lt; m &lt;= 50, 0 &lt;= S&lt; 2</span><sup>50</sup><span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">, 0 &lt; T &lt;= 10</span><sup>16</sup><span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">&nbsp;and the student position is in the range [0, 2</span><sup>m</sup><span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">).</span>",
-    "output": "<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;\">　　For each test case, output the number of possible periods of time that Tracy had slept and matched the above restrictions. Please output zero if no time matched.</span>",
+    "title": "数制转换",
+    "description": "<p class=\"MsoNormal\">\n\t设有一个字符串<span>A$</span>的结构为：<span>A$='m&lt;n&gt;p'</span> \n</p>\n<p class=\"MsoNormal\">\n\t其中<span>m</span>为数字串（长度<span>&lt;=20</span>），而<span>n,p</span>均为<span>1</span>或<span>2</span>位的数字串（其中所表达的内容在<span>2-10</span>之间）。<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:72.0pt;text-indent:-72.0pt;\">\n\t程序要求：\n</p>\n<p class=\"MsoNormal\" style=\"margin-left:72.0pt;text-indent:-72.0pt;\">\n\t从键盘上读入<span>A$</span>后（不用正确性检查），将<span>A$</span>中的数字串<span>m（n</span>进制），以<span>p</span>进制的形式输出。<span></span> \n</p>\n<p class=\"MsoNormal\">\n\t例如：<span>A$='48&lt;10&gt;8'</span> \n</p>\n<p class=\"MsoNormal\">\n\t<span style=\"line-height:1.5;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;其意义为：将</span><span style=\"line-height:1.5;\">10</span><span style=\"line-height:1.5;\">进制数</span><span style=\"line-height:1.5;\">48</span><span style=\"line-height:1.5;\">，转换成</span><span style=\"line-height:1.5;\">8</span><span style=\"line-height:1.5;\">进制数输出。</span> \n</p>\n<p class=\"MsoNormal\">\n\t<span></span> \n</p>\n<p>\n\t&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;输出结果为：48&lt;10&gt;=60&lt;8&gt;\n</p>\n<p>\n\t<br />\n</p>",
+    "input": "<p>\n\t每个测试文件只包含一组测试数据，每组输入一个字符串，形式如m&lt;n&gt;p。\n</p>\n<p>\n\t<br />\n</p>",
+    "output": "<p>\n\t对于每组输入数据，输出数制转换后的结果，具体格式见样例输出。\n</p>\n<p>\n\t<br />\n</p>",
     "memory_limit": {
         "unit": "MB",
-        "value": 128
+        "value": 125
     },
     "time_limit": {
         "unit": "s",
@@ -13,22 +13,75 @@
     },
     "samples": [
         {
-            "input": "3 3 7 5\n0 2 7\n5 3 7 5\n1 2 3 4 5\n4 4 0 10\n1 3 5 7\n6 5 18 100\n22 10 18 20 2 10\n",
-            "output": "1\n0\n4\n50\n"
+            "input": "48<10>8",
+            "output": "48<10>=60<8>"
         }
     ],
     "images": [],
     "append": [],
     "template": [],
     "prepend": [],
-    "test_cases": [],
-    "hint": "<div class=\"__kindeditor_paste__\">\n\t<span style=\"font-family:'Times New Roman';font-size:14px;line-height:normal;background-color:#F4FBFF;\"> 　　For the first test case, the following table explains that only “2 seconds” matched the restrictions. </span><img src=\"http://acm.hdu.edu.cn/data/images/C468-1002-2.jpg\" />\n</div>",
-    "source": "动态规划",
+    "test_cases": [
+        {
+            "input": "61<8>3\n\n",
+            "output": "61<8>=1211<3>\n"
+        },
+        {
+            "input": "62<8>5\n\n",
+            "output": "62<8>=200<5>\n"
+        },
+        {
+            "input": "3704<8>10\n\n",
+            "output": "3704<8>=1988<10>\n"
+        },
+        {
+            "input": "44<7>8\n\n",
+            "output": "44<7>=40<8>\n"
+        },
+        {
+            "input": "101<2>10\n\n",
+            "output": "101<2>=5<10>\n"
+        },
+        {
+            "input": "73<10>8\n\n",
+            "output": "73<10>=111<8>\n"
+        },
+        {
+            "input": "443<5>7\n\n",
+            "output": "443<5>=234<7>\n"
+        },
+        {
+            "input": "934<10>7\n\n",
+            "output": "934<10>=2503<7>\n"
+        },
+        {
+            "input": "221<9>6\n\n",
+            "output": "221<9>=501<6>\n"
+        },
+        {
+            "input": "1101<10>2\n\n",
+            "output": "1101<10>=10001001101<2>\n"
+        }
+    ],
+    "hint": null,
+    "source": "NOIP全国联赛提高组 1996年NOIP全国联赛提高组",
     "spj": null,
     "solution": [
         {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<string.h>\n\n\nint main()\n{\n   int n,p,sum=0; \n   unsigned int i=0,j,k=0,l=0;\n   char m[30],a[2],b[2],res[1000],ch;\n   memset(res,0,sizeof(res));\n   scanf(\"%s\",m);\n   for(i=strlen(m)-1;i>=0;i--)\n   {\n       if(m[i]!='>')\n\t   {\n\t\t   a[k]=m[i];\n\t\t   k++;\n\t   }\n\t   else\n\t\t   break;\n   }\n   a[k]='\\0';\n   if(k==1)\n\t   p=a[0]-'0';\n   else\n\t   p=a[0]-'0'+(a[1]-'0')*10;\n   for(i=strlen(m)-2-k;i>=0;i--)\n   {\n       \n       if(m[i]!='<')\n\t   {\n\t\t   b[l]=m[i];\n\t\t   l++;\n\t   }\n\t   else\n\t\t   break; \n   }\n   b[l]='\\0';\n   if(l==1)\n\t   n=b[0]-'0';\n   else\n\t   n=b[0]-'0'+(b[1]-'0')*10;\n   m[strlen(m)-k-l-2]='\\0';\n   for(i=0;i<strlen(m);i++)\n   {\n       sum=sum*n+m[i]-'0';\n   }\n   while(sum)\n   {\n   \n\t   res[i]=sum%p+'0';\n\t   sum/=p;\n\t   i++;\n   }\n   res[i]='\\0';\n   for(j=0,--i;j<i;i--,j++)\n   {\n     ch=res[j];\n\t res[j]=res[i];\n\t res[i]=ch;\n   }\n   if(strlen(m)==0)\n\t   strcmp(res,\"0\");\n   printf(\"%s<%d>=%s<%d>\",m,n,res,p);\n   return 0;\n}"
+        },
+        {
             "language": "C++",
-            "code": "#include <bits/stdc++.h>\nusing namespace std;\nint a[10]={0,1,0,4,50},n,m;\nlong long b=0,c=0,d=0;\ndouble f,k,j;\nbool cmp;\nlong g;\nint main()\n{\n    for(int i=1;i<=4;i++)\n    cout<<a[i]<<endl;\n\treturn 0;\n}"
+            "code": "#include <iostream>\n#include <string.h>\n#include <stack>\n#include <queue>\nusing namespace std;\nint main()\n{\n\tchar T[30];\n\tcin>>T;\n\tqueue <int> Q;\n\tint ans=0,n=0,p=0;\n\tstack <int> S;\n\tint len=strlen(T);\n\tint i=0;\n\twhile(T[i]>='0'&&T[i]<='9')\n\t\t\tQ.push(T[i++]-'0');\n\ti++;\n\twhile(T[i]>='0'&&T[i]<='9')\n\t\t\tn=n*10+T[i++]-'0';\n\ti++;\n\twhile(T[i]>='0'&&T[i]<='9'&&i<len)\n\t\t\tp=p*10+T[i++]-'0';\n\twhile(!Q.empty())\n\t{\n\t\tans=ans*n+Q.front();\n\t\tcout<<Q.front();\n\t\tQ.pop();\n\t}\n\twhile(ans)\n\t{\n\t\tS.push(ans%p);\n\t\tans/=p;\n\t}\n\tcout<<\"<\"<<n<<\">=\";\n\twhile(!S.empty())\n\t{\n\t\tcout<<S.top();\n\t\tS.pop();\n\t}\n\tcout<<\"<\"<<p<<\">\"<<endl;\n\treturn 0;\n}"
+        },
+        {
+            "language": "Pascal",
+            "code": "var s,strm,strm1,strn:string;x,y,i,j:longint;n,m,m1,w:int64;\n    z:array[1..10000]of integer;\nbegin\n  readln(s);\n  x:=pos('<',s);\n  for i:=1 to x-1 do strn:=strn+s[i];\n  y:=pos('>',s);\n  for i:=x+1 to y-1 do strm:=strm+s[i];\n  val(strm,m);\n  for i:=y+1 to length(s) do strm1:=strm1+s[i];\n  val(strm1,m1);\n  w:=1;\n  for i:=length(strn) downto 1 do\n    begin\n      n:=n+(ord(strn[i])-48)*w;\n      w:=w*m;\n    end;\n  i:=0;\n  repeat\n    i:=i+1;\n    z[i]:=n mod m1;\n    n:=n div m1;\n  until n=0;\n  write(strn,'<',strm,'>=');\n  for j:=i downto 1 do write(z[j]);\n  writeln('<',m1,'>');\nend."
+        },
+        {
+            "language": "Java",
+            "code": "import java.math.BigDecimal;\nimport java.util.Scanner;\n\npublic class Main {\n\tpublic static String str;\n\tpublic static int n, m;\n \n\tpublic static void main(String[] args) {\n\t\tScanner sc = new Scanner(System.in);\n\t\tstr = sc.next();\n\t\tint ids = str.indexOf(\"<\");\n\t\tString tmp = str.substring(ids);\n\t\tchar[] tm = tmp.toCharArray();\n\t\tString num = \"\";\n \n\t\tfor (int i = 0; i < tm.length; i++) {\n\t\t\tif (tm[i] >= '0' && tm[i] <= '9') {\n\t\t\t\tnum += tm[i];\n\t\t\t}\n\t\t\tif (tm[i] == '>') {\n\t\t\t\tn = Integer.parseInt(num);\n\t\t\t\tnum = \"\";\n\t\t\t}\n\t\t}\n\t\tm = Integer.parseInt(num);\n\t\t// System.out.println(n + \" \" + m);\n\t\t// 左边的数字\n\t\tstr = str.substring(0, ids);\n\t\tBigDecimal result = new BigDecimal(\"0\");\n\t\t// n进制底数\n\t\tBigDecimal ndis = new BigDecimal(\"\" + n);\n\t\t// 假如进制不是10进制，则转化为十进制\n\t\tif (n != 10) {\n\t\t\tchar[] nums = str.toCharArray();\n\t\t\tfor (int i = nums.length - 1; i >= 0; i--) {\n\t\t\t\tresult = result.add(new BigDecimal(nums[i] + \"\").multiply(ndis\n\t\t\t\t\t\t.pow(nums.length - 1 - i)));\n\t\t\t\t// System.out.println(result + \" \");\n\t\t\t\t// result += Math.pow(n, nums.length - 1 - i);\n\t\t\t}\n\t\t} else { // 进制是10进制\n\t\t\tresult = new BigDecimal(str);\n\t\t}\n\t\t// 转化为m进制\n\t\tif (n == m) {\n\t\t\tSystem.out\n\t\t\t\t\t.println(result + \"<\" + n + \">=\" + result + \"<\" + m + \">\");\n\t\t} else {\n\t\t\tlong yus;\n\t\t\tString mizji = \"\";\n\t\t\t// m进制底数\n\t\t\tBigDecimal mdis = new BigDecimal(\"\" + m);\n\t\t\twhile (result.compareTo(new BigDecimal(\"0\")) > 0) {\n\t\t\t\tmizji = result.remainder(mdis) + mizji;\n\t\t\t\tresult = result.divide(mdis, BigDecimal.ROUND_DOWN);\n\t\t\t}\n\t\t\tSystem.out.println(str + \"<\" + n + \">=\" + mizji + \"<\" + m + \">\");\n\t\t}\n \n\t}\n}\n"
         }
     ]
 }

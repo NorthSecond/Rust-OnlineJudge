@@ -1,20 +1,20 @@
 {
-    "title": "A+B 输入输出练习I",
-    "description": "<p>\n\t你的任务是计算a+b。这是为了acm初学者专门设计的题目。你肯定发现还有其他题目跟这道题的标题类似，这些问题也都是专门为初学者提供的。<span><span style=\"font-size:14px;\"><br />\n</span></span> \n</p>",
-    "input": "<p>\n\t输入包含一系列的a和b对，通过空格隔开。一对a和b占一行。<span><span style=\"font-size:14px;\"><br />\n</span></span> \n</p>",
-    "output": "<p>\n\t对于输入的每对a和b，你需要依次输出a、b的和。\n</p>\n<p>\n\t如对于输入中的第二对a和b，在输出中它们的和应该也在第二行。<span><span style=\"font-size:14px;\"><br />\n</span></span> \n</p>",
+    "title": "字符串编辑",
+    "description": "<p class=\"MsoNormalIndent\" style=\"text-indent:0cm;\">\n\t从键盘输入一个字符串（长度<span>&lt;=40</span>个字符），并以字符<span>&nbsp;'.'</span>结束。<span></span> \n</p>\n<p class=\"MsoNormal\">\n\t例如：'<span>This is a\nbook.'&nbsp;</span>现对该字符串进行编辑，编辑功能有：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>D</span>：删除一个字符，命令的方式为：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp; &nbsp; &nbsp;D a&nbsp; </span>其中<span>a</span>为被删除的字符<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t<span>&nbsp; &nbsp; &nbsp;</span>例如：<span>D s &nbsp;</span>表示删除字符<span>&nbsp;'s'&nbsp;</span>，若字符串中有多个 '<span>s'</span>，则删除第一次出现的。<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t<span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>如上例中删除的结果为： '<span>Thi is a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t<span><br />\n</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>I</span>：插入一个字符，命令的格式为：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp;&nbsp;&nbsp; I a1 a2&nbsp; </span>其中<span>a1</span>表示插入到指定字符前面，<span>a2</span>表示将要插入的字符。<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t&nbsp; &nbsp; 例如：<span>I s d&nbsp; </span>表示在指定字符<span>&nbsp;'s'&nbsp;</span>的前面插入字符 '<span>d'&nbsp;</span>，若原串中有多个<span>&nbsp;'s'&nbsp;</span>，则插入在最后一个字符的前面。\n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;如上例中：<span><br />\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>原串：'<span>This is a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>插入后：'<span>This ids a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp;</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>R</span>：替换一个字符，命令格式为：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t&nbsp; &nbsp; &nbsp;R a1 a2&nbsp; 其中a1为被替换的字符，a2为替换的字符，若在原串中有多个a1则应全部替换。\n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t&nbsp; &nbsp; &nbsp;例如：\n原串： '<span>This is a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;输入命令：<span>R o e</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>替换后的字符串为：<span>'This is a beek.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span><br />\n</span> \n</p>\n<p>\n\t在编辑过程中，若出现被改的字符不存在时，则给出提示信息\"Not exist\"。\n</p>\n<p>\n\t<br />\n</p>",
+    "input": "<p>\n\t每个测试文件只包含一组测试数据，每组输入数据包含两行：\n</p>\n<p>\n\t第一行，输入一个字符串，表示原串；\n</p>\n<p>\n\t第二行，输入一个字符串，表示命令。\n</p>\n<p>\n\t<br />\n</p>",
+    "output": "<p>\n\t对于每组输入数据，输出编辑后的字符串，如果<span>被改的字符不存在，<span>则输出\"Not exist\"</span>（引号不输出）。</span> \n</p>\n<p>\n\t<span><br />\n</span> \n</p>",
     "memory_limit": {
         "unit": "MB",
-        "value": 32
+        "value": 125
     },
     "time_limit": {
         "unit": "s",
-        "value": 2.0
+        "value": 1.0
     },
     "samples": [
         {
-            "input": "1 5\n10 20",
-            "output": "6\n30"
+            "input": "This is a book.\nD s\n",
+            "output": "Thi is a book.\n"
         }
     ],
     "images": [],
@@ -23,45 +23,65 @@
     "prepend": [],
     "test_cases": [
         {
-            "input": "0 0\n-1 1\n1 -1\n1949 15390\n22139 30520\n16185 15229\n-4362 7115\n-23038 -16881\n10403 18008\n12170 17903\n511 12424\n7029 23302\n12156 31754\n28220 -12039\n2488 14555\n27261 25192\n13919 8388\n8810 16362\n4417 11300\n18808 6010\n11176 25583\n20055 16469\n21992 5367\n20775 1648\n26423 18538\n18921 1815\n14271 9628\n29491 16596\n242 8455\n19752 23186\n6174 7313\n19624 26114\n14145 23821\n2756 8510\n18462 30979\n2165 31661\n26000 9396\n23181 25126\n1823 32601\n20973 5720\n2769 17836\n29689 5481\n4418 3497\n22345 20957\n24567 28566\n14497 17594\n15856 16449\n23588 6633\n32380 16521\n3780 31712\n11858 26143\n23549 17022\n5852 8590\n19395 2358\n3030 17785\n15545 28784\n14104 29476\n11939 3628\n22192 12343\n4382 20969\n8500 2494\n27279 24517\n17495 26739\n27481 9957\n12729 31296\n16723 14103\n11780 21760\n16249 6582\n22068 13958\n11745 12751\n3894 1504\n22001 26497\n5045 31196\n7888 8874\n5169 2252\n19994 22720\n7505 1415\n16600 12796\n14458 3504\n12463 2494\n31392 11579\n22871 20013\n30044 23340\n4687 797\n15935 13218\n12495 27703\n103 4885\n17919 8787\n19535 30428\n3430 6185\n6635 18162\n8101 21033\n12533 27897\n15717 21927\n27522 23679\n18062 4923\n1752 28801\n12729 20584\n30339 16941\n6121 21627\n28070 23788\n10357 23734\n-4752 -29600",
-            "output": "0\n0\n0\n17339\n52659\n31414\n2753\n-39919\n28411\n30073\n12935\n30331\n43910\n16181\n17043\n52453\n22307\n25172\n15717\n24818\n36759\n36524\n27359\n22423\n44961\n20736\n23899\n46087\n8697\n42938\n13487\n45738\n37966\n11266\n49441\n33826\n35396\n48307\n34424\n26693\n20605\n35170\n7915\n43302\n53133\n32091\n32305\n30221\n48901\n35492\n38001\n40571\n14442\n21753\n20815\n44329\n43580\n15567\n34535\n25351\n10994\n51796\n44234\n37438\n44025\n30826\n33540\n22831\n36026\n24496\n5398\n48498\n36241\n16762\n7421\n42714\n8920\n29396\n17962\n14957\n42971\n42884\n53384\n5484\n29153\n40198\n4988\n26706\n49963\n9615\n24797\n29134\n40430\n37644\n51201\n22985\n30553\n33313\n47280\n27748\n51858\n34091\n-34352"
+            "input": ".\nR . %\n\n",
+            "output": "%\n"
+        },
+        {
+            "input": "abcd efg.\nR s t\n\n",
+            "output": "Not exist\n"
+        },
+        {
+            "input": "sssssss.\nI s t\n\n",
+            "output": "ssssssts.\n"
+        },
+        {
+            "input": "abcd adc.\nR d c\n\n",
+            "output": "abcc acc.\n"
+        },
+        {
+            "input": "a123 b12 aa.\nD 2\n\n",
+            "output": "a13 b12 aa.\n"
+        },
+        {
+            "input": "abababab.\nD b\n\n",
+            "output": "aababab.\n"
+        },
+        {
+            "input": "sssssss ss.\nR s t\n\n",
+            "output": "ttttttt tt.\n"
+        },
+        {
+            "input": "a.\nR . a\n\n",
+            "output": "aa\n"
+        },
+        {
+            "input": "ababababab.\nR b a\n\n",
+            "output": "aaaaaaaaaa.\n"
+        },
+        {
+            "input": "abc dc e.\nI c f\n\n",
+            "output": "abc dfc e.\n"
         }
     ],
-    "hint": null,
-    "source": "算法笔记 ",
+    "hint": "<table style=\"width:100%;\" cellpadding=\"2\" cellspacing=\"0\" border=\"1\" bordercolor=\"#000000\">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t\tThis is a book.<br />\nI s d<br />\n<br />\n\t\t\t\t<div>\n\t\t\t\t\t<br />\n\t\t\t\t</div>\n<br />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\tThis ids a book.<br />\n<br />\n<br />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t\t<span>This is a book.</span><br />\n<span>R o e</span><br />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<span>This is a beek.</span><br />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t\t<br />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<br />\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n<br />",
+    "source": "NOIP全国联赛普及组 1996年NOIP全国联赛普及组",
     "spj": null,
     "solution": [
         {
             "language": "C",
-            "code": "#include <stdio.h>\nint main()\n{\nint a,b;\nwhile(scanf(\"%d %d\",&a, &b) != EOF)\nprintf(\"%d\\n\",a+b);\nreturn 0;\n}"
+            "code": "#include<stdio.h>\n#include<string.h>\n#define N 45\nint main()\n{\n\tchar a[N],b[10];\n\tint i,flag=0,len,m=1,j;\n\tgets(a);\n\tgets(b);\n\tlen=strlen(a);\n\tif(b[0]=='D'){\n\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\tif(a[i]==b[2]) flag=1;\n\t\t}\n\t\tif(flag==1){\n\t\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\t\tif(m==1 && a[i]==b[2]){\n\t\t\t\t\tm=0;\n\t\t\t\t\tcontinue;\n\t\t\t\t}\n\t\t\t\telse{\n\t\t\t\t\tprintf(\"%c\",a[i]);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\telse{\n\t\t\tprintf(\"Not exist\");\n\t\t}\n\t\tprintf(\"\\n\");\n\t}\n\telse if(b[0]=='I'){\n\t\tfor(i=len-1;i>=0;i--){\n\t\t\tif(a[i]==b[2]){\n\t\t\t\tflag=1;\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\tif(flag==1){\t\t\n\t\t\tfor(j=0;j<i;j++){\n\t\t\t\tprintf(\"%c\",a[j]);\n\t\t\t}\n\t\t\tprintf(\"%c\",b[4]);\n\t\t\tfor(j=i;a[j]!='\\0';j++){\n\t\t\t\tprintf(\"%c\",a[j]);\n\t\t\t}\n\t\t}\n\t\telse printf(\"Not exist\");\n\t\tprintf(\"\\n\");\n\t}\n\telse{\n\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\tif(a[i]==b[2]) flag=1;\n\t\t}\n\t\tif(flag==1){\n\t\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\t\tif(a[i]==b[2]){\n\t\t\t\t\tprintf(\"%c\",b[4]);\n\t\t\t\t}\n\t\t\t\telse{\n\t\t\t\t\tprintf(\"%c\",a[i]);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\telse{\n\t\t\tprintf(\"Not exist\");\n\t\t}\n\t\tprintf(\"\\n\");\n\t}\n} "
         },
         {
             "language": "C++",
-            "code": "#include <iostream>\nusing namespace std;\nint main() {\n    int a,b;\n    while (cin >> a >> b) {\n        cout << a+b << endl;\n    }\n\treturn 0;\n}\n"
+            "code": "#include<stdio.h>\n#include<string.h>\nint main()\n{\n\tchar a[110],b[110],ch,q,p;\n\tint i,count,j;\n\t\tfor(i=0;;i++)\n\t\t{\n\t\t\tscanf(\"%c\",&a[i]);\n\t\t\tif(a[i]=='.')\n\t\t\t\tbreak;\n\t\t}\n\t\ta[i+1]='\\0';\n\t\tgetchar();\n\t\tscanf(\"%c\",&ch);\n\t\tgetchar();\n\t\tif(ch=='D')\n\t\t\tscanf(\"%c\",&q);\n\t\telse\n\t\t\tscanf(\"%c %c\",&q,&p);\n\t\tgetchar();\n\t\tif(ch=='D')\n\t\t{\n\t\t\tcount=0,j=0;\n\t\t\tfor(i=0;i<strlen(a);i++)\n\t\t\t{\n\t\t\t\tif(a[i]==q&&count==0)\n\t\t\t\t{\n\t\t\t\t\tcount++;\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t{\n\t\t\t\t\tb[j++]=a[i];\n\t\t\t\t}\n\t\t\t}\n\t\t\tb[j]='\\0';\n\t\t\tif(count==0)\n\t\t\t\tprintf(\"Not exist\\n\");\n\t\t\telse\n\t\t\t    printf(\"%s\\n\",b);\n\t\t}\n\t\tif(ch=='I')\n\t\t{\n\t\t\tcount=0;j=strlen(a);\n\t\t\tfor(i=strlen(a)-1;i>=0;i--)\n\t\t\t{\n\t\t\t\tif(a[i]==q&&count==0)\n\t\t\t\t{\n\t\t\t\t\tcount++;\n\t\t\t\t\tb[j--]=a[i];\n\t\t\t\t\tb[j--]=p;\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t{\n\t\t\t\t\tb[j--]=a[i];\n\t\t\t\t}\n\t\t\t}\n\t\t\tb[strlen(a)+1]='\\0';\n\t\t\tif(count==0)\n\t\t\t\tprintf(\"Not exist\\n\");\n\t\t\telse\n\t\t\t    printf(\"%s\\n\",b);\n\t\t}\n\t\tif(ch=='R')\n\t\t{\n\t\t\tcount=0,j=0;\n\t\t\tfor(i=0;i<strlen(a);i++)\n\t\t\t{\n\t\t\t\tif(a[i]==q)\n\t\t\t\t{\n\t\t\t\t\tb[j++]=p;\n\t\t\t\t\tcount++;\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t\tb[j++]=a[i];\n\t\t\t}\n\t\t\tb[j]='\\0';\n\t\t\tif(count==0)\n\t\t\t\tprintf(\"Not exist\\n\");\n\t\t\telse\n\t\t\t\tprintf(\"%s\\n\",b);\n\t\t}\n\treturn 0;\n}"
         },
         {
             "language": "Pascal",
-            "code": "var \n  a,b:longint;\nbegin\n  while not(eof) do\n     begin\n       readln(a,b);\n       writeln(a+b);\n     end;\nend."
+            "code": "var\n  s,t,s1:string;\n  i:integer;\n  a,b,c:char;\nbegin\n  readln(s);\n  s1:=s;\n  readln(t);\n  if t[1]='D' then begin\n    i:=pos(t[3],s);\n    delete(s,i,1);\n  end else\n    if t[1]='I' then begin\n      for i:=length(s) downto 1 do if s[i]=t[3] then break;\n        insert(t[5],s,i);\n    end else\n      begin\n        for i:=1 to length(s) do if s[i]=t[3] then s[i]:=t[5];\n      end;\n  if s1=s then writeln('Not exist') else writeln(s);\nend.\n"
         },
         {
             "language": "Java",
-            "code": "import java.util.*;\npublic class Main {\n\tpublic static void main(String args[]) {\n\t\tScanner cin = new Scanner(System.in);\n\t\tint a, b;\n\t\twhile (cin.hasNext()) {\n\t\t\ta = cin.nextInt(); \n\t\t\tb = cin.nextInt();\n\t\t\tSystem.out.println(a + b);\n\t\t}\n\t}\n}"
-        },
-        {
-            "language": "Python",
-            "code": "import sys\nfor line in sys.stdin:\n    a = line.split()\n    print int(a[0]) + int(a[1])"
-        },
-        {
-            "language": "PHP",
-            "code": "<?php\necho \"6\\n30\";\n?>"
-        },
-        {
-            "language": "Perl",
-            "code": "#! /usr/bin/perl -w\nwhile(<>){\n  chomp;\n  ($a,$b)=split(/\\s/,$_);\n  printf \"%d\\n\",$a+$b;\n}"
-        },
-        {
-            "language": "C#",
-            "code": "using System;\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Text;\nusing System.IO;\n\nnamespace ConsoleApplication3\n{\n    class Program\n    {\n        static void Main(string[] args)\n        {\n            string s ;\n            for (; ; ) \n            {\n                s = Console.ReadLine();\n                if (s == null)\n                    break;\n                string[] words = new string[2];\n                words = s.Split(new char[] { ' ' });\n                Console.WriteLine(\"{0}\", int.Parse(words[0]) + int.Parse(words[1]));\n            }\n        }\n    }\n}"
+            "code": "\nimport java.util.Scanner;\n\nimport java.util.Scanner;\n\npublic class Main{\n\tpublic static void main(String[] args) {\n\t\tScanner rd=new Scanner(System.in);\n\t\tint flag = 0;\n\t\tString str=rd.nextLine();\n\t\tString mingling=rd.next();\n\t\tString c=rd.next();\n\t\tStringEditor ed=new StringEditor(str,c);\n\t\tswitch (mingling){\n\t\t\n\t\tcase \"D\":\n\t\t\ted.Del(str,c);\n\t\t\tbreak;\n\t\tcase \"I\":\n\t\t\tString d = rd.next();\n\t\t\ted.Insert(str, c, d);\n\t\t\tbreak;\n\t\tcase \"R\":\n\t\t\tString d1 = rd.next();\n\t\t\ted.Replace(str, c, d1);\n\t\t\t\n\t\t\tbreak;\n\t\t}\n\t}\n}\nclass StringEditor\n{\n\tprivate String fString;\n\tprivate String order;\n\tpublic StringEditor(String fString,String order)\n\t{\n\t\tthis.fString=fString;\n\t\tthis.order=order;\n\t}\n\tpublic void Del(String str,String b)\n\t{\n\t\tif(str.indexOf(b)!=-1)\n\t\t{\n\t\t\tstr = str.replaceFirst(b,\"\");\n\t\t\tSystem.out.print(str);\n\t\t}\n\t\telse\n\t\t\tSystem.out.print(\"Not exist\");\n\t}\n\tpublic void Insert(String str,String a1,String a2)\n\t{\n\t\tif(str.indexOf(a1)!=-1){\n\t\t\t\n\t\t\tint i=str.lastIndexOf(a1);\n\t\t\tStringBuilder sb=new StringBuilder(str);\n\t\t\tSystem.out.print(sb.insert(i, a2));\n\t\t}\n\t\telse\n\t\t\tSystem.out.println(\"Not exist\");\n\t}\n\tpublic void Replace(String str,String a1,String a2)\n\t{\n\t\tif(str.indexOf(a1)!=-1)\n\t\t{\n\t\t\tString s=str.replaceAll(a1, a2);\n\t\t\tSystem.out.print(s);\n\t\t}\n\t\telse\n\t\t\tSystem.out.println(\"Not exist\");\n\t\t\n\t}\n}\n"
         }
     ]
 }

@@ -10,6 +10,12 @@ import json
 # import pymysql.cursors
 import pymysql
 
+class Myjson(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, bytes):
+            return str(obj, encoding='utf-8')
+        return json.JSONEncoder.default(self, obj)
+
 class FPSParser(object):
     def __init__(self, fps_path):
         self.fps_path = fps_path
@@ -117,18 +123,19 @@ class FPSParser(object):
 
 class FPSHelper(object):
     def save_image(self, problem, base_dir, base_url):
-        _problem = copy.deepcopy(problem)
-        for img in _problem["images"]:
-            name = "".join(random.choice(
-                string.ascii_lowercase + string.digits) for _ in range(12))
-            ext = os.path.splitext(img["src"])[1]
-            file_name = name + ext
-            with open(os.path.join(base_dir, file_name), "wb") as f:
-                f.write(img["blob"])
-            for item in ["description", "input", "output"]:
-                _problem[item] = _problem[item].replace(
-                    img["src"], os.path.join(base_url, file_name))
-        return _problem
+        pass
+        # _problem = copy.deepcopy(problem)
+        # for img in _problem["images"]:
+        #     name = "".join(random.choice(
+        #         string.ascii_lowercase + string.digits) for _ in range(12))
+        #     ext = os.path.splitext(img["src"])[1]
+        #     file_name = name + ext
+        #     with open(os.path.join(base_dir, file_name), "wb") as f:
+        #         f.write(img["blob"])
+        #     for item in ["description", "input", "output"]:
+        #         _problem[item] = _problem[item].replace(
+        #             img["src"], os.path.join(base_url, file_name))
+        # return _problem
 
     def save_test_case(self, problem, base_dir, input_preprocessor=None, output_preprocessor=None):
         for index, item in enumerate(problem["test_cases"]):
@@ -152,8 +159,15 @@ class FPSHelper(object):
                 f.write(output_content)
 
     def save_problem_info_json(self, problem, base_dir):
+        myjson = Myjson()
+        # if problem has image 
+        # blob->str
+        for img in problem["images"]:
+            img["blob"] = str(img["blob"])
         with open(os.path.join(base_dir, "problem.json"), "w") as f:
             json.dump(problem, f, indent=4, ensure_ascii=False)
+            # myjson.default(problem)
+            # f.write(myjson.dumps())
 
 
 
@@ -193,7 +207,7 @@ if __name__ == "__main__":
     import os
 
     db = init_db()
-    parser = FPSParser("problems.xml")
+    parser = FPSParser("problem_new.xml")
     helper = FPSHelper()
     problems = parser.parse()
     for index, problem in enumerate(problems):
@@ -201,6 +215,8 @@ if __name__ == "__main__":
         os.makedirs(path)
         # helper.save_problem_info_mysql(problem, db, index)
         helper.save_test_case(problem, path)
-        helper.save_problem_info_json(problem, path)
 
-        pprint.pprint(helper.save_image(problem, "/tmp", "/static/img"))
+
+        helper.save_problem_info_json(problem, path)
+        # pprint.pprint(helper.save_image(problem, "/tmp", "/static/img"))
+

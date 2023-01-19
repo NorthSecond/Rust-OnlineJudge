@@ -1,11 +1,11 @@
 {
-    "title": "Hello World!",
-    "description": "输出Hello World!",
-    "input": "无需输入",
-    "output": "Hello World!",
+    "title": "不高兴的津津",
+    "description": "<p>\n\t津津上初中了。妈妈认为津津应该更加用功学习，所以津津除了上学之外，还要参加妈妈为她报名的各科复习班。另外每周妈妈还会送她去学习朗诵、舞蹈和钢琴。但是津津如果一天上课超过八个小时就会不高兴，而且上得越久就会越不高兴。假设津津不会因为其它事不高兴，并且她的不高兴不会持续到第二天。请你帮忙检查一下津津下周的日程安排，看看下周她会不会不高兴；如果会的话，哪天最不高兴。\n</p>\n<p>\n\t<br />\n</p>",
+    "input": "<p>\n\t<span>每组输入数据包括七行，分别表示周一到周日的日程安排。每行包括两个小于10的非负整数，用空格隔开，分别表示津津在学校上课的时间和妈妈安排她上课的时间。</span>\n</p>\n<p>\n\t<span><br />\n</span>\n</p>\n<span></span>",
+    "output": "<p>\n\t每组输出包括一行，这一行只包含一个数字。如果不会不高兴则输出0，如果会则输出最不高兴的是周几（用1, 2, 3, 4, 5, 6, 7分别表示周一，周二，周三，周四，周五，周六，周日）。如果有两天或两天以上不高兴的程度相当，则输出时间最靠前的一天。\n</p>\n<p>\n\t<br />\n</p>",
     "memory_limit": {
         "unit": "MB",
-        "value": 64
+        "value": 125
     },
     "time_limit": {
         "unit": "s",
@@ -13,42 +13,75 @@
     },
     "samples": [
         {
-            "input": "no input needed",
-            "output": "Hello World!"
+            "input": "5 3\n6 2\n7 2\n5 3\n5 4\n0 4\n0 6",
+            "output": "3"
         }
     ],
     "images": [],
     "append": [],
     "template": [],
     "prepend": [],
-    "test_cases": [],
+    "test_cases": [
+        {
+            "input": "4 2\n1 8\n3 6\n4 0\n7 0\n0 0\n0 5\n",
+            "output": "2\n"
+        },
+        {
+            "input": "4 0\n7 1\n2 5\n4 5\n6 3\n0 0\n0 5\n",
+            "output": "4\n"
+        },
+        {
+            "input": "5 3\n6 2\n7 2\n5 3\n5 4\n0 4\n0 6\n",
+            "output": "3\n"
+        },
+        {
+            "input": "4 1\n7 2\n1 2\n5 4\n7 2\n0 9\n0 5\n",
+            "output": "2\n"
+        },
+        {
+            "input": "4 0\n3 5\n1 0\n7 2\n1 3\n0 0\n0 5\n",
+            "output": "4\n"
+        },
+        {
+            "input": "4 4\n5 3\n9 0\n1 2\n6 2\n0 0\n0 5\n",
+            "output": "3\n"
+        },
+        {
+            "input": "4 0\n0 0\n0 3\n0 4\n6 3\n0 0\n0 5\n",
+            "output": "5\n"
+        },
+        {
+            "input": "4 4\n3 6\n6 1\n8 1\n7 0\n0 9\n0 5\n",
+            "output": "2\n"
+        },
+        {
+            "input": "4 0\n5 4\n8 1\n1 3\n7 1\n0 9\n0 5\n",
+            "output": "2\n"
+        },
+        {
+            "input": "4 4\n2 2\n0 4\n5 4\n6 3\n0 0\n0 5\n",
+            "output": "4\n"
+        }
+    ],
     "hint": null,
-    "source": "教学题-C语言习题",
+    "source": "NOIP全国联赛普及组-2004年NOIP全国联赛普及组",
     "spj": null,
     "solution": [
         {
             "language": "C",
-            "code": "#include<stdio.h>\nint main()\n{printf(\"Hello World!\");\nreturn 0;}"
+            "code": "int main()\n{\n    int flag=0,i,x,a[7],b[7];\n    for(i=0;i<7;i++)\n     scanf(\"%d %d\",&a[i],&b[i]);\n    for(i=0;i<7;i++)\n    {\n       if(a[i]+b[i]>8)\n       {\n          flag=1;\n          x=i+1;\n          break;\n\t   }\n    }\n    if(flag)\n      printf(\"%d\",x);\n    else \n      printf(\"0\"); \n\treturn 0;\n}"
         },
         {
             "language": "C++",
-            "code": "#include <stdio.h>\nint main ()\n{\n  printf(\"Hello World!\");\n}"
+            "code": "#include<iostream>\nusing namespace std;\nint main()\n{\nstart:\tint day=1;\n\tint a,b;\n\tint unhpy=0;\n\tint ex=0;\n\twhile (cin>>a>>b)\n\t{\n\t\tint tot=a+b;\n\t\tif (tot>8 && tot-8>unhpy) \n\t\t\t{\n\t\t\t\tunhpy=tot-8;ex=day;\n\t\t\t}\n\t\tif (++day==8) \n\t\t{\n\t\t\tif (unhpy==0) cout<<0<<endl;\n\t\t\telse cout<<ex<<endl;\n\t\t}\n\t} \n\treturn 0;\n} "
         },
         {
             "language": "Pascal",
-            "code": "begin\n  writeln('Hello World!');\n  end."
+            "code": "program unhappy; {writen by lxq 2004.11.20}\nvar a,i,x,y,d,max : byte;\nbegin\n  d := 0; max :=8;\n  for i := 1 to 7 do begin\n    readln(x,y);\n    a := x+y;\n    if a>max then \n    begin\n      max :=a; d := i;\n    end;\n  end;\n  writeln(d);\nend.\n"
         },
         {
             "language": "Java",
-            "code": "\n\nimport java.util.Scanner;\n\npublic class Main{\n   private static Scanner s = new Scanner(System.in) ;\n   \n   public static void main(String[] args) {\n\t  System.out.println(\"Hello World!\");\n   }\n   \n}\n"
-        },
-        {
-            "language": "Python",
-            "code": "print \"Hello World!\""
-        },
-        {
-            "language": "FreeBasic",
-            "code": "print \"Hello World!\""
+            "code": "import java.util.Scanner;\n\npublic class Main {\n\n\tpublic static void main(String[] args) {\n\t\t// TODO Auto-generated method stub\n\t\tScanner input=new Scanner(System.in);\n\t\tint n=7;\n\t\tint s=0;\n\t\tint max=0;\n\t\tint min=-1;\n\t\twhile(n-->0) {\n\t\t\tint x=input.nextInt();\n\t\t\tint sum=input.nextInt();\n\t\t\ts++;\n\t\t\tif(x+sum>=9&&min!=max){\n\t\t\t\tmax=s;\n\t\t\t\tmin=s;\n\t\t\t}\n\t\t}\n\t\tSystem.out.println(max);\n\t}\n\n}"
         }
     ]
 }
