@@ -77,7 +77,7 @@ mod submissionTest{
             Data::new(
                 Mutex::new(pool.clone())), 
             1, 1, 
-        "1203".to_string(), "123".to_string()).await;
+        "1203".to_string(),"Rust".to_string() ,"123".to_string()).await;
     }
 
     #[actix_rt::test]
