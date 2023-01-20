@@ -83,7 +83,7 @@ pub async fn get(
     condition:&String
 ) -> Result<Vec<Submission>> {
     let mut conn=pool.lock().await.get_conn().unwrap();
-    let users=conn.query_map(
+    let submissions=conn.query_map(
         format!("select * from tb_submission {}",condition), 
         |(   
             id,
@@ -104,7 +104,7 @@ pub async fn get(
             Submission { id: id, contest: contest, problem: problem, create_time:create_time, username: username, language:language ,code: code, result:result, time_cost: time_cost, memory_cost:memory_cost, err_info: err_info, score:score }
         },
     );
-    users
+    submissions
 }
 
 pub async fn getById(
@@ -176,19 +176,10 @@ pub async fn update(
     true
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+pub async fn getByProblemId(
+    pool: web::Data<Mutex<Pool>>,
+    problem_id:u32
+) -> Result<Vec<Submission>> {
+    let subs = get(pool, &format!("where problem={}",problem_id)).await;
+    subs
+}
