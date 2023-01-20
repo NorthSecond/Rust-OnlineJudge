@@ -15,7 +15,7 @@ create table `tb_user` (
 	`email` varchar(32) not null
 );
 
-insert into `tb_user` values('Durant', '111', 1, 'durant@email.com');
+insert into `tb_user` values('Durant', '123456', 1, 'durant@email.com');
 
 
 /*==============================================================*/

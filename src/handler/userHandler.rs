@@ -1,6 +1,7 @@
 
 use actix_web::{delete, get, post, web,web::Data};
 use actix_web::{HttpResponse, Responder};
+
 use serde::{Deserialize, Serialize};
 use serde_json;
 use super::super::{config::Config};
@@ -9,7 +10,7 @@ use mysql::prelude::*;
 use tokio::sync::Mutex;
 use crate::user::*;
 
-
+use crate::error_log::LOGIN;
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct PostUser {
@@ -26,12 +27,14 @@ pub struct LoginInfo{
     pub password:String,
 }
 
+#[derive(Deserialize, Serialize)]
+pub struct LOGIN_SUCCESS{
+    pub data:String,
+    pub result:bool,
+}
 
 
-
-
-
-#[post("/login")]
+#[post("/api/login")]
 async fn userlogin(
     body: web::Json<LoginInfo>,
     pool: Data<Mutex<Pool>>,
@@ -44,17 +47,40 @@ async fn userlogin(
     match getUserByName(pool, &body.username).await{
         Some(user)=>{
             if(user.password==body.password){
-                HttpResponse::Ok().body("登录成功")
+                HttpResponse::Ok().json(
+                    LOGIN_SUCCESS{
+                        data:"login success".to_string(),
+                        result:true
+                    }
+                )
             }else{
-                HttpResponse::Ok().body("密码错误")
+                // HttpResponse::Ok().body("密码错误")
+                LOGIN::PASSWORD_ERROR("密码错误")
             }
         },
         None=>{
-            return HttpResponse::Ok().body("账号不存在");
+            LOGIN::ID_NO_FOUND("账号未找到")
         }
     }
 
 }
+
+#[post("/api/tfa_required")]
+async fn tfaRequiredCheck(
+    // body: web::Json<LoginInfo>,
+    body:String,
+    pool: Data<Mutex<Pool>>,
+    config: Data<Config>
+)-> impl Responder{
+    log::info!("api/tfa_required {}",body);
+    HttpResponse::Ok().json(
+        LOGIN_SUCCESS{
+            data:"login success".to_string(),
+            result:true
+        }
+    )
+}
+
 
 #[get("/path")]
 async fn extractor_multiple(p: web::Path<(String, String)>, q: web::Query<LoginInfo>) -> String {

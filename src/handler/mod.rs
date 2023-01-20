@@ -20,6 +20,7 @@ pub fn route(config: &mut web::ServiceConfig) {
     config.service(userHandler::extractor_multiple);
     config.service(userHandler::userlogin);
     config.service(userHandler::postTest);
+    config.service(userHandler::tfaRequiredCheck);
         // config.service()
 }
 
