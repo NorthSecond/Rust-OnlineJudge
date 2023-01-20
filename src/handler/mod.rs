@@ -5,6 +5,7 @@ use actix_web::{HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
 
 mod userHandler;
+mod problemHandler;
 
 #[post("/internal/exit")]
 #[allow(unreachable_code)]

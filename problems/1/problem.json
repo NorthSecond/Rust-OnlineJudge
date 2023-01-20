@@ -1,0 +1,87 @@
+{
+    "title": "字符串编辑",
+    "description": "<p class=\"MsoNormalIndent\" style=\"text-indent:0cm;\">\n\t从键盘输入一个字符串（长度<span>&lt;=40</span>个字符），并以字符<span>&nbsp;'.'</span>结束。<span></span> \n</p>\n<p class=\"MsoNormal\">\n\t例如：'<span>This is a\nbook.'&nbsp;</span>现对该字符串进行编辑，编辑功能有：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>D</span>：删除一个字符，命令的方式为：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp; &nbsp; &nbsp;D a&nbsp; </span>其中<span>a</span>为被删除的字符<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t<span>&nbsp; &nbsp; &nbsp;</span>例如：<span>D s &nbsp;</span>表示删除字符<span>&nbsp;'s'&nbsp;</span>，若字符串中有多个 '<span>s'</span>，则删除第一次出现的。<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t<span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>如上例中删除的结果为： '<span>Thi is a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t<span><br />\n</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>I</span>：插入一个字符，命令的格式为：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp;&nbsp;&nbsp; I a1 a2&nbsp; </span>其中<span>a1</span>表示插入到指定字符前面，<span>a2</span>表示将要插入的字符。<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t&nbsp; &nbsp; 例如：<span>I s d&nbsp; </span>表示在指定字符<span>&nbsp;'s'&nbsp;</span>的前面插入字符 '<span>d'&nbsp;</span>，若原串中有多个<span>&nbsp;'s'&nbsp;</span>，则插入在最后一个字符的前面。\n</p>\n<p class=\"MsoNormal\" style=\"margin-left:20.7pt;text-indent:.3pt;\">\n\t&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;如上例中：<span><br />\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>原串：'<span>This is a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>插入后：'<span>This ids a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp;</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>R</span>：替换一个字符，命令格式为：<span></span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t&nbsp; &nbsp; &nbsp;R a1 a2&nbsp; 其中a1为被替换的字符，a2为替换的字符，若在原串中有多个a1则应全部替换。\n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t&nbsp; &nbsp; &nbsp;例如：\n原串： '<span>This is a book.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;输入命令：<span>R o e</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>替换后的字符串为：<span>'This is a beek.'</span> \n</p>\n<p class=\"MsoNormal\" style=\"text-indent:21.0pt;\">\n\t<span><br />\n</span> \n</p>\n<p>\n\t在编辑过程中，若出现被改的字符不存在时，则给出提示信息\"Not exist\"。\n</p>\n<p>\n\t<br />\n</p>",
+    "input": "<p>\n\t每个测试文件只包含一组测试数据，每组输入数据包含两行：\n</p>\n<p>\n\t第一行，输入一个字符串，表示原串；\n</p>\n<p>\n\t第二行，输入一个字符串，表示命令。\n</p>\n<p>\n\t<br />\n</p>",
+    "output": "<p>\n\t对于每组输入数据，输出编辑后的字符串，如果<span>被改的字符不存在，<span>则输出\"Not exist\"</span>（引号不输出）。</span> \n</p>\n<p>\n\t<span><br />\n</span> \n</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 125
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "This is a book.\nD s\n",
+            "output": "Thi is a book.\n"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [
+        {
+            "input": ".\nR . %\n\n",
+            "output": "%\n"
+        },
+        {
+            "input": "abcd efg.\nR s t\n\n",
+            "output": "Not exist\n"
+        },
+        {
+            "input": "sssssss.\nI s t\n\n",
+            "output": "ssssssts.\n"
+        },
+        {
+            "input": "abcd adc.\nR d c\n\n",
+            "output": "abcc acc.\n"
+        },
+        {
+            "input": "a123 b12 aa.\nD 2\n\n",
+            "output": "a13 b12 aa.\n"
+        },
+        {
+            "input": "abababab.\nD b\n\n",
+            "output": "aababab.\n"
+        },
+        {
+            "input": "sssssss ss.\nR s t\n\n",
+            "output": "ttttttt tt.\n"
+        },
+        {
+            "input": "a.\nR . a\n\n",
+            "output": "aa\n"
+        },
+        {
+            "input": "ababababab.\nR b a\n\n",
+            "output": "aaaaaaaaaa.\n"
+        },
+        {
+            "input": "abc dc e.\nI c f\n\n",
+            "output": "abc dfc e.\n"
+        }
+    ],
+    "hint": "<table style=\"width:100%;\" cellpadding=\"2\" cellspacing=\"0\" border=\"1\" bordercolor=\"#000000\">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t\tThis is a book.<br />\nI s d<br />\n<br />\n\t\t\t\t<div>\n\t\t\t\t\t<br />\n\t\t\t\t</div>\n<br />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\tThis ids a book.<br />\n<br />\n<br />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t\t<span>This is a book.</span><br />\n<span>R o e</span><br />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<span>This is a beek.</span><br />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t\t<br />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<br />\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n<br />",
+    "source": "NOIP全国联赛普及组 1996年NOIP全国联赛普及组",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>\n#include<string.h>\n#define N 45\nint main()\n{\n\tchar a[N],b[10];\n\tint i,flag=0,len,m=1,j;\n\tgets(a);\n\tgets(b);\n\tlen=strlen(a);\n\tif(b[0]=='D'){\n\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\tif(a[i]==b[2]) flag=1;\n\t\t}\n\t\tif(flag==1){\n\t\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\t\tif(m==1 && a[i]==b[2]){\n\t\t\t\t\tm=0;\n\t\t\t\t\tcontinue;\n\t\t\t\t}\n\t\t\t\telse{\n\t\t\t\t\tprintf(\"%c\",a[i]);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\telse{\n\t\t\tprintf(\"Not exist\");\n\t\t}\n\t\tprintf(\"\\n\");\n\t}\n\telse if(b[0]=='I'){\n\t\tfor(i=len-1;i>=0;i--){\n\t\t\tif(a[i]==b[2]){\n\t\t\t\tflag=1;\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\tif(flag==1){\t\t\n\t\t\tfor(j=0;j<i;j++){\n\t\t\t\tprintf(\"%c\",a[j]);\n\t\t\t}\n\t\t\tprintf(\"%c\",b[4]);\n\t\t\tfor(j=i;a[j]!='\\0';j++){\n\t\t\t\tprintf(\"%c\",a[j]);\n\t\t\t}\n\t\t}\n\t\telse printf(\"Not exist\");\n\t\tprintf(\"\\n\");\n\t}\n\telse{\n\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\tif(a[i]==b[2]) flag=1;\n\t\t}\n\t\tif(flag==1){\n\t\t\tfor(i=0;a[i]!='\\0';i++){\n\t\t\t\tif(a[i]==b[2]){\n\t\t\t\t\tprintf(\"%c\",b[4]);\n\t\t\t\t}\n\t\t\t\telse{\n\t\t\t\t\tprintf(\"%c\",a[i]);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\telse{\n\t\t\tprintf(\"Not exist\");\n\t\t}\n\t\tprintf(\"\\n\");\n\t}\n} "
+        },
+        {
+            "language": "C++",
+            "code": "#include<stdio.h>\n#include<string.h>\nint main()\n{\n\tchar a[110],b[110],ch,q,p;\n\tint i,count,j;\n\t\tfor(i=0;;i++)\n\t\t{\n\t\t\tscanf(\"%c\",&a[i]);\n\t\t\tif(a[i]=='.')\n\t\t\t\tbreak;\n\t\t}\n\t\ta[i+1]='\\0';\n\t\tgetchar();\n\t\tscanf(\"%c\",&ch);\n\t\tgetchar();\n\t\tif(ch=='D')\n\t\t\tscanf(\"%c\",&q);\n\t\telse\n\t\t\tscanf(\"%c %c\",&q,&p);\n\t\tgetchar();\n\t\tif(ch=='D')\n\t\t{\n\t\t\tcount=0,j=0;\n\t\t\tfor(i=0;i<strlen(a);i++)\n\t\t\t{\n\t\t\t\tif(a[i]==q&&count==0)\n\t\t\t\t{\n\t\t\t\t\tcount++;\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t{\n\t\t\t\t\tb[j++]=a[i];\n\t\t\t\t}\n\t\t\t}\n\t\t\tb[j]='\\0';\n\t\t\tif(count==0)\n\t\t\t\tprintf(\"Not exist\\n\");\n\t\t\telse\n\t\t\t    printf(\"%s\\n\",b);\n\t\t}\n\t\tif(ch=='I')\n\t\t{\n\t\t\tcount=0;j=strlen(a);\n\t\t\tfor(i=strlen(a)-1;i>=0;i--)\n\t\t\t{\n\t\t\t\tif(a[i]==q&&count==0)\n\t\t\t\t{\n\t\t\t\t\tcount++;\n\t\t\t\t\tb[j--]=a[i];\n\t\t\t\t\tb[j--]=p;\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t{\n\t\t\t\t\tb[j--]=a[i];\n\t\t\t\t}\n\t\t\t}\n\t\t\tb[strlen(a)+1]='\\0';\n\t\t\tif(count==0)\n\t\t\t\tprintf(\"Not exist\\n\");\n\t\t\telse\n\t\t\t    printf(\"%s\\n\",b);\n\t\t}\n\t\tif(ch=='R')\n\t\t{\n\t\t\tcount=0,j=0;\n\t\t\tfor(i=0;i<strlen(a);i++)\n\t\t\t{\n\t\t\t\tif(a[i]==q)\n\t\t\t\t{\n\t\t\t\t\tb[j++]=p;\n\t\t\t\t\tcount++;\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t\tb[j++]=a[i];\n\t\t\t}\n\t\t\tb[j]='\\0';\n\t\t\tif(count==0)\n\t\t\t\tprintf(\"Not exist\\n\");\n\t\t\telse\n\t\t\t\tprintf(\"%s\\n\",b);\n\t\t}\n\treturn 0;\n}"
+        },
+        {
+            "language": "Pascal",
+            "code": "var\n  s,t,s1:string;\n  i:integer;\n  a,b,c:char;\nbegin\n  readln(s);\n  s1:=s;\n  readln(t);\n  if t[1]='D' then begin\n    i:=pos(t[3],s);\n    delete(s,i,1);\n  end else\n    if t[1]='I' then begin\n      for i:=length(s) downto 1 do if s[i]=t[3] then break;\n        insert(t[5],s,i);\n    end else\n      begin\n        for i:=1 to length(s) do if s[i]=t[3] then s[i]:=t[5];\n      end;\n  if s1=s then writeln('Not exist') else writeln(s);\nend.\n"
+        },
+        {
+            "language": "Java",
+            "code": "\nimport java.util.Scanner;\n\nimport java.util.Scanner;\n\npublic class Main{\n\tpublic static void main(String[] args) {\n\t\tScanner rd=new Scanner(System.in);\n\t\tint flag = 0;\n\t\tString str=rd.nextLine();\n\t\tString mingling=rd.next();\n\t\tString c=rd.next();\n\t\tStringEditor ed=new StringEditor(str,c);\n\t\tswitch (mingling){\n\t\t\n\t\tcase \"D\":\n\t\t\ted.Del(str,c);\n\t\t\tbreak;\n\t\tcase \"I\":\n\t\t\tString d = rd.next();\n\t\t\ted.Insert(str, c, d);\n\t\t\tbreak;\n\t\tcase \"R\":\n\t\t\tString d1 = rd.next();\n\t\t\ted.Replace(str, c, d1);\n\t\t\t\n\t\t\tbreak;\n\t\t}\n\t}\n}\nclass StringEditor\n{\n\tprivate String fString;\n\tprivate String order;\n\tpublic StringEditor(String fString,String order)\n\t{\n\t\tthis.fString=fString;\n\t\tthis.order=order;\n\t}\n\tpublic void Del(String str,String b)\n\t{\n\t\tif(str.indexOf(b)!=-1)\n\t\t{\n\t\t\tstr = str.replaceFirst(b,\"\");\n\t\t\tSystem.out.print(str);\n\t\t}\n\t\telse\n\t\t\tSystem.out.print(\"Not exist\");\n\t}\n\tpublic void Insert(String str,String a1,String a2)\n\t{\n\t\tif(str.indexOf(a1)!=-1){\n\t\t\t\n\t\t\tint i=str.lastIndexOf(a1);\n\t\t\tStringBuilder sb=new StringBuilder(str);\n\t\t\tSystem.out.print(sb.insert(i, a2));\n\t\t}\n\t\telse\n\t\t\tSystem.out.println(\"Not exist\");\n\t}\n\tpublic void Replace(String str,String a1,String a2)\n\t{\n\t\tif(str.indexOf(a1)!=-1)\n\t\t{\n\t\t\tString s=str.replaceAll(a1, a2);\n\t\t\tSystem.out.print(s);\n\t\t}\n\t\telse\n\t\t\tSystem.out.println(\"Not exist\");\n\t\t\n\t}\n}\n"
+        }
+    ]
+}

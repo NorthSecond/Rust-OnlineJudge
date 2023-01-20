@@ -1,0 +1,87 @@
+{
+    "title": "砝码称重",
+    "description": "<p class=\"MsoNormalIndent\">\n\t设有<span>1g</span>、<span>2g</span>、<span>3g</span>、<span>5g</span>、<span>10g</span>、<span>20g</span>的砝码各若干枚（其总重<span>&lt;=1000</span>）。<span></span>\n</p>\n<p class=\"MsoNormalIndent\">\n\t现在给你这六种砝码的数量，请你计算<span>用这些砝码能称出的不同重量的个数，但不包括一个砝码也不用的情况。</span>\n</p>\n<p class=\"MsoNormalIndent\">\n\t<br />\n</p>\n<p class=\"MsoNormalIndent\">\n\t如输入：<span>1 1 0 0 0 0</span><span></span>\n</p>\n<p>\n\t输出：<span>Total</span>=3 &nbsp;表示可以称出1g，2g，3g三种不同的重量。\n</p>\n<p>\n\t<br />\n</p>",
+    "input": "<p>\n\t每个测试文件只包含一组测试数据，每组输入六个整数，例如：\n</p>\n<p>\n\t输入&nbsp;<span>a1&nbsp; a2&nbsp; a3&nbsp; a4&nbsp; a5&nbsp; a6</span>\n</p>\n<p>\n\t<span><span>&nbsp; &nbsp; &nbsp; （表示</span><span>1g</span><span>砝码有</span><span>a1</span><span>个，</span><span>2g</span><span>砝码有</span><span>a2</span><span>个，…，</span><span>20g</span><span>砝码有</span><span>a6</span><span>个）</span></span>\n</p>\n<p>\n\t<span><br />\n</span>\n</p>",
+    "output": "<p>\n\t对于每组输入数据，输出&nbsp;<span style=\"line-height:1.5;\">Total=N。</span><span style=\"line-height:1.5;\">（N表示用这些砝码能称出的不同重量的个数，但不包括一个砝码也不用的情况）</span>\n</p>\n<p>\n\t<span style=\"line-height:1.5;\"><br />\n</span>\n</p>",
+    "memory_limit": {
+        "unit": "MB",
+        "value": 125
+    },
+    "time_limit": {
+        "unit": "s",
+        "value": 1.0
+    },
+    "samples": [
+        {
+            "input": "1 1 0 0 0 0",
+            "output": "Total=3"
+        }
+    ],
+    "images": [],
+    "append": [],
+    "template": [],
+    "prepend": [],
+    "test_cases": [
+        {
+            "input": "10 10 10 10 1 1\n\n",
+            "output": "Total=140\n"
+        },
+        {
+            "input": "0 3 2 7 4 5\n\n",
+            "output": "Total=185\n"
+        },
+        {
+            "input": "1 0 3 0 0 0\n\n",
+            "output": "Total=7\n"
+        },
+        {
+            "input": "2 2 2 2 2 2\n\n",
+            "output": "Total=82\n"
+        },
+        {
+            "input": "1 1 0 0 0 0\n\n",
+            "output": "Total=3\n"
+        },
+        {
+            "input": "3 4 0 5 0 0\n\n",
+            "output": "Total=36\n"
+        },
+        {
+            "input": "6 5 4 3 2 1\n\n",
+            "output": "Total=83\n"
+        },
+        {
+            "input": "0 6 3 4 2 1\n\n",
+            "output": "Total=79\n"
+        },
+        {
+            "input": "1 2 3 4 5 6\n\n",
+            "output": "Total=204\n"
+        },
+        {
+            "input": "2 2 0 0 0 0\n\n",
+            "output": "Total=6\n"
+        }
+    ],
+    "hint": null,
+    "source": "NOIP全国联赛提高组-1996年NOIP全国联赛提高组",
+    "spj": null,
+    "solution": [
+        {
+            "language": "C",
+            "code": "#include<stdio.h>  \n#include<string.h>\nint main()  \n{  \n    int dp[2000];  \n    int c[2000],num[7];  \n    int weight[7]={0, 1, 2, 3, 5, 10, 20};  \n\tint i,j,sum=0;  \n    memset(dp,0,sizeof(dp));  \n    for(i=1;i<=6;i++)  \n    {  \n       scanf(\"%d\",&num[i]);  \n        sum+=num[i]*weight[i];  \n    }\n\tc[0]=0;\n\tfor(i=1;i<=6;i++)  \n    {  \n       for(j=1;j<num[i];num[i]-=j,j<<=1)  \n         c[++c[0]]=weight[i]*j;  \n       if(num[i])\n\t\t   c[++c[0]]=weight[i]*num[i];  \n     }\n\tdp[0]=1;\n\tfor(i=1;i<=c[0];i++)  \n\t\tfor(j=sum;j>=c[i];j--)  \n\t\t\tdp[j]=(dp[j]||dp[j-c[i]]);  \n    int ret=0;  \n        for(i=1;i<=sum;i++)  \n            ret+=dp[i];  \n    printf(\"Total=%d\\n\",ret);\n\treturn 0;\n}  "
+        },
+        {
+            "language": "C++",
+            "code": "#include <iostream>\nusing namespace std;\nint main()\n{\n\tint arr[1000]={0},total=0;\n\tint a,b,c,d,e,f;\n\tcin>>a>>b>>c>>d>>e>>f;\n\t//a=1,b=1,c=d=e=f=0;\n\tfor(int i=0;i<=a;i++)\n\t\tfor(int j=0;j<=b;j++)\n\t\t\tfor(int k=0;k<=c;k++)\n\t\t\t\tfor(int l=0;l<=d;l++)\n\t\t\t\t\tfor(int m=0;m<=e;m++)\n\t\t\t\t\t\tfor(int n=0;n<=f;n++)\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tint sum=i+2*j+3*k+5*l+10*m+20*n;\n\t\t\t\t\t\t\tif(!arr[sum])\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\tarr[sum]+=1;\n\t\t\t\t\t\t\t\ttotal++;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\tcout<<\"Total=\"<<total-1<<endl;\n\treturn 0;\n}"
+        },
+        {
+            "language": "Pascal",
+            "code": "const a:array[1..6]of longint=(1,2,3,5,10,20); \nvar i,j,k,ans:longint; \n    b,p:array[-1000..1000]of longint; \nbegin\n for i:=1 to 6 do read(b[i]); \n p[0]:=1; \n for i:=1 to 6 do\n  for j:=1000 downto a[i] do\n   for k:=0 to b[i] do\n   if p[j-a[i]*k]=1 then p[j]:=1; \n for i:=1 to 1000 do if p[i]=1 then inc(ans); \n writeln('Total=',ans); \nend. "
+        },
+        {
+            "language": "Java",
+            "code": "import java.util.ArrayList;\nimport java.util.List;\nimport java.util.Scanner;\n\npublic class Main {\n\tpublic static void main(String args[]) throws Exception {\n\n\t\tScanner scanner = new Scanner(System.in);\n\t\tString input = scanner.nextLine();\n\t\tString[] array = input.split(\" \");\n\t\tList<Integer> inputList = new ArrayList<Integer>();\n\t\tfor (int i = 0; i < array.length; i++) {\n\t\t\tfor (int j = 0; j < Integer.parseInt(array[i]); j++) {\n\t\t\t\tif (i == 0) {\n\t\t\t\t\tinputList.add(1);\n\t\t\t\t} else if (i == 1) {\n\t\t\t\t\tinputList.add(2);\n\t\t\t\t} else if (i == 2) {\n\t\t\t\t\tinputList.add(3);\n\t\t\t\t} else if (i == 3) {\n\t\t\t\t\tinputList.add(5);\n\t\t\t\t} else if (i == 4) {\n\t\t\t\t\tinputList.add(10);\n\t\t\t\t} else if (i == 5) {\n\t\t\t\t\tinputList.add(20);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tSystem.out.println(\"Total=\" + fun(inputList).size());\n\t}\n\n\tpublic static List<Integer> fun(List<Integer> inputList) {\n\t\tList<Integer> retList = new ArrayList<Integer>();\n\t\tif (inputList.size() == 1) {\n\t\t\treturn inputList;\n\t\t}\n\n\t\tList<Integer> subList = inputList.subList(1, inputList.size());\n\t\tList<Integer> subRetList = fun(subList);\n\t\tretList.addAll(subRetList);\n\t\tfor (Integer subRet : subRetList) {\n\t\t\tif (!retList.contains(inputList.get(0))) {\n\t\t\t\tretList.add(inputList.get(0));\n\t\t\t}\n\t\t\tif (!retList.contains(subRet + inputList.get(0))) {\n\t\t\t\tretList.add(subRet + inputList.get(0));\n\t\t\t}\n\t\t}\n\t\treturn retList;\n\t}\n}\n"
+        }
+    ]
+}
