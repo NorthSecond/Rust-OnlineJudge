@@ -22,6 +22,8 @@ pub fn route(config: &mut web::ServiceConfig) {
     config.service(userHandler::userlogin);
     config.service(userHandler::postTest);
     config.service(userHandler::tfaRequiredCheck);
+    config.service(problemHandler::getProblem);
+    config.service(problemHandler::getProblemTags);
         // config.service()
 }
 
