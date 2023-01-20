@@ -36,4 +36,26 @@ mod tests {
         println!("Insert successfully!");
     }
 
+    #[test]
+    fn subInsert(){
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
+        let pool = Pool::new(url).unwrap(); // 获取连接池
+     
+        let mut conn=pool.get_conn().unwrap();
+    
+        conn.exec_drop(
+    "insert into `tb_submission`(`id`,`contest`, `problem`, `username`,`code`,`result`,`create_time`) values (null,:c, :p, :u,:code,:r,now());", 
+        params!{
+            "c" => 0, 
+            "p" => 0, 
+            "u" => "sss".to_string(),
+            "code"=>"sss".to_string(),
+            "r" => 6,
+        }).unwrap();
+
+
+        print!("测试通过");
+
+    }
+
 }

@@ -17,6 +17,8 @@ pub const RESULTS: &[&str] = &[
     "Skipped",
 ];
 
+
+
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct Ids {
     pub jobsid: u32,

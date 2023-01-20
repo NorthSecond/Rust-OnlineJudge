@@ -25,7 +25,7 @@ drop table if exists `tb_problem`;
 create table `tb_problem` (
 	`problem_id` int primary key auto_increment,
 	`problem_title` varchar(64) not null,
-	`problem_path` varchar(255) not null,
+	`problem_path` varchar(255) not null
 );
 
 INSERT INTO `tb_problem` (`problem_id`, `problem_title`, `problem_path`)
@@ -99,3 +99,27 @@ alter table `tb_rank`
 add foreign key(`contest_id`) references `tb_contest`(`contest_id`);
 alter table `tb_rank`
 add foreign key(`user_name`) references `tb_user`(`user_name`);
+
+
+drop table if exists `tb_submission`;
+create table tb_submission(
+   id int primary key auto_increment,
+   contest int ,
+   problem int,
+   create_time datetime,
+   username varchar(32),
+   code text,
+   result int,
+   time_cost   int default 0,
+   memory_cost int default 0,
+   err_info    varchar(32) default '',
+   score       int default 0
+);
+
+select * from tb_user;
+
+
+insert into `tb_submission`(`id`,`contest`, `problem`, `username`,`code`,`result`,`create_time`)
+    values (null,1, 1, '12','123',0,now());
+select * from tb_submission;
+

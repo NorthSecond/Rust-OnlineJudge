@@ -16,7 +16,7 @@ mod config;
 mod error_log;
 mod job;
 mod handler;
-
+mod submission;
 
 //状态机
 struct AppState {
