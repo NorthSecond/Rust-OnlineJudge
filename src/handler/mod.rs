@@ -5,6 +5,7 @@ use actix_web::{HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
 
 mod userHandler;
+mod problemHandler;
 
 #[post("/internal/exit")]
 #[allow(unreachable_code)]
@@ -20,6 +21,7 @@ pub fn route(config: &mut web::ServiceConfig) {
     config.service(userHandler::extractor_multiple);
     config.service(userHandler::userlogin);
     config.service(userHandler::postTest);
+    config.service(problemHandler::getProblems);
         // config.service()
 }
 
