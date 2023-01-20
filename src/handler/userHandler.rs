@@ -1,4 +1,7 @@
 
+use std::ptr::null;
+
+use actix_web::http::header::ContentType;
 use actix_web::{delete, get, post, web,web::Data};
 use actix_web::{HttpResponse, Responder};
 
@@ -8,6 +11,7 @@ use super::super::{config::Config};
 use mysql::*;
 use mysql::prelude::*;
 use tokio::sync::Mutex;
+
 use crate::user::*;
 
 use crate::error_log::LOGIN;
@@ -20,6 +24,23 @@ pub struct PostUser {
     pub email:String, 
 }
 
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct User {
+    pub username: String,
+    pub email: String,
+    pub create_time: String,
+    pub admin_type: String,
+    pub problem_permission: String,
+    pub reset_password_token: String,
+    pub reset_password_token_expire_time: String,
+    pub auth_token: String,
+    pub two_factor_auth: bool,
+    pub tfa_token: String,
+    // pub sesseion_keys: String,
+    pub open_api: bool,
+    pub open_api_appkey: String,
+    pub is_disable: bool,
+}
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct LoginInfo{
@@ -32,7 +53,6 @@ pub struct LOGIN_SUCCESS{
     pub data:String,
     pub result:bool,
 }
-
 
 #[post("/api/login")]
 async fn userlogin(
@@ -59,10 +79,9 @@ async fn userlogin(
             }
         },
         None=>{
-            LOGIN::ID_NO_FOUND("账号未找到")
+            return HttpResponse::Ok().body("账号不存在");
         }
     }
-
 }
 
 #[post("/api/tfa_required")]
@@ -81,6 +100,7 @@ async fn tfaRequiredCheck(
     )
 }
 
+<<<<<<< HEAD
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct RegisterInfo{
@@ -113,13 +133,16 @@ async fn registerUser(
 
 
 #[get("/path")]
+=======
+#[get("/api/path")]
+>>>>>>> 853b39a (update profile)
 async fn extractor_multiple(p: web::Path<(String, String)>, q: web::Query<LoginInfo>) -> String {
     log::info!("p={:?}, q={:?}", p, q);
 
     return "dsadasd".to_string();
 }
 
-#[post("/POST")]
+#[post("/api/POST")]
 async fn postTest(
     body: String,
     pool: Data<Mutex<Pool>>,
@@ -137,7 +160,7 @@ async fn postTest(
 
 
 
-#[get("/dbTest")]
+#[get("/api/dbTest")]
 async fn dbtest( 
     // body: web::Json<PostJob>,
     pool: Data<Mutex<Pool>>,
@@ -161,3 +184,40 @@ async fn dbtest(
     return HttpResponse::Ok().body(serde_json::to_string_pretty(&user).unwrap());
 }
 
+#[get("/api/profile")]
+async fn getUserInfo (
+    body: web::Json<LoginInfo>,
+    pool: Data<Mutex<Pool>>,
+    config: Data<Config>
+) -> impl Responder {
+    log::info!("获取信息 {:?}",body);
+    let mut user_info: User=User { 
+        username: "default".to_string(), 
+        email: "default".to_string(), 
+        create_time: "2023-01-01".to_string(), 
+        admin_type: "Regular User".to_string(), 
+        problem_permission: "None".to_string(), 
+        reset_password_token: "".to_string(), 
+        reset_password_token_expire_time: "".to_string(), 
+        auth_token: "".to_string(), 
+        two_factor_auth: false, 
+        tfa_token: "".to_string(), 
+        open_api: false, 
+        open_api_appkey: "".to_string(), 
+        is_disable: false, 
+    };
+    match getUserByName(pool, &body.username).await {
+        Some(user) => {
+            user_info.username = user.username;
+            user_info.email = user.email;
+            return HttpResponse::Ok()
+                .content_type(ContentType::json())
+                .body(serde_json::to_string_pretty(&user_info).unwrap());
+        }, 
+        None => {
+            return HttpResponse::Ok()
+                .content_type(ContentType::json())
+                .body(serde_json::to_string_pretty(&user_info).unwrap());
+        }
+    }
+}
