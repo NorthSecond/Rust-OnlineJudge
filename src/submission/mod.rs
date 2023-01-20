@@ -7,7 +7,7 @@ use mysql::*;
 use mysql::prelude::*;
 use tokio::sync::Mutex;
 
-use crate::config::Problem;
+use crate::config::{Problem, Language};
 
 
 mod RESULTS{
@@ -37,9 +37,10 @@ pub struct Submission{
    pub id:u32,
    pub contest:u32,
    pub problem:u32,
-   pub create_time:String,
+   pub language:String,
    pub username:String,
    pub code:String,
+   pub create_time:String,
    pub result:i8,
    pub time_cost:u32,
    pub memory_cost:u32,
@@ -53,6 +54,7 @@ impl Submission {
     pub fn new(
         contest:u32,
         problem:u32,
+        language:String,
         username:String,
         code:String,
     )->Submission{
@@ -61,6 +63,7 @@ impl Submission {
             contest:contest,
             problem:problem,
             create_time:"2023-01-20 20:46:00".to_string(),
+            language:language,
             username:username,
             code:code,
             result:RESULTS::PENDING,
@@ -87,6 +90,7 @@ pub async fn get(
             problem,
             create_time ,
             username ,
+            language,
             code ,
             result ,
             time_cost   ,
@@ -96,7 +100,7 @@ pub async fn get(
         )|
         { 
             log::info!("{}",create_time);
-            Submission { id: id, contest: contest, problem: problem, create_time:create_time, username: username, code: code, result:result, time_cost: time_cost, memory_cost:memory_cost, err_info: err_info, score:score }
+            Submission { id: id, contest: contest, problem: problem, create_time:create_time, username: username, language:language ,code: code, result:result, time_cost: time_cost, memory_cost:memory_cost, err_info: err_info, score:score }
         },
     );
     users
@@ -120,6 +124,7 @@ pub async fn createSubmission(
     contest:u32,
     problem:u32,
     username:String,
+    language:String,
     code:String,
 ) ->Result<()> {
     log::info!("Create Summission...");
@@ -128,16 +133,20 @@ pub async fn createSubmission(
     // 检查username是否存在
 
     let r=conn.exec_drop(
-        "insert into `tb_submission`(`id`,`contest`, `problem`, `username`,`code`,`result`,`create_time`) values (null,:c, :p, :u,:code,:r,now());", 
+        "insert into `tb_submission`(`id`,`contest`, `problem`, `username`,`language`,`code`,`result`,`create_time`) values (null,:c, :p, :u,:lang,:code,:r,now());", 
         params!{
                 "c" => contest, 
                 "p" => problem, 
                 "u" => username,
+                "lang"=>language,
                 "code"=>code,
                 "r" => RESULTS::PENDING,
     });
     r
 }
+
+
+
 
 
 
