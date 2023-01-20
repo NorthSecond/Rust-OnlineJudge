@@ -11,6 +11,7 @@ use clap::Arg;
 
 
 mod user;
+mod problem;
 mod runner;
 mod config;
 mod error_log;
