@@ -16,7 +16,6 @@ pub  fn compile(
     config: Data<config::Config>,
     job_id: u32,
 ) {
-    
     let _ = std::fs::create_dir("oj_runtime_dir");
     let _ = std::fs::remove_dir_all(format!("oj_runtime_dir/job_{}", job_id));
     let _ = std::fs::create_dir(format!("oj_runtime_dir/job_{}", job_id));

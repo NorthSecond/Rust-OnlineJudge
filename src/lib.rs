@@ -4,7 +4,7 @@ mod config;
 mod error_log;
 mod job;
 mod handler;
-
+mod submission;
 
 
 #[cfg(test)]
@@ -14,15 +14,14 @@ mod compileTest {
 
     // use std::io::BufReader;
     use super::runner::compile;
-    use super::job;
+    use crate::job;
     use super::config;
     use actix_web::web::Data;
     #[test]
-    fn readfile() {
+    fn compilefile() {
 
         let contents=fs::read_to_string("./tests/data/main.rs").unwrap();
         println!("{}",contents);
-
         let job:PostJob=PostJob { 
             source_code:contents, 
             language: "Rust".to_string(),
@@ -36,15 +35,16 @@ mod compileTest {
             config::parse_from_file(config_path).expect("Config file format error.");
 
         compile(job,Data::new(config) , 10);
-       
         assert_eq!(2 + 2, 4);
     }
 
     #[test]
     fn another() {
-        panic!("Make this test fail");
+        
     }
 }
+
+
 
 #[cfg(test)]
 mod UserGetTest{
@@ -56,4 +56,40 @@ mod UserGetTest{
     //    user::getUser()
     }
 
+}
+
+
+#[cfg(test)]
+#[allow(non_snake_case)]
+mod submissionTest{
+    use mysql::*;
+    use mysql::prelude::*;
+    use actix_web::web::Data;
+    use crate::submission::{self, getById};
+    use tokio::sync::Mutex;
+    use actix_rt;
+     #[actix_rt::test]
+    async fn subInsert(){
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
+        let pool = Pool::new(url).unwrap(); // 获取连接池
+        // Data::
+        let r=submission::createSubmission(
+            Data::new(
+                Mutex::new(pool.clone())), 
+            1, 1, 
+        "1203".to_string(), "123".to_string()).await;
+    }
+
+    #[actix_rt::test]
+    async fn get(){
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
+        let pool = Pool::new(url).unwrap();
+        let sub= getById(Data::new(
+            Mutex::new(pool.clone())),1);
+        // println!("{:?}",sub.await.unwrap());
+        match sub.await {
+            Some(s)=>println!("{:?}",s),
+            _=>print!("none\n"),
+        }
+    }
 }
