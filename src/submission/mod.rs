@@ -2,6 +2,7 @@ use actix_web::middleware::Condition;
 use actix_web::{post, web, App, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 
+use std::fmt::format;
 use std::sync::Arc;
 use mysql::*;
 use mysql::prelude::*;
@@ -158,13 +159,19 @@ pub async fn createSubmission(
 }
 
 
-pub async fn updateResult(
+pub async fn update(
     pool: web::Data<Mutex<Pool>>,
-    id:u32,
-    result:u8,
+    set:String,
+    condition:String,
 )->bool{
-    
-
+    log::info!("update Summission result");
+    let mut conn=pool.lock().await.get_conn().unwrap();
+    // conn.exec(stmt, params)
+    // format!("update tb_submission set {}  where {};",set,condition)
+    conn.exec_drop(
+        format!("update tb_submission set {}  where {};",set,condition)  ,
+        ()
+    );
     
     true
 }

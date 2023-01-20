@@ -98,4 +98,14 @@ mod submissionTest{
         }
     }
 
+    #[actix_rt::test]
+    async fn updateTest(){
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
+        let pool = Pool::new(url).unwrap();
+        let pool =Data::new(
+            Mutex::new(pool.clone()));
+        submission::update(pool, format!("result=0"), format!("id=3")).await;
+    }
+
+
 }
