@@ -11,7 +11,7 @@ use super::job;
 use super::config;
 mod diff;
 
-pub  fn compile(
+pub fn compile(
     body: job::PostJob,
     config: Data<config::Config>,
     job_id: u32,
