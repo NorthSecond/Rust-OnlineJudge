@@ -73,11 +73,16 @@ mod submissionTest{
         let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
         let pool = Pool::new(url).unwrap(); // 获取连接池
         // Data::
-        let r=submission::createSubmission(
+        let sub=submission::createSubmission(
             Data::new(
                 Mutex::new(pool.clone())), 
             1, 1, 
         "1203".to_string(),"Rust".to_string() ,"123".to_string()).await;
+
+        match sub {
+            Some(s)=>println!("{:?}",s),
+            _=>print!("none\n"),
+        }
     }
 
     #[actix_rt::test]
@@ -92,4 +97,5 @@ mod submissionTest{
             _=>print!("none\n"),
         }
     }
+
 }

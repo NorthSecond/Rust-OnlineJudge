@@ -119,6 +119,16 @@ pub async fn getById(
     }
 }
 
+pub async fn getLatest(pool :web::Data<Mutex<Pool>>)->Option<Submission>{
+    let Robjs=
+    get(pool, &format!("order by -id limit 1")).await;
+    match Robjs{
+        Ok(objs)=>objs.get(0).cloned(),
+        Err(info)=>None,
+    }
+}
+
+
 pub async fn createSubmission(
     pool: web::Data<Mutex<Pool>>,
     contest:u32,
@@ -126,7 +136,7 @@ pub async fn createSubmission(
     username:String,
     language:String,
     code:String,
-) ->Result<()> {
+) ->Option<Submission> {
     log::info!("Create Summission...");
     log::info!("contest:{}, problem:{}, username:{}", contest, problem, username);
     let mut conn=pool.lock().await.get_conn().unwrap();
@@ -142,7 +152,21 @@ pub async fn createSubmission(
                 "code"=>code,
                 "r" => RESULTS::PENDING,
     });
-    r
+    
+    let obj =getLatest(pool);
+    obj.await   
+}
+
+
+pub async fn updateResult(
+    pool: web::Data<Mutex<Pool>>,
+    id:u32,
+    result:u8,
+)->bool{
+    
+
+    
+    true
 }
 
 
