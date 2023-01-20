@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 
 mod userHandler;
 mod problemHandler;
+mod submissionHandler;
 
 #[post("/internal/exit")]
 #[allow(unreachable_code)]
@@ -17,15 +18,28 @@ async fn exit() -> impl Responder {
 
 pub fn route(config: &mut web::ServiceConfig) {
     // config.service(hello);
+    
+    // userHandler
     config.service(userHandler::dbtest);
     config.service(userHandler::extractor_multiple);
     config.service(userHandler::userlogin);
     config.service(userHandler::getUserInfo);
     config.service(userHandler::postTest);
     config.service(userHandler::tfaRequiredCheck);
+    
+    // problemHandler
     config.service(problemHandler::getProblem);
     config.service(problemHandler::getProblemTags);
         // config.service()
+
+
+    // submissionHandler
+    config.service(submissionHandler::submitCode);
+    config.service(submissionHandler::getSubmission);
+    config.service(submissionHandler::getSubmissionsList);
+    config.service(submissionHandler::submissionExists);
+    config.service(submissionHandler::shareSubmission);
+
 }
 
 

@@ -100,42 +100,7 @@ async fn tfaRequiredCheck(
     )
 }
 
-<<<<<<< HEAD
-
-#[derive(Deserialize, Serialize, Clone, Default, Debug)]
-pub struct RegisterInfo{
-    pub username:String,
-    pub password:String,
-    pub email:String,
-}
-
-
-#[post("/register")]
-async fn registerUser(
-    body: web::Json<RegisterInfo>,
-    pool: Data<Mutex<Pool>>,
-    config: Data<Config>
-)-> impl Responder{
-    
-    log::info!("用户注册 {:?}",body);
-   
-    match createUser(pool, &body.username, &body.password, &body.email).await {
-        Some(user) => {
-            HttpResponse::Ok().body("注册成功")
-        },
-        None => {
-            HttpResponse::Ok().body("注册失败")
-        }
-    }
-}
-
-
-
-
-#[get("/path")]
-=======
 #[get("/api/path")]
->>>>>>> 853b39a (update profile)
 async fn extractor_multiple(p: web::Path<(String, String)>, q: web::Query<LoginInfo>) -> String {
     log::info!("p={:?}, q={:?}", p, q);
 
