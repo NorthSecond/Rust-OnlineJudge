@@ -32,13 +32,13 @@ pub struct SubmissionData{
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionWeb {
-    id: u64,
-    contest: u64,
-    problem: u64,
+    id: u32,
+    contest: u32,
+    problem: u32,
     create_time: String,
-    user_id: u64,
+    user_id: String,
     code : String,
-    result: i32,
+    result: i8,
     info : SubmissionInfo,
     language: String,
     shared: bool,
@@ -48,10 +48,10 @@ pub struct SubmissionWeb {
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionInfo {
-    time_cost: String,
-    memory_cost: String,
+    time_cost: u32,
+    memory_cost: u32,
     err_info: String,
-    result: i32,
+    result: i8,
 }
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
@@ -100,15 +100,40 @@ async fn getSubmission(
     query: web::Query<HashMap<String, String>>,
 ) -> impl Responder {
     // get submission from database
-    let mut id = query.get("id").unwrap_or(&"10".to_string()).parse::<u64>().unwrap();
+    let mut id = query.get("id").unwrap_or(&"10".to_string()).parse::<u32>().unwrap();
     
     // should be a Submission
-    let mut submission = SubmissionWeb::default();
+    let submissionOpt = getById(pool, id).await;
+
+    let submission = match submissionOpt{
+        Some(submission) => submission,
+        None => Submission::default(),
+    };
+
+    let mut info :SubmissionInfo = SubmissionInfo::default();
+    info.time_cost = submission.time_cost;
+    info.memory_cost = submission.memory_cost;
+    info.err_info = submission.err_info;
+    info.result = submission.result;
+
+    let mut submissionWeb = SubmissionWeb::default();
+    submissionWeb.id = submission.id;
+    submissionWeb.contest = submission.contest;
+    submissionWeb.problem = submission.problem;
+    submissionWeb.create_time = submission.create_time;
+    submissionWeb.user_id = submission.username;
+    submissionWeb.code = submission.code;
+    submissionWeb.result = submission.result;
+    submissionWeb.info = info;
+    submissionWeb.language = submission.language;
+    submissionWeb.shared = false;
+    submissionWeb.statistic_info = String::from("");
+    submissionWeb.ip = String::from("");
     
     // get submission from database
 
     // return result
-    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submission).unwrap())
+    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submissionWeb).unwrap())
 }
 
 #[get("/api/submissions")]
@@ -121,13 +146,44 @@ async fn getSubmissionsList(
     let mut limit = query.get("limit").unwrap_or(&"10".to_string()).parse::<u64>().unwrap();
     let mut offsite = query.get("offsite").unwrap_or(&"0".to_string()).parse::<u64>().unwrap();
     
-    // should be a list of Submission
-    let mut submissions: Vec<SubmissionWeb> = Vec::new();
+    let mut submissions = match get(pool, &format!("1")).await {
+        Ok(submissions) => submissions,
+        Err(_) => Vec::new(),
+    };
+
+    // 切片
+    submissions = submissions.into_iter().skip(offsite as usize).take(limit as usize).collect::<Vec<Submission>>();
+
+    let mut submissionsWeb : Vec<SubmissionWeb> = Vec::new();
+
+    for submission in submissions{
+        let mut info :SubmissionInfo = SubmissionInfo::default();
+        info.time_cost = submission.time_cost;
+        info.memory_cost = submission.memory_cost;
+        info.err_info = submission.err_info;
+        info.result = submission.result;
+
+        let mut submissionWeb = SubmissionWeb::default();
+        submissionWeb.id = submission.id;
+        submissionWeb.contest = submission.contest;
+        submissionWeb.problem = submission.problem;
+        submissionWeb.create_time = submission.create_time;
+        submissionWeb.user_id = submission.username;
+        submissionWeb.code = submission.code;
+        submissionWeb.result = submission.result;
+        submissionWeb.info = info;
+        submissionWeb.language = submission.language;
+        submissionWeb.shared = false;
+        submissionWeb.statistic_info = String::from("");
+        submissionWeb.ip = String::from("");
+
+        submissionsWeb.push(submissionWeb);
+    };
     
     // get submissions from database
 
     // return result
-    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submissions).unwrap())
+    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submissionsWeb).unwrap())
 }
 
 #[get("/api/submission_exists")]
@@ -136,12 +192,23 @@ async fn submissionExists(
     config: web::Data<Config>,
     query: web::Query<HashMap<String, String>>,
 ) -> impl Responder {
+    let mut problem_id = query.get("problem_id").unwrap_or(&"10".to_string()).parse::<u32>().unwrap();
     // get submissions from database
-    let mut problem_id = query.get("limit").unwrap_or(&"10".to_string()).parse::<u64>().unwrap();
     
-
-
-    HttpResponse::Ok().content_type(ContentType::json()).body("ok")
+    let mut submissions = getByProblemId(pool, problem_id).await;
+    
+    match submissions{
+        Ok(submissions) => {
+            if submissions.len() > 0 {
+                HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&true).unwrap())
+            } else {
+                HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&false).unwrap())
+            }
+        },
+        Err(_) => {
+            HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&false).unwrap())
+        }
+    }
 }
 
 #[put("/api/submission")]
