@@ -12,6 +12,7 @@ use std::collections::HashMap;
 use actix_web::http::header::ContentType;
 
 use crate::runner::*;
+use crate::submission::*;
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionData{
@@ -30,7 +31,7 @@ pub struct SubmissionData{
 }
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
-pub struct Submission {
+pub struct SubmissionWeb {
     id: u64,
     contest: u64,
     problem: u64,
@@ -56,7 +57,7 @@ pub struct SubmissionInfo {
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionBrief {
     //        let data = {id: this.submission.id, shared: shared}
-    id: u64,
+    id: u32,
     shared: bool,
 }
 
@@ -85,7 +86,7 @@ async fn submitCode(
     // call judge
     
     // TODO: Need a Submission struct
-    let mut submission = Submission::default();
+    let mut submission = SubmissionWeb::default();
     // insert submission to database
 
     // return result
@@ -102,7 +103,7 @@ async fn getSubmission(
     let mut id = query.get("id").unwrap_or(&"10".to_string()).parse::<u64>().unwrap();
     
     // should be a Submission
-    let mut submission = Submission::default();
+    let mut submission = SubmissionWeb::default();
     
     // get submission from database
 
@@ -121,7 +122,7 @@ async fn getSubmissionsList(
     let mut offsite = query.get("offsite").unwrap_or(&"0".to_string()).parse::<u64>().unwrap();
     
     // should be a list of Submission
-    let mut submissions: Vec<Submission> = Vec::new();
+    let mut submissions: Vec<SubmissionWeb> = Vec::new();
     
     // get submissions from database
 
