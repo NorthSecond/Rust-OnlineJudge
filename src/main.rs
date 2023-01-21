@@ -18,6 +18,7 @@ mod error_log;
 mod job;
 mod handler;
 mod submission;
+mod contest;
 // mod problem;
 
 //状态机

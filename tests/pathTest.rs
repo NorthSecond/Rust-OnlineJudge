@@ -2,32 +2,52 @@
 mod tests {
     use std::path::Path;
     use std::path::PathBuf;
+    use serde_json::{Value};
+    use std::fs::File;
+    use std::fs;
     #[test]
     fn test() {
-        // 直接将一个字符串切片包装成一个路径切片
-        let path = Path::new("./foo/bar.txt");
+        // println!("ok");
 
-        // 返回上级路径，若无上级路径则返回 `None`
-        let parent = path.parent().unwrap();
+        let id = 1;
+        let path = format!("./problems/1/problem.json");
+        let path = Path::new(path.as_str());
+        // let path = std::env::current_dir().unwrap();
+        
+        let problem_file = File::open(path).unwrap();
+        //println!("ok");
+        let content: serde_json::Value = serde_json::from_reader(problem_file).unwrap();
+        
+        //println!("{}", content["description"].to_string());
+        // println!("{}", content["time_limit"]["value"].to_string().parse::<u64>().unwrap());
+        println!("{}", content["memory_limit"]["value"].to_string().parse::<u64>().unwrap());
 
-        // 返回文件名（不包含文件扩展名）
-        let file_stem = path.file_stem().unwrap();
+        // println!("{:?}", content["samples"][0]["input"]);
 
-        println!(
-            "path: {:?}, parent: {:?}, file_stem: {:?}",
-            path, parent, file_stem
-        );
+        struct Sample {
+            input: String,
+            output: String,
+        }
+        let mut sample:Sample = Sample{
+            input: content["samples"][0]["input"].to_string(),
+            output: content["samples"][0]["output"].to_string(),
+        };
 
-        // 创建一个空的 `PathBuf`
-        let mut empty_path = PathBuf::new();
-        println!("empty_path: {:?}", empty_path);
+        println!("{}", sample.input);
+        println!("{}", sample.output);
 
-        // 根据字符串切片创建 `PathBuf`
-        let path = PathBuf::from(r"C:\windows\system32.dll");
+        // println!("{}", content["samples"]["input"].to_string());
+        // println!("{}", content["samples"]["output"].to_string());
+        println!("{}", content["hint"].to_string());
+        println!("{}", content["source"].to_string());
+    }
 
-        // 添加路径
-        empty_path.push(r"C:\");
+    #[test]
+    fn current_path() {
+        let paths = fs::read_dir("./problems/1").unwrap();
 
-        println!("empty_path: {:?}, path: {:?}", empty_path, path);
+        for path in paths {
+            println!("Name: {}", path.unwrap().path().display())
+        }
     }
 }

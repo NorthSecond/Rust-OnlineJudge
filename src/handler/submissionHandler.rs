@@ -48,6 +48,21 @@ pub struct SubmissionBrief {
     id: u32,
     shared: bool,
 }
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct SubmissionRes {
+    //        let data = {id: this.submission.id, shared: shared}
+    data: SubmissionWeb,
+    error: String,
+}
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct SubmissionsRes {
+    //        let data = {id: this.submission.id, shared: shared}
+    data: Vec<SubmissionWeb>,
+    error: String,
+}
+
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionData{
     /*
@@ -63,6 +78,13 @@ pub struct SubmissionData{
     pub code: String,
     pub contest_id: u32,
 }
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct submissionExistsRes {
+    pub data: bool,
+    pub error: String,
+}
+
 /*
 class JudgeStatus:
     COMPILE_ERROR = -2
@@ -90,7 +112,8 @@ async fn submitCode(
 
     // compile(body, config, sub.id);
     // return result
-    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submission).unwrap())
+    let mut res = SubmissionRes::default();
+    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&res).unwrap())
 }
 
 #[get("/api/submission")]
@@ -130,10 +153,12 @@ async fn getSubmission(
     submissionWeb.statistic_info = String::from("");
     submissionWeb.ip = String::from("");
     
-    // get submission from database
-
+    let mut res = SubmissionRes{
+        data: submissionWeb,
+        error: String::from(""),
+    };
     // return result
-    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submissionWeb).unwrap())
+    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&res).unwrap())
 }
 
 #[get("/api/submissions")]
@@ -180,10 +205,12 @@ async fn getSubmissionsList(
         submissionsWeb.push(submissionWeb);
     };
     
-    // get submissions from database
-
+    let mut submissionsRes = SubmissionsRes{
+        data: submissionsWeb,
+        error: String::from(""),
+    };
     // return result
-    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submissionsWeb).unwrap())
+    HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submissionsRes).unwrap())
 }
 
 #[get("/api/submission_exists")]
@@ -200,13 +227,25 @@ async fn submissionExists(
     match submissions{
         Ok(submissions) => {
             if submissions.len() > 0 {
-                HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&true).unwrap())
+                let mut res = submissionExistsRes{
+                    data: true,
+                    error: String::from(""),
+                };
+                HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&res).unwrap())
             } else {
-                HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&false).unwrap())
+                let mut res = submissionExistsRes{
+                    data: false,
+                    error: String::from(""),
+                };
+                HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&res).unwrap())
             }
         },
         Err(_) => {
-            HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&false).unwrap())
+            let mut res = submissionExistsRes{
+                    data: false,
+                    error: String::from(""),
+                };
+            HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&res).unwrap())
         }
     }
 }

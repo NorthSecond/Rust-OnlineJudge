@@ -80,10 +80,12 @@ create table `tb_contest` (
 	`contest_intro` text,
 	`contest_startTime` datetime,
 	`contest_endTime` datetime,
-	`contest_type` varchar(32),
 	`contest_rule` varchar(32),
 	`contest_creator` varchar(32),
-	`contest_password` varchar(32)
+	`contest_password` varchar(32),
+	`contest_realTimeRank` boolean,
+	`contest_visible`  boolean,
+	`contest_lastUpdateTime` datetime
 );
 /*==============================================================*/
 /* Table: tb_rank                                               */

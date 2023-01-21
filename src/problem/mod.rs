@@ -62,3 +62,17 @@ pub async fn getProblemByID (
         Err(info)=>None,
     }
 }
+
+pub async fn getProblemListWithOffsite (
+    pool: web::Data<Mutex<Pool>>,
+    offsite: u64,
+    limit: u64
+)->Option<Vec<Problem>> {
+    let RProblems=
+        getProblems(pool, &format!("where `problem_id` between {} and {}", offsite * limit, offsite * limit + limit)).await;
+
+    match RProblems {
+        Ok(problems)=>Some(problems),
+        Err(info)=>None,
+    }
+}
