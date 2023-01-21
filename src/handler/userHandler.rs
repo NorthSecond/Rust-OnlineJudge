@@ -67,6 +67,9 @@ async fn userlogin(
     match getUserByName(pool, &body.username).await{
         Some(user)=>{
             if(user.password==body.password){
+                // unsafe {
+                //     uname = Some(body.username.clone());
+                // }
                 HttpResponse::Ok().json(
                     LOGIN_SUCCESS{
                         data:"login success".to_string(),
@@ -99,6 +102,38 @@ async fn tfaRequiredCheck(
         }
     )
 }
+
+
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct RegisterInfo{
+    pub username:String,
+    pub password:String,
+    pub email:String,
+}
+
+
+#[post("/register")]
+async fn registerUser(
+    body: web::Json<RegisterInfo>,
+    pool: Data<Mutex<Pool>>,
+    config: Data<Config>
+)-> impl Responder{
+    
+    log::info!("用户注册 {:?}",body);
+   
+    match createUser(pool, &body.username, &body.password, &body.email).await {
+        Some(user) => {
+            HttpResponse::Ok().body("注册成功")
+        },
+        None => {
+            HttpResponse::Ok().body("注册失败")
+        }
+    }
+}
+
+
+
 
 #[get("/api/path")]
 async fn extractor_multiple(p: web::Path<(String, String)>, q: web::Query<LoginInfo>) -> String {
@@ -151,11 +186,11 @@ async fn dbtest(
 
 #[get("/api/profile")]
 async fn getUserInfo (
-    body: web::Json<LoginInfo>,
+    // body: web::Json<LoginInfo>,
     pool: Data<Mutex<Pool>>,
     config: Data<Config>
 ) -> impl Responder {
-    log::info!("获取信息 {:?}",body);
+    // log::info!("获取信息 {:?}",body);
     let mut user_info: User=User { 
         username: "default".to_string(), 
         email: "default".to_string(), 
@@ -171,7 +206,7 @@ async fn getUserInfo (
         open_api_appkey: "".to_string(), 
         is_disable: false, 
     };
-    match getUserByName(pool, &body.username).await {
+    match getUserByName(pool, &"Durant".to_string()).await {
         Some(user) => {
             user_info.username = user.username;
             user_info.email = user.email;
@@ -185,4 +220,5 @@ async fn getUserInfo (
                 .body(serde_json::to_string_pretty(&user_info).unwrap());
         }
     }
+    
 }
