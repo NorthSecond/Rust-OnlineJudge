@@ -101,6 +101,12 @@ pub struct tagRes {
     error: String,
 }
 
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct ProblemRes {
+    data: Detailed_Problem,
+    error: String,
+}
+
 #[get("/api/problem")]
 async fn getProblemList ( 
     pool: Data<Mutex<Pool>>,
