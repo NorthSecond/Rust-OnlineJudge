@@ -9,9 +9,9 @@ mod problem;
 
 
 #[cfg(test)]
-mod compileTest {
+mod runnerTest {
     use std::fs;
-    use crate::job::PostJob;
+    use crate::{job::PostJob, runner, problem};
 
     // use std::io::BufReader;
     use super::runner::compile;
@@ -39,6 +39,26 @@ mod compileTest {
         assert_eq!(2 + 2, 4);
     }
 
+    #[test]
+    fn run_bin() {
+        let id=10;
+        let problem=1;
+        let index=1;;
+        let time_limit=10000;
+        let mem_limit=1000000;
+        let bin_path=format!("oj_runtime_dir/job_{}/job.exe", id);
+        let out_path=format!("oj_runtime_dir/job_{}/", id);
+        let input_path=format!("problems/{}",problem);
+        let res=runner::run(index, input_path, bin_path, out_path, time_limit, mem_limit);
+        match res {
+            Ok(time)=>{
+                log::info!("{} problem time is {}",problem,time);
+            }
+            Err(result)=>{
+                log::warn!("{} problem runtime error {}",problem,result);
+            }
+        }
+    }
     #[test]
     fn another() {
         
@@ -109,6 +129,9 @@ mod submissionTest{
             Mutex::new(pool.clone()));
         submission::update(&pool, format!("result=0"), format!("id=3")).await;
     }
+
+
+    
 
 
 }

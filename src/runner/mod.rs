@@ -1,10 +1,11 @@
 use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::io::Write;
-use std::process::{Command, Stdio};
+use std::process::{Command, Stdio, Output};
 // use std::sync::Arc;
 use std::time::{Duration, Instant};
 use actix_web::web::Data;
+use chrono::format::format;
 use wait_timeout::ChildExt;
 use tokio::sync::Mutex;
 use mysql::*;
@@ -160,6 +161,44 @@ pub fn compile(
 }
 
 
+pub fn run(index:u32,input_path:String,bin_path:String,
+    out_path:String,time_limit:u64,mem_limit:u64)
+    ->core::result::Result<u128,i8>
+{   let input_file=format!("{}/{}.in",input_path,index);
+    let out_file = format!("{}/{}.out", out_path, index).to_string();
+    let now = Instant::now();
+    let mut runner = Command::new(&bin_path)
+        .stdin(Stdio::from(std::fs::File::open(input_file).unwrap()))
+        .stdout(Stdio::from(std::fs::File::create(out_file).unwrap()))
+        .stderr(Stdio::null())
+        .spawn()
+        .unwrap();
+    let wait_time = Duration::from_micros(time_limit);
+    let mut real_time: u128 = 0;
+    match runner.wait_timeout(wait_time).unwrap() {
+        Some(status) => {
+            if status.code().unwrap() != 0 {
+                //Runtime Error
+                return Err(RESULTS::RUNTIME_ERROR );
+            } else {
+                //Exited Normally
+                real_time = now.elapsed().as_micros();
+
+                return Ok(real_time);
+            }
+        }
+        None => {
+            //Time Limit Exceeded
+            real_time = now.elapsed().as_micros();
+            return Err(RESULTS::REAL_TIME_LIMIT_EXCEEDED);
+        }
+    };
+
+
+}
+
+
+
 pub async fn judge(
     pool : &Data<Mutex<Pool>>,
     config: Data<Config>,
@@ -197,15 +236,19 @@ pub async fn judge(
         }
     };
     let cases=getCasesByProblemId(pool, sub.problem as u64);
-    match cases.await{
+    let mut score: f32 = 0.0;
+    let mut flag: bool = true;
+    let cases=match cases.await{
         Some(cases)=>{
-            
-
+            cases
         },
         _=>{
-            
+            updateResult(pool, RESULTS::ACCEPTED, sub.id);
+            updateScore(pool,100,sub.id );
+            log::warn!("{} problem didn't have cases, so submission all accepted",sub.problem);
+            return false;
         }
-    }
+    };
 
 
 
