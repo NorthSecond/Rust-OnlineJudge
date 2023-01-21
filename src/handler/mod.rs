@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 
 mod userHandler;
 mod problemHandler;
+pub mod contestHandler;
 pub mod submissionHandler;
 
 #[post("/internal/exit")]
@@ -23,6 +24,7 @@ pub fn route(config: &mut web::ServiceConfig) {
     config.service(userHandler::dbtest);
     config.service(userHandler::extractor_multiple);
     config.service(userHandler::userlogin);
+    config.service(contestHandler::getContestList);
     config.service(userHandler::getUserInfo);
     config.service(userHandler::postTest);
     config.service(userHandler::tfaRequiredCheck);
