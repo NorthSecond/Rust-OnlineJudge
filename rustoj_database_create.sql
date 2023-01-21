@@ -68,6 +68,9 @@ INSERT INTO `tb_problem` (`problem_id`, `problem_title`, `problem_path`)
 VALUES (19, '[ZJOI2010]任务安排', './problems/19');
 INSERT INTO `tb_problem` (`problem_id`, `problem_title`, `problem_path`)
 VALUES (20, '图书管理员', './problems/20');
+INSERT INTO `tb_problem` (`problem_id`, `problem_title`, `problem_path`)
+VALUES (100, '图书管理员', './problems/100');
+
 
 /*==============================================================*/
 /* Table: tb_contest                                               */
