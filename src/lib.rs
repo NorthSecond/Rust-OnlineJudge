@@ -168,7 +168,7 @@ mod submissionTest{
         use crate::handler;
         use crate::runner;
         use crate::config;
-
+        use crate::submission::RESULTS;
         let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
         let pool = Pool::new(url).unwrap(); // 获取连接池
         let pool=Data::new(
@@ -190,6 +190,9 @@ mod submissionTest{
         };
         runner::judge(&pool, config, body).await;
         
+        let sub=submission::getLatest(&pool).await;
+        let result=sub.unwrap().result;
+        assert!(result==RESULTS::COMPILE_ERROR,"result = {}",result);
     }
 
     #[actix_rt::test]
