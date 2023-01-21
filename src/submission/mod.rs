@@ -15,6 +15,9 @@ use  std::str;
 use crate::config::{Problem, Language};
 
 
+
+
+
 pub mod RESULTS{
     pub const COMPILE_ERROR:i8 = -2;
     pub const WRONG_ANSWER:i8 = -1;
@@ -112,6 +115,7 @@ pub async fn get(
             Submission { id: id, contest: contest, problem: problem, create_time:create_time, username: username, language:language ,code: code, result:result, time_cost: time_cost, memory_cost:memory_cost, err_info: err_info, score:score }
         },
     );
+    drop(conn);
     submissions
 }
 
@@ -161,14 +165,15 @@ pub async fn createSubmission(
                 "code"=>encode(code),
                 "r" => RESULTS::PENDING,
     });
-    
+    drop(conn);
     let mut obj =getLatest(pool).await;
+   
     obj  
 }
 
 
 pub async fn update(
-    pool: web::Data<Mutex<Pool>>,
+    pool: &web::Data<Mutex<Pool>>,
     set:String,
     condition:String,
 )->bool{
@@ -180,9 +185,21 @@ pub async fn update(
         format!("update tb_submission set {}  where {};",set,condition)  ,
         ()
     );
-    
+    drop(conn);
     true
 }
+
+pub async fn updateResult(
+    pool: &web::Data<Mutex<Pool>>,
+    result:i8,
+    id:u32,
+)->bool{
+    update(&pool, format!("result = {}",result),format!("id = {}",id)).await
+
+}
+
+
+
 
 pub async fn getByProblemId(
     pool: web::Data<Mutex<Pool>>,

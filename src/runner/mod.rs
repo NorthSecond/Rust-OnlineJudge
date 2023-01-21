@@ -2,20 +2,28 @@ use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::io::Write;
 use std::process::{Command, Stdio};
-use std::sync::Arc;
+// use std::sync::Arc;
 use std::time::{Duration, Instant};
 use actix_web::web::Data;
 use wait_timeout::ChildExt;
+use tokio::sync::Mutex;
+use mysql::*;
+use mysql::prelude::*;
+
+
 
 use super::job;
-use super::config;
-use crate::submission;
+use super::config::{*,self};
+use crate::submission::{self,*};
+use crate::problem::{self, getProblemByID, getCasesByProblemId};
+use crate::handler::submissionHandler::{SubmissionData,SubmissionWeb};
+
 mod diff;
 
 pub fn compileForSub(
     sub: &submission::Submission,
     config: &Data<config::Config>,
-){
+)->Option<i32>{
     let _ = std::fs::create_dir("oj_runtime_dir");
     let _ = std::fs::remove_dir_all(format!("oj_runtime_dir/job_{}", sub.id));
     let _ = std::fs::create_dir(format!("oj_runtime_dir/job_{}", sub.id));
@@ -78,7 +86,7 @@ pub fn compileForSub(
             compiler.wait().unwrap().code()
         }
     };
-
+    status_code
 }
 
 pub fn compile(
@@ -149,4 +157,58 @@ pub fn compile(
         }
     };
 
+}
+
+
+pub async fn judge(
+    pool : &Data<Mutex<Pool>>,
+    config: Data<Config>,
+    body: SubmissionData,
+)->bool {
+    // TODO: Need a Submission struct
+    let mut submission = SubmissionWeb::default();
+    // insert submission to database
+
+    let username=("username").to_string();
+    let mut sub= match submission::createSubmission(
+        pool,
+        body.contest_id,
+        body.problem_id,
+        &username,
+        &body.language,
+        &body.code,
+    ).await{
+        Some(one)=>one,
+        _=>{
+            Submission::default()
+        }
+        None => todo!(),
+    };
+
+    updateResult(pool,RESULTS::JUDGING,sub.id);
+    let status_code=compileForSub(&sub, &config);
+    match status_code {
+        Some(0) => {
+            //Compilation Success
+        }
+        _ => {
+            updateResult(pool,RESULTS::COMPILE_ERROR,sub.id);
+            return false;
+        }
+    };
+    let cases=getCasesByProblemId(pool, sub.problem as u64);
+    match cases.await{
+        Some(cases)=>{
+            
+
+        },
+        _=>{
+            
+        }
+    }
+
+
+
+    
+    true
 }

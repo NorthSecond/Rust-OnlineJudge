@@ -14,6 +14,23 @@ pub struct Problem {
     pub problemPath: String,
 }
 
+pub struct Case{
+    input:String,
+    ouput:String,
+}
+
+pub struct ProblemTi {
+    pub _id: u64,
+    pub problemTitle: String,
+    pub cases: Vec<Case>,
+}
+
+pub async fn getCasesByProblemId(
+    pool: &web::Data<Mutex<Pool>>,
+    id:u64)->Option<Vec<Case>> {
+    None
+}
+
 pub async fn getProblems (
     pool: web::Data<Mutex<Pool>>,
     condition:&String
