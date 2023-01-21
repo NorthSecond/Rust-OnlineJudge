@@ -21,7 +21,7 @@ use self::diff::diff_strict;
 use super::job;
 use super::config::{*,self};
 use crate::submission::{self,*};
-use crate::problem::{self, getProblemByID, getCasesByProblemId};
+// use crate::problem::{self, getProblemByID, getTimeByProblemId};
 use crate::handler::submissionHandler::{SubmissionData,SubmissionWeb};
 
 pub mod diff;
@@ -277,8 +277,10 @@ pub async fn judge(
     let out_path=format!("oj_runtime_dir/job_{}/", id);
     let input_path=format!("problems/{}",problem);
  
-    let time_limit=10000000;
+    // let (time_limit,mem_limit)=getTimeByProblemId(problem);
+    let time_limit=1000000;
     let mem_limit=1000000;
+   
     let f_names=util::dirGet(&input_path, ".in");
 
     // let pre_score:f32=(100)as f32/ f32::try_from(f_names.len() as u32).unwrap() ;
