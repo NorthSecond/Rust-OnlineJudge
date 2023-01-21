@@ -220,7 +220,7 @@ pub async fn judge(
     body: SubmissionData,
 )->bool {
     // TODO: Need a Submission struct
-    let mut submission = SubmissionWeb::default();
+    // let mut submission = SubmissionWeb::default();
     // insert submission to database
 
     let username=("username").to_string();
@@ -314,4 +314,73 @@ pub async fn judge(
         updateResult(pool, RESULTS::WRONG_ANSWER, id).await;
     }
     true
+}
+
+
+
+pub async fn judgeForSub(
+    pool : &Data<Mutex<Pool>>,
+    config: Data<Config>,
+    sub: Submission,
+)->bool{
+    updateResult(pool,RESULTS::JUDGING,sub.id).await;
+    let status_code=compileForSub(&sub, &config);
+    match status_code {
+        Some(0) => {
+            //Compilation Success
+        }
+        _ => {
+            log::warn!("compile error");
+            // println!("compile error");
+            updateResult(pool,RESULTS::COMPILE_ERROR,sub.id).await;
+            
+            return false;
+        }
+    };
+    
+    let id=sub.id;
+    let problem=sub.problem;
+    let bin_path=format!("oj_runtime_dir/job_{}/job.exe", id);
+    let out_path=format!("oj_runtime_dir/job_{}/", id);
+    let input_path=format!("problems/{}",problem);
+ 
+    // let (time_limit,mem_limit)=getTimeByProblemId(problem);
+    let time_limit=1000000;
+    let mem_limit=1000000;
+   
+    let f_names=util::dirGet(&input_path, ".in");
+
+    // let pre_score:f32=(100)as f32/ f32::try_from(f_names.len() as u32).unwrap() ;
+    let mut tot=0;
+    let mut pass=0;
+    let mut time_tot:u64=0;
+    for (index, value) in f_names.iter().enumerate(){
+        let indexi=index+1;
+        let res=run(indexi as u32, &input_path, &bin_path, &out_path, time_limit, mem_limit);
+        tot=tot+1;
+        match res {
+            Ok(time)=>{
+                log::info!("{} problem time is {}",problem,time);
+                if score_single(indexi, &input_path, &out_path){
+                    pass=pass+1;
+                }
+                time_tot+=time as u64;
+            }
+            Err(result)=>{
+                log::warn!("{} problem runtime error result:{}",problem,result);
+                updateResult(pool, result, id).await;
+                return false;
+            }
+        }
+    }
+    
+
+    let score=pass * 100 / tot; 
+    if(tot==pass){
+        updateResult(pool,RESULTS::ACCEPTED , id).await;
+    }else{
+        updateResult(pool, RESULTS::WRONG_ANSWER, id).await;
+    }
+    true
+
 }

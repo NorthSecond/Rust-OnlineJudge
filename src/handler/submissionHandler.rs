@@ -34,6 +34,32 @@ pub struct SubmissionWeb {
     ip : String,
 }
 
+impl SubmissionWeb{
+    pub fn transfer(submission:&Submission)->SubmissionWeb{
+        let mut info :SubmissionInfo = SubmissionInfo::default();
+        info.time_cost = submission.time_cost;
+        info.memory_cost = submission.memory_cost;
+        info.err_info = submission.err_info.clone();
+        info.result = submission.result;
+    
+        let mut submissionWeb = SubmissionWeb::default();
+        submissionWeb.id = submission.id;
+        submissionWeb.contest = submission.contest;
+        submissionWeb.problem = submission.problem;
+        submissionWeb.create_time = submission.create_time.to_owned();
+        submissionWeb.user_id = submission.username.clone();
+        submissionWeb.code = submission.code.clone();
+        submissionWeb.result = submission.result.clone();
+        submissionWeb.info = info;
+        submissionWeb.language = submission.language.clone();
+        submissionWeb.shared = false;
+        submissionWeb.statistic_info = String::from("");
+        submissionWeb.ip = String::from("");
+        submissionWeb
+    }
+}
+
+
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionInfo {
     time_cost: u32,
@@ -116,11 +142,37 @@ async fn submitCode(
         code:body.code.clone(),
         language:body.language.clone(),
     };
-    let res=runner::judge(&pool, config,data );
+    let username=("username").to_string();
+    let mut sub= match submission::createSubmission(
+        &pool,
+        body.contest_id,
+        body.problem_id,
+        &username,
+        &body.language,
+        &body.code,
+    ).await{
+        Some(one)=>one,
+        _=>{
+            Submission::default()
+        }
+        None => todo!(),
+    };
+    // leres.id=sub.id;
+    let subWeb=SubmissionWeb::transfer(&sub);
+    // let mut res = SubmissionRes::default();
 
-    // compile(body, config, sub.id);
-    // return result
-    let mut res = SubmissionRes::default();
+    let res=SubmissionRes{
+        data:subWeb,
+        error:"".to_string()
+    };
+
+    let _ = tokio::spawn(async move {
+        runner::judgeForSub(&pool, config, sub)
+        .await;
+    });
+    // runner::judgeFor(&pool, config,sub);
+
+   
     HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&res).unwrap())
 }
 

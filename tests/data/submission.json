@@ -1,0 +1,6 @@
+{
+    "problem_id" : 1,
+    "language": "Rust",
+    "code":"fn main(){print!('hello world!');}",
+    "contest_id":1
+}
