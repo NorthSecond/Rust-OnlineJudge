@@ -16,21 +16,7 @@ use crate::runner::*;
 use crate::submission::{*,self, RESULTS};
 use crate::error_log::SUBMISSION;
 
-#[derive(Deserialize, Serialize, Clone, Default, Debug)]
-pub struct SubmissionData{
-    /*
-            let data = {
-          problem_id: this.problem.id,
-          language: this.language,
-          code: this.code,
-          contest_id: this.contestID
-        }
-    */
-    problem_id: u32,
-    language: String,
-    code: String,
-    contest_id: u32,
-}
+
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionWeb {
@@ -62,7 +48,21 @@ pub struct SubmissionBrief {
     id: u32,
     shared: bool,
 }
-
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct SubmissionData{
+    /*
+            let data = {
+          problem_id: this.problem.id,
+          language: this.language,
+          code: this.code,
+          contest_id: this.contestID
+        }
+    */
+    pub problem_id: u32,
+    pub language: String,
+    pub code: String,
+    pub contest_id: u32,
+}
 /*
 class JudgeStatus:
     COMPILE_ERROR = -2
@@ -86,32 +86,7 @@ async fn submitCode(
 ) -> impl Responder {
 
     // call judge
-    
-    // TODO: Need a Submission struct
-    let mut submission = SubmissionWeb::default();
-    // insert submission to database
-
-    let username=("username").to_string();
-    let mut sub= match createSubmission(
-        &pool,
-        body.contest_id,
-        body.problem_id,
-        &username,
-        &body.language,
-        &body.code,
-    ).await{
-        Some(one)=>one,
-        _=>{
-            
-            Submission::default()
-        }
-    };
-
-
-
-    update(pool, format!("result = {}",RESULTS::JUDGING),format!("id = {}",sub.id));
-    compileForSub(&sub, &config);
-
+    let submission=SubmissionWeb::default();
 
     // compile(body, config, sub.id);
     // return result

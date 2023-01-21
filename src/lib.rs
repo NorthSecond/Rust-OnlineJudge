@@ -107,7 +107,7 @@ mod submissionTest{
         let pool = Pool::new(url).unwrap();
         let pool =Data::new(
             Mutex::new(pool.clone()));
-        submission::update(pool, format!("result=0"), format!("id=3")).await;
+        submission::update(&pool, format!("result=0"), format!("id=3")).await;
     }
 
 

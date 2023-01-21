@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 
 mod userHandler;
 mod problemHandler;
-mod submissionHandler;
+pub mod submissionHandler;
 
 #[post("/internal/exit")]
 #[allow(unreachable_code)]
