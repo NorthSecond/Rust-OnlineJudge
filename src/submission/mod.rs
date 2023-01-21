@@ -8,15 +8,10 @@ use mysql::*;
 use mysql::prelude::*;
 use tokio::sync::Mutex;
 
-
 use base64::encode;
 use base64::decode;
 use  std::str;
 use crate::config::{Problem, Language};
-
-
-
-
 
 pub mod RESULTS{
     pub const COMPILE_ERROR:i8 = -2;
