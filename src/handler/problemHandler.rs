@@ -1,6 +1,6 @@
 use core::borrow;
 use std::collections::HashMap;
-
+use std::fs::File;
 use actix_web::http::header::ContentType;
 use actix_web::{delete, get, post, web,web::Data};
 use actix_web::{HttpResponse, Responder};
@@ -14,6 +14,9 @@ use mysql::*;
 use mysql::prelude::*;
 use tokio::sync::Mutex;
 use crate::problem::{*, self};
+use serde_json::{Value};
+use std::path::Path;
+
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct ProblemTag {
@@ -136,4 +139,49 @@ async fn getProblem (
                 .body(serde_json::to_string_pretty(&p).unwrap());
         }
     }
+}
+
+
+
+#[get("/api/problem/{problem_id}")]
+async fn getProblemContent (
+    pool: Data<Mutex<Pool>>,
+    config: Data<Config>,
+    query: web::Query<HashMap<String, String>>
+) -> impl Responder {
+    let mut id = query.get("_id").unwrap_or(&"10".to_string()).parse::<u64>().unwrap();
+    let mut p = Detailed_Problem::default();
+    match getProblemByID(pool, id).await {
+        Some(problem) => {
+            let path = format!("../../../problems/{}/problem.json",id);
+            let path = Path::new(path.as_str());
+            let problem_file = File::open("path").unwrap();
+            let content: serde_json::Value = serde_json::from_reader(problem_file).unwrap();
+            
+            p._id = problem._id.clone();
+            p.title = problem.problemTitle.clone();
+            p.description = content["description"].to_string();
+            p.time_limit = content["time_limit"].as_u64().unwrap();
+            p.memory_limit = content["memory_limit"].as_u64().unwrap();
+            p.samples.input = content["samples"]["input"].to_string();
+            p.samples.output = content["samples"]["output"].to_string();
+            p.hint = content["hint"].to_string();
+            p.source = content["source"].to_string();
+            return HttpResponse::Ok()
+                .content_type(ContentType::json())
+                .body(serde_json::to_string_pretty(&p).unwrap());
+        },
+        None => {
+            return HttpResponse::Ok()
+                .content_type(ContentType::json())
+                .body(serde_json::to_string_pretty(&p).unwrap());
+        }
+    }
+}
+
+
+
+fn read_json(raw_json:&str) -> Value {
+    let parsed: Value = serde_json::from_str(raw_json).unwrap();
+    return parsed
 }

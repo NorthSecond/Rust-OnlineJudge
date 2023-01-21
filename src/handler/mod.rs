@@ -31,7 +31,8 @@ pub fn route(config: &mut web::ServiceConfig) {
     config.service(problemHandler::getProblemList);
     config.service(problemHandler::getProblem);
     config.service(problemHandler::getProblemTags);
-        // config.service()
+    
+    config.service(problemHandler::getProblemContent);
 
 
     // submissionHandler
@@ -40,6 +41,10 @@ pub fn route(config: &mut web::ServiceConfig) {
     config.service(submissionHandler::getSubmissionsList);
     config.service(submissionHandler::submissionExists);
     config.service(submissionHandler::shareSubmission);
+
+
+    
+
 
 }
 
