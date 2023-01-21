@@ -36,6 +36,27 @@ impl LOGIN  {
 }
 
 #[derive(Deserialize, Serialize)]
+pub struct NOT_FOUND {
+    code: u32,
+    reason: &'static str,
+    message: String,
+}
+
+impl NOT_FOUND {
+    pub fn new(message: &str) -> NOT_FOUND {
+        NOT_FOUND {
+            code: 3,
+            reason: "ERR_NOT_FOUND",
+            message: message.to_string(),
+        }
+    }
+    pub fn msg(message: &str) -> String {
+        to_string_pretty(&NOT_FOUND::new(message)).unwrap()
+    }
+    pub fn webmsg(message: &str) -> HttpResponse {
+        HttpResponse::NotFound().body(NOT_FOUND::msg(message))
+    }
+}
 pub struct SUBMISSION {
     error: u32,
     data: &'static str,

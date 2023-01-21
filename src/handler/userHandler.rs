@@ -42,6 +42,12 @@ pub struct User {
 }
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct UserRes {
+    pub data: User,
+    pub error: String,
+}
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct LoginInfo{
     pub username:String,
     pub password:String,
@@ -208,14 +214,22 @@ async fn getUserInfo (
         Some(user) => {
             user_info.username = user.username;
             user_info.email = user.email;
+            let userRes:UserRes = UserRes {
+                data: user_info,
+                error: "".to_string(),
+            };
             return HttpResponse::Ok()
                 .content_type(ContentType::json())
-                .body(serde_json::to_string_pretty(&user_info).unwrap());
+                .body(serde_json::to_string_pretty(&userRes).unwrap());
         }, 
         None => {
+            let userRes:UserRes = UserRes {
+                data: user_info,
+                error: "Please login".to_string(),
+            };
             return HttpResponse::Ok()
                 .content_type(ContentType::json())
-                .body(serde_json::to_string_pretty(&user_info).unwrap());
+                .body(serde_json::to_string_pretty(&userRes).unwrap());
         }
     }
     
