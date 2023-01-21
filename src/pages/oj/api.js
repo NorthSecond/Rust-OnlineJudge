@@ -141,9 +141,21 @@ export default {
   },
   getContestList (offset, limit, searchParams) {
     let params = {
-      offset,
-      limit
+      offset: offset,
+      limit: limit
     }
+    if (searchParams !== undefined) {
+      Object.keys(searchParams).forEach((element) => {
+        if (searchParams[element]) {
+          params[element] = searchParams[element]
+        }
+      })
+    }
+    return ajax('contests', 'get', {
+      params: params
+    })
+  },
+  getContestLists (params, searchParams) {
     if (searchParams !== undefined) {
       Object.keys(searchParams).forEach((element) => {
         if (searchParams[element]) {
@@ -294,8 +306,9 @@ function ajax (url, method, options) {
       // API正常返回(status=20x), 是否错误通过有无error判断
       // console.log(res.data)
       // resolve(res)
-
-      if (res.data.error !== '') {
+      if (res.data.error === undefined) {
+        resolve(res)
+      } else if (res.data.error !== '') {
         console.log('Err:' + res.data.err)
         Vue.prototype.$error(res.data.data)
         reject(res)
