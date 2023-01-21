@@ -118,13 +118,24 @@ async fn getProblemList (
     let mut offsite = query.get("offsite").unwrap_or(&"0".to_string()).parse::<u64>().unwrap();
     // let mut conn=pool.lock().await.get_conn().unwrap();// 获取链接
     
-    let mut p = Detailed_Problem::default();
-    p._id = 1;
-    p.title = "测试题目".to_string();
-    let mut res : Vec<Detailed_Problem> = Vec::new();
-    res.push(p);
+        // get problems from database
+        // offiste->limit + offsite
+    let mut r: Vec<Problem> = match getProblemListWithOffsite(pool, offsite, limit).await {
+        Some(r) => r,
+        None => Vec::new(),
+    };
+
+    let mut res: Vec<Detailed_Problem> = Vec::new();
+    for i in 0..r.len() {
+        let mut tmp = Detailed_Problem::default();
+        tmp._id = r[i]._id;
+        tmp.title = r[i].problemTitle.clone();
+        tmp.difficulty = "Mid".to_string();
+        res.push(tmp);
+    }
+
     let mut problemList = ProblemList {
-        total: 1,
+        total: 20 as u64,
         results: res,
     };
     let mut problemListRes = ProblemListRes {
