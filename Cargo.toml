@@ -26,6 +26,9 @@ base64 = ">=0.21.0"
 wait-timeout = ">=0.2.0"
 # 文章差异性检验
 file_diff = ">=1.0.0"
+# 目录遍历
+walkdir ="*"
+
 
 chrono = ">=0.4" # 使用chrono来处理日期和时间列
 mysql = ">=23"

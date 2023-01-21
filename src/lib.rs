@@ -59,11 +59,32 @@ mod runnerTest {
             }
         }
     }
+
+    use walkdir::*;
     #[test]
-    fn another() {
-        
-    }
+    fn dir_get() {
+
+
+        let problem=1;
+
+        let input_path=format!("problems/{}",problem);
+       
+        let mut counter=0;
+        for entry in WalkDir::new(input_path)
+            .into_iter()
+            .filter_map(Result::ok)
+            .filter(|e| !e.file_type().is_dir()) {
+                let f_name = String::from(entry.file_name().to_string_lossy());
+                if f_name.ends_with(".in") {
+                    counter += 1;
+                    println!("{}", f_name);
+                }   
+            }
+        }   
+
+
 }
+
 
 
 
