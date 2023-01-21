@@ -238,7 +238,42 @@ mod submissionTest{
 
     #[actix_rt::test]
     async fn Accepted_check(){
+        use mysql::*;
+        use mysql::prelude::*;
+        use actix_web::web::Data;
+        use crate::submission::{self, getById};
+        use tokio::sync::Mutex;
+        use actix_rt;
+        use crate::handler;
+        use crate::runner;
+        use crate::config;
+        use crate::submission::RESULTS;
+        use std::fs;
+
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
+        let pool = Pool::new(url).unwrap(); // 获取连接池
+        let pool=Data::new(
+            Mutex::new(pool.clone()));
+
+        let config_path: String = "./config.json".to_string();
+
+        let config: config::Config =
+            config::parse_from_file(config_path).expect("Config file format error.");
+
+        let config=Data::new(config);
+        let code=fs::read_to_string("./tests/data/main2.cpp").unwrap();
+
+        let body=handler::submissionHandler::SubmissionData{
+            problem_id:100,
+            contest_id:122,
+            code:code,
+            language:"C++".to_string(),
+        };
+        runner::judge(&pool, config, body).await;
         
+        let sub=submission::getLatest(&pool).await;
+        let result=sub.unwrap().result;
+        assert!(result==RESULTS::ACCEPTED,"result = {}",result);
 
     }
 

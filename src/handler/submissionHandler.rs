@@ -12,7 +12,7 @@ use std::collections::HashMap;
 use std::fmt::format;
 use actix_web::http::header::ContentType;
 
-use crate::runner::*;
+use crate::runner::{*, self};
 use crate::submission::{*,self, RESULTS};
 use crate::error_log::SUBMISSION;
 
@@ -108,7 +108,15 @@ async fn submitCode(
 ) -> impl Responder {
 
     // call judge
-    let submission=SubmissionWeb::default();
+    // let submission=SubmissionWeb::default();
+
+    let data=SubmissionData{
+        contest_id:body.contest_id,
+        problem_id:body.problem_id,
+        code:body.code.clone(),
+        language:body.language.clone(),
+    };
+    let res=runner::judge(&pool, config,data );
 
     // compile(body, config, sub.id);
     // return result
