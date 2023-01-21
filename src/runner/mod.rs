@@ -4,6 +4,7 @@ use std::io::Write;
 use std::process::{Command, Stdio, Output};
 // use std::sync::Arc;
 use std::time::{Duration, Instant};
+use std::usize;
 use actix_web::web::Data;
 use chrono::format::format;
 use wait_timeout::ChildExt;
@@ -11,7 +12,11 @@ use tokio::sync::Mutex;
 use mysql::*;
 use mysql::prelude::*;
 
+use std::convert::TryFrom;
+use std::convert::TryInto;
 
+
+use self::diff::diff_strict;
 
 use super::job;
 use super::config::{*,self};
@@ -19,7 +24,8 @@ use crate::submission::{self,*};
 use crate::problem::{self, getProblemByID, getCasesByProblemId};
 use crate::handler::submissionHandler::{SubmissionData,SubmissionWeb};
 
-mod diff;
+pub mod diff;
+pub mod util;
 
 pub fn compileForSub(
     sub: &submission::Submission,
@@ -78,7 +84,7 @@ pub fn compileForSub(
     .unwrap();
     let wait_time = Duration::from_secs(15); //compiling for at most 15 seconds
 
-    // compiler.
+    
   
     let status_code = match compiler.wait_timeout(wait_time).unwrap() {
         Some(status) => status.code(),
@@ -87,6 +93,7 @@ pub fn compileForSub(
             compiler.wait().unwrap().code()
         }
     };
+    // println!("status_code{}",status_code);
     status_code
 }
 
@@ -161,11 +168,11 @@ pub fn compile(
 }
 
 
-pub fn run(index:u32,input_path:String,bin_path:String,
-    out_path:String,time_limit:u64,mem_limit:u64)
+pub fn run(index:u32,input_path:&String,bin_path:&String,
+    out_path:&String,time_limit:u64,mem_limit:u64)
     ->core::result::Result<u128,i8>
 {   let input_file=format!("{}/{}.in",input_path,index);
-    let out_file = format!("{}/{}.out", out_path, index).to_string();
+    let out_file = format!("{}/{}.out", out_path, index);
     let now = Instant::now();
     let mut runner = Command::new(&bin_path)
         .stdin(Stdio::from(std::fs::File::open(input_file).unwrap()))
@@ -173,13 +180,13 @@ pub fn run(index:u32,input_path:String,bin_path:String,
         .stderr(Stdio::null())
         .spawn()
         .unwrap();
-    let wait_time = Duration::from_micros(time_limit);
+    let wait_time = Duration::from_millis(time_limit);
     let mut real_time: u128 = 0;
     match runner.wait_timeout(wait_time).unwrap() {
         Some(status) => {
             if status.code().unwrap() != 0 {
                 //Runtime Error
-                return Err(RESULTS::RUNTIME_ERROR );
+                return Err(RESULTS::RUNTIME_ERROR);
             } else {
                 //Exited Normally
                 real_time = now.elapsed().as_micros();
@@ -195,6 +202,14 @@ pub fn run(index:u32,input_path:String,bin_path:String,
     };
 
 
+}
+use file_diff;
+pub fn score_single(index:usize, input_path:&String,out_path:&String)->bool{
+    let input_file=format!("{}/{}.out",input_path,index);
+    let out_file = format!("{}/{}.out", out_path, index);
+    println!("{} {}",input_file,out_file);
+
+    file_diff::diff(input_file.as_str(), out_file.as_str())
 }
 
 
@@ -223,33 +238,78 @@ pub async fn judge(
         }
         None => todo!(),
     };
+    // println!("{:?}",sub);
 
-    updateResult(pool,RESULTS::JUDGING,sub.id);
+    updateResult(pool,RESULTS::JUDGING,sub.id).await;
     let status_code=compileForSub(&sub, &config);
     match status_code {
         Some(0) => {
             //Compilation Success
         }
         _ => {
-            updateResult(pool,RESULTS::COMPILE_ERROR,sub.id);
+            log::warn!("compile error");
+            // println!("compile error");
+            updateResult(pool,RESULTS::COMPILE_ERROR,sub.id).await;
+            
             return false;
         }
     };
-    let cases=getCasesByProblemId(pool, sub.problem as u64);
-    let mut score: f32 = 0.0;
-    let mut flag: bool = true;
-    let cases=match cases.await{
-        Some(cases)=>{
-            cases
-        },
-        _=>{
-            updateResult(pool, RESULTS::ACCEPTED, sub.id);
-            updateScore(pool,100,sub.id );
-            log::warn!("{} problem didn't have cases, so submission all accepted",sub.problem);
-            return false;
+    // let cases=getCasesByProblemId(pool, sub.problem as u64);
+    // // let mut score: f32 = 0.0;
+    // let mut flag: bool = true;
+    // let cases=match cases.await{
+    //     Some(cases)=>{
+    //         cases
+    //     },
+    //     _=>{
+    //         updateResult(pool, RESULTS::ACCEPTED, sub.id);
+    //         updateScore(pool,100,sub.id );
+    //         log::warn!("{} problem didn't have cases, so submission all accepted",sub.problem);
+    //         return false;
+    //     }
+    // };
+    
+
+    let id=sub.id;
+    let problem=sub.problem;
+    let bin_path=format!("oj_runtime_dir/job_{}/job.exe", id);
+    let out_path=format!("oj_runtime_dir/job_{}/", id);
+    let input_path=format!("problems/{}",problem);
+ 
+    let time_limit=10000000;
+    let mem_limit=1000000;
+    let f_names=util::dirGet(&input_path, ".in");
+
+    // let pre_score:f32=(100)as f32/ f32::try_from(f_names.len() as u32).unwrap() ;
+    let mut tot=0;
+    let mut pass=0;
+    let mut time_tot:u64=0;
+    for (index, value) in f_names.iter().enumerate(){
+        let indexi=index+1;
+        let res=run(indexi as u32, &input_path, &bin_path, &out_path, time_limit, mem_limit);
+        tot=tot+1;
+        match res {
+            Ok(time)=>{
+                log::info!("{} problem time is {}",problem,time);
+                if score_single(indexi, &input_path, &out_path){
+                    pass=pass+1;
+                }
+                time_tot+=time as u64;
+            }
+            Err(result)=>{
+                log::warn!("{} problem runtime error result:{}",problem,result);
+                updateResult(pool, result, id).await;
+                return false;
+            }
         }
-    };
+    }
     
-    
+
+    let score=pass * 100 / tot; 
+    if(tot==pass){
+        updateResult(pool,RESULTS::ACCEPTED , id).await;
+    }else{
+        updateResult(pool, RESULTS::WRONG_ANSWER, id).await;
+    }
     true
 }

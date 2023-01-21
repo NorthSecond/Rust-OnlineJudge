@@ -3,6 +3,7 @@ use std::process::{Command, Stdio};
 
 use crate::config::RESULTS;
 
+
 // Return 1 if two files are different
 pub fn diff_strict(file1: &str, file2: &str) -> usize {
     if file_diff::diff(file1, file2) {

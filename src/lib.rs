@@ -11,7 +11,7 @@ mod problem;
 #[cfg(test)]
 mod runnerTest {
     use std::fs;
-    use crate::{job::PostJob, runner, problem};
+    use crate::{job::PostJob, runner::{self, judge}, problem, handler};
 
     // use std::io::BufReader;
     use super::runner::compile;
@@ -49,7 +49,7 @@ mod runnerTest {
         let bin_path=format!("oj_runtime_dir/job_{}/job.exe", id);
         let out_path=format!("oj_runtime_dir/job_{}/", id);
         let input_path=format!("problems/{}",problem);
-        let res=runner::run(index, input_path, bin_path, out_path, time_limit, mem_limit);
+        let res=runner::run(index, &input_path, &bin_path, &out_path, time_limit, mem_limit);
         match res {
             Ok(time)=>{
                 log::info!("{} problem time is {}",problem,time);
@@ -61,28 +61,31 @@ mod runnerTest {
     }
 
     use walkdir::*;
+    use runner::util::dirGet;
     #[test]
     fn dir_get() {
 
+        let problem=1;
+        let input_path=format!("problems/{}",problem);
+        let mut counter=0;
+
+        let fs=dirGet(&input_path, ".in");
+        println!("{:?}",fs);
+    }
+    
+    #[test]
+    fn file_diff(){
+        use runner::diff::*;
 
         let problem=1;
-
         let input_path=format!("problems/{}",problem);
-       
-        let mut counter=0;
-        for entry in WalkDir::new(input_path)
-            .into_iter()
-            .filter_map(Result::ok)
-            .filter(|e| !e.file_type().is_dir()) {
-                let f_name = String::from(entry.file_name().to_string_lossy());
-                if f_name.ends_with(".in") {
-                    counter += 1;
-                    println!("{}", f_name);
-                }   
-            }
-        }   
-
-
+        let out_path=format!("oj_runtime_dir/job_{}",14);
+    
+        println!("{}",diff_standard("problems/1/1.out","oj_runtime_dir/job_14/1.out"));
+        println!("{}",diff_strict("problems/1/1.out","oj_runtime_dir/job_14/1.out"));
+        
+        println!("{}",runner::score_single(1, &input_path, &out_path))
+    }
 }
 
 
@@ -153,6 +156,86 @@ mod submissionTest{
 
 
     
+    #[actix_rt::test]
+    async fn compile_error_check(){
+        use mysql::*;
+        use mysql::prelude::*;
+        use actix_web::web::Data;
+        use crate::submission::{self, getById};
+        use tokio::sync::Mutex;
+        use actix_rt;
+        use crate::handler;
+        use crate::runner;
+        use crate::config;
 
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
+        let pool = Pool::new(url).unwrap(); // 获取连接池
+        let pool=Data::new(
+            Mutex::new(pool.clone()));
+
+        let config_path: String = "./config.json".to_string();
+
+        let config: config::Config =
+            config::parse_from_file(config_path).expect("Config file format error.");
+
+        let config=Data::new(config);
+
+
+        let body=handler::submissionHandler::SubmissionData{
+            problem_id:1,
+            contest_id:122,
+            code:"xxxx".to_string(),
+            language:"Rust".to_string(),
+        };
+        runner::judge(&pool, config, body).await;
+        
+    }
+
+    #[actix_rt::test]
+    async fn wrong_answer_check(){
+        use mysql::*;
+        use mysql::prelude::*;
+        use actix_web::web::Data;
+        use crate::submission::{self, getById};
+        use tokio::sync::Mutex;
+        use actix_rt;
+        use crate::handler;
+        use crate::runner;
+        use crate::config;
+        use crate::submission::RESULTS;
+        use std::fs;
+
+        let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
+        let pool = Pool::new(url).unwrap(); // 获取连接池
+        let pool=Data::new(
+            Mutex::new(pool.clone()));
+
+        let config_path: String = "./config.json".to_string();
+
+        let config: config::Config =
+            config::parse_from_file(config_path).expect("Config file format error.");
+
+        let config=Data::new(config);
+        let code=fs::read_to_string("./tests/data/main.rs").unwrap();
+
+        let body=handler::submissionHandler::SubmissionData{
+            problem_id:1,
+            contest_id:122,
+            code:code,
+            language:"Rust".to_string(),
+        };
+        runner::judge(&pool, config, body).await;
+        
+        let sub=submission::getLatest(&pool).await;
+        let result=sub.unwrap().result;
+        assert!(result==RESULTS::WRONG_ANSWER,"result = {}",result);
+        
+    }
+
+    #[actix_rt::test]
+    async fn Accepted_check(){
+        
+
+    }
 
 }
