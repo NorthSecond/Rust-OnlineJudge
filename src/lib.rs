@@ -111,7 +111,7 @@ mod submissionTest{
     use mysql::*;
     use mysql::prelude::*;
     use actix_web::web::Data;
-    use crate::submission::{self, getById};
+    use crate::submission::{self, getById, Submission};
     use tokio::sync::Mutex;
     use actix_rt;
      #[actix_rt::test]
@@ -188,7 +188,12 @@ mod submissionTest{
             code:"xxxx".to_string(),
             language:"Rust".to_string(),
         };
-        runner::judge(&pool, config, body).await;
+        let username = String::from("Durant");
+        let mut sub = match submission::createSubmission(&pool, body.contest_id, body.problem_id, &username, &body.language, &body.code).await{
+            Some(sub) => sub,
+            None => Submission::default(),
+        };
+        runner::judge(&pool, config, body, sub).await;
         
         let sub=submission::getLatest(&pool).await;
         let result=sub.unwrap().result;
@@ -228,7 +233,12 @@ mod submissionTest{
             code:code,
             language:"Rust".to_string(),
         };
-        runner::judge(&pool, config, body).await;
+        let username = String::from("Durant");
+        let mut sub = match submission::createSubmission(&pool, body.contest_id, body.problem_id, &username, &body.language, &body.code).await{
+            Some(sub) => sub,
+            None => Submission::default(),
+        };
+        runner::judge(&pool, config, body, sub).await;
         
         let sub=submission::getLatest(&pool).await;
         let result=sub.unwrap().result;
@@ -269,7 +279,12 @@ mod submissionTest{
             code:code,
             language:"C++".to_string(),
         };
-        runner::judge(&pool, config, body).await;
+        let username = String::from("Durant");
+        let mut sub = match submission::createSubmission(&pool, body.contest_id, body.problem_id, &username, &body.language, &body.code).await{
+            Some(sub) => sub,
+            None => Submission::default(),
+        };
+        runner::judge(&pool, config, body, sub).await;
         
         let sub=submission::getLatest(&pool).await;
         let result=sub.unwrap().result;

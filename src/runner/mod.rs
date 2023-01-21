@@ -218,26 +218,27 @@ pub async fn judge(
     pool : &Data<Mutex<Pool>>,
     config: Data<Config>,
     body: SubmissionData,
+    sub: Submission,
 )->bool {
     // TODO: Need a Submission struct
     // let mut submission = SubmissionWeb::default();
     // insert submission to database
 
-    let username=("username").to_string();
-    let mut sub= match submission::createSubmission(
-        pool,
-        body.contest_id,
-        body.problem_id,
-        &username,
-        &body.language,
-        &body.code,
-    ).await{
-        Some(one)=>one,
-        _=>{
-            Submission::default()
-        }
-        None => todo!(),
-    };
+    // let username=("Durant").to_string();
+    // let mut sub= match submission::createSubmission(
+    //     pool,
+    //     body.contest_id,
+    //     body.problem_id,
+    //     &username,
+    //     &body.language,
+    //     &body.code,
+    // ).await{
+    //     Some(one)=>one,
+    //     _=>{
+    //         Submission::default()
+    //     }
+    //     None => todo!(),
+    // };
     // println!("{:?}",sub);
 
     updateResult(pool,RESULTS::JUDGING,sub.id).await;
