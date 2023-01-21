@@ -80,6 +80,23 @@ pub struct Detailed_Problem {
     share_submission: u64,
 }
 
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct ProblemList {
+    total: u64,
+    results: Vec<Detailed_Problem>,
+}
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct ProblemListRes {
+    data: ProblemList,
+    error: String,
+}
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct tagRes {
+    data: Vec<ProblemTag>,
+    error: String,
+}
 
 #[get("/api/problem")]
 async fn getProblemList ( 
@@ -91,13 +108,25 @@ async fn getProblemList (
     let mut limit = query.get("limit").unwrap_or(&"10".to_string()).parse::<u64>().unwrap();
     let mut offsite = query.get("offsite").unwrap_or(&"0".to_string()).parse::<u64>().unwrap();
     // let mut conn=pool.lock().await.get_conn().unwrap();// 获取链接
+    
     let mut p = Detailed_Problem::default();
-
+    p._id = 1;
+    p.title = "测试题目".to_string();
+    let mut res : Vec<Detailed_Problem> = Vec::new();
+    res.push(p);
+    let mut problemList = ProblemList {
+        total: 1,
+        results: res,
+    };
+    let mut problemListRes = ProblemListRes {
+        data: problemList,
+        error: "".to_string(),
+    };
     // 需要数据查询操作
 
     return HttpResponse::Ok()
         .content_type(ContentType::json())
-        .body(serde_json::to_string_pretty(&p).unwrap());
+        .body(serde_json::to_string_pretty(&problemListRes).unwrap());
 }
 
 #[get("/api/problem/tags")]
@@ -106,11 +135,18 @@ async fn getProblemTags (
     config: Data<Config>
 ) -> impl Responder {
     let mut conn = pool.lock().await.get_conn().unwrap();
-    let mut tags: ProblemTag = ProblemTag { name: "无标签".to_string() };
+    let mut tag: ProblemTag = ProblemTag { name: "无标签".to_string() };
+    let mut tags: Vec<ProblemTag> = Vec::new();
+    tags.push(tag);
+
+    let mut tagRes = tagRes {
+        data: tags,
+        error: "".to_string(),
+    };
 
     return HttpResponse::Ok()
         .content_type(ContentType::json())
-        .body(serde_json::to_string_pretty(&tags).unwrap());
+        .body(serde_json::to_string_pretty(&tagRes).unwrap());
 }
 
 #[get("/api/problem")]
