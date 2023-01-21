@@ -78,6 +78,13 @@ pub struct SubmissionData{
     pub code: String,
     pub contest_id: u32,
 }
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct submissionExistsRes {
+    pub data: bool,
+    pub error: String,
+}
+
 /*
 class JudgeStatus:
     COMPILE_ERROR = -2
@@ -204,12 +211,6 @@ async fn getSubmissionsList(
     };
     // return result
     HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submissionsRes).unwrap())
-}
-
-#[derive(Deserialize, Serialize, Clone, Default, Debug)]
-pub struct submissionExistsRes {
-    pub data: bool,
-    pub error: String,
 }
 
 #[get("/api/submission_exists")]
