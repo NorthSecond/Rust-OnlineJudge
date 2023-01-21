@@ -25,6 +25,7 @@ pub struct PostUser {
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct User {
+    pub id: u32,
     pub username: String,
     pub email: String,
     pub create_time: String,
@@ -43,8 +44,16 @@ pub struct User {
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct UserRes {
-    pub data: User,
+    pub data: UserProfile,
     pub error: String,
+}
+
+#[derive(Deserialize, Serialize, Clone, Default, Debug)]
+pub struct UserProfile {
+    user: User,
+    real_name: String,
+    avator: String,
+
 }
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
@@ -52,6 +61,7 @@ pub struct LoginInfo{
     pub username:String,
     pub password:String,
 }
+
 
 #[derive(Deserialize, Serialize)]
 pub struct LOGIN_SUCCESS{
@@ -193,6 +203,7 @@ async fn getUserInfo (
 ) -> impl Responder {
     // log::info!("获取信息 {:?}",body);
     let mut user_info: User=User { 
+        id: 1,
         username: "default".to_string(), 
         email: "default".to_string(), 
         create_time: "2023-01-01".to_string(), 
@@ -211,8 +222,13 @@ async fn getUserInfo (
         Some(user) => {
             user_info.username = user.username;
             user_info.email = user.email;
+            let userP = UserProfile{
+                user: user_info,
+                real_name: "Durant".to_string(),
+                avator: "https://avatars.githubusercontent.com/u/14831261?v=4".to_string(),
+            };
             let userRes:UserRes = UserRes {
-                data: user_info,
+                data : userP,
                 error: "".to_string(),
             };
             return HttpResponse::Ok()
@@ -220,9 +236,14 @@ async fn getUserInfo (
                 .body(serde_json::to_string_pretty(&userRes).unwrap());
         }, 
         None => {
+            let userP = UserProfile{
+                user: user_info,
+                real_name: "Durant".to_string(),
+                avator: "https://avatars.githubusercontent.com/u/14831261?v=4".to_string(),
+            };
             let userRes:UserRes = UserRes {
-                data: user_info,
-                error: "Please login".to_string(),
+                data : userP,
+                error: "".to_string(),
             };
             return HttpResponse::Ok()
                 .content_type(ContentType::json())
