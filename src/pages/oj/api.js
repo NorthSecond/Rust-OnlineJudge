@@ -141,9 +141,21 @@ export default {
   },
   getContestList (offset, limit, searchParams) {
     let params = {
-      offset,
-      limit
+      offset: offset,
+      limit: limit
     }
+    if (searchParams !== undefined) {
+      Object.keys(searchParams).forEach((element) => {
+        if (searchParams[element]) {
+          params[element] = searchParams[element]
+        }
+      })
+    }
+    return ajax('contests', 'get', {
+      params: params
+    })
+  },
+  getContestLists (params, searchParams) {
     if (searchParams !== undefined) {
       Object.keys(searchParams).forEach((element) => {
         if (searchParams[element]) {
@@ -292,11 +304,8 @@ function ajax (url, method, options) {
       data
     }).then(res => {
       // API正常返回(status=20x), 是否错误通过有无error判断
-      // console.log(res.data)
-      // resolve(res)
-
-      if (res.data.error !== '') {
-        console.log('Err:' + res.data.err)
+      console.log(res)
+      if (res.data.error !== undefined && res.data.error !== null) {
         Vue.prototype.$error(res.data.data)
         reject(res)
         // 若后端返回为登录，则为session失效，应退出当前登录用户

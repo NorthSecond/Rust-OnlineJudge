@@ -1,6 +1,6 @@
 export const JUDGE_STATUS = {
   '-2': {
-    name: 'Compile Error',
+    name: 'Compile E  rror',
     short: 'CE',
     color: 'yellow',
     type: 'warning'

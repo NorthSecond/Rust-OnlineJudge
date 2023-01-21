@@ -112,10 +112,12 @@
       }
     },
     beforeRouteEnter (to, from, next) {
-      api.getContestList(0, limit).then((res) => {
+      let params = Object.assign({}, {offset: 0, limit: limit})
+      api.getContestLists(params).then((res) => {
         next((vm) => {
-          vm.contests = res.data.data.results
-          vm.total = res.data.data.total
+          console.log(res)
+          vm.contests = res.data
+          vm.total = res.data
         })
       }, (res) => {
         next()

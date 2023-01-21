@@ -69,7 +69,7 @@ $Env:NODE_ENV='development'
 npm run build:dll
 
 # the dev-server will set proxy table to your backend
-$Env:TARGET='http://127.0.0.1:12345'
+$Env:TARGET='http:127.0.0.1:12345'
 
 # serve with hot reload at localhost:8080
 npm run dev
