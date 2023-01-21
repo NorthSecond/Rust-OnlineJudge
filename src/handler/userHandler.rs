@@ -72,13 +72,10 @@ async fn userlogin(
     match getUserByName(pool, &body.username).await{
         Some(user)=>{
             if(user.password==body.password){
-                // unsafe {
-                //     uname = Some(body.username.clone());
-                // }
                 HttpResponse::Ok().json(
                     LOGIN_SUCCESS{
                         data:"login success".to_string(),
-                        result:true
+                        result:true 
                     }
                 )
             }else{
@@ -103,7 +100,7 @@ async fn tfaRequiredCheck(
     HttpResponse::Ok().json(
         LOGIN_SUCCESS{
             data:"login success".to_string(),
-            result:false
+            result:false,
         }
     )
 }

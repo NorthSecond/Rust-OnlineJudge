@@ -1,12 +1,9 @@
 use super::super::config::Config;
 use crate::problem::{self, *};
-use super::super::config::Config;
-use crate::problem::{self, *};
 use actix_web::http::header::ContentType;
 use actix_web::{delete, get, post, web,  web::Data};
 use actix_web::{HttpResponse, Responder};
 use chrono::DateTime;
-use core::borrow;
 use core::borrow;
 use mysql::binlog::jsonb::Array;
 use mysql::prelude::*;
@@ -16,10 +13,6 @@ use mysql::*;
 use serde::__private::de;
 use serde::{Deserialize, Serialize};
 use serde_json;
-use serde_json::Value;
-use std::collections::HashMap;
-use std::fs::File;
-use std::path::Path;
 use serde_json::Value;
 use std::collections::HashMap;
 use std::fs::File;
@@ -66,9 +59,8 @@ pub struct Detailed_Problem {
     samples: Vec<Sample>,
     test_case_id: String,
     test_case_score: TestCaseScore,
-    test_case_score: TestCaseScore,
     hint: String,
-    languages: Vec<Vec<String>>,
+    languages: Vec<String>,
     template: String,
     create_time: String,
     last_update_time: String,
@@ -120,8 +112,6 @@ pub struct ProblemRes {
 async fn getProblemList(
     pool: Data<Mutex<Pool>>,
     config: Data<Config>,
-    query: web::Query<HashMap<String, String>>,
-) -> impl Responder {
     query: web::Query<HashMap<String, String>>,
 ) -> impl Responder {
     log::info!("调用题目列表！");
