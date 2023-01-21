@@ -1,3 +1,4 @@
+use actix_rt::time;
 use actix_web::middleware::Condition;
 use actix_web::{post, web, App, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
@@ -30,6 +31,66 @@ pub async fn getCasesByProblemId(
     id:u64)->Option<Vec<Case>> {
     None
 }
+
+pub struct Limit {
+    time_limit:u64,
+    memeory_limit:u64,
+}
+
+use std::path::Path;
+use std::fs::{File};
+
+use std::convert::TryFrom;
+use std::convert::TryInto;
+// use std::convert::FloatToInt;
+// pub  fn getTimeByProblemId(id:u32)->(u64,u64){
+//     let path = format!("./problems/{}/problem.json", id);
+//     let _path = Path::new(path.as_str());
+//     let problem_file =match File::open(_path){
+//         Ok(F)=>F,
+//         Err(e)=>{
+//             return (
+//                 1000000000,
+//                 1000000000,
+//             )
+//         }
+//     };
+//     let content: serde_json::Value = serde_json::from_reader(problem_file).unwrap();
+//     let time_limit = content["time_limit"]["value"]
+//         .to_string()
+//         .parse::<f32>()
+//         .unwrap();
+//     let memory_limit = content["memory_limit"]["value"]
+//         .to_string()
+//         .parse::<u64>()
+//         .unwrap();
+
+//     let time_limit=time_limit as u64;
+       
+//     return (
+//         time_limit,
+//         memory_limit,
+//     );
+
+//     // let time_limit=(time_limit*(1000 as f32)).ceil().to_value();
+//     // match time_limit {
+//     //     Ok(time)=> {
+//     //         return (
+//     //            time,
+//     //            memory_limit,
+//     //        );
+//     //     }
+//     //     Err(E)=>{
+//     //         return (
+//     //             1000000000,
+//     //             memory_limit,
+//     //         )
+//     //     }
+//     // }   
+// }
+
+ 
+
 
 pub async fn getProblems (
     pool: web::Data<Mutex<Pool>>,

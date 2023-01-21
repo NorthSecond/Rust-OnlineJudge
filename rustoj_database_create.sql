@@ -113,6 +113,7 @@ create table tb_submission(
    problem int,
    create_time datetime,
    username varchar(32),
+   language varchar(32),
    code text,
    result int,
    time_cost   int default 0,
