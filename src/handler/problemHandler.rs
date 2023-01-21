@@ -180,16 +180,38 @@ async fn getProblem (
     match getProblemByID(pool, id).await {
         Some(problem) => {
             // detailed_problem._id = problem.problemID.clone(),
+            let path = format!("./problems/{}/problem.json",id);
+            let path = Path::new(path.as_str());
+            let problem_file = File::open("path").unwrap();
+            let content: serde_json::Value = serde_json::from_reader(problem_file).unwrap();
+            
             p._id = problem._id.clone();
             p.title = problem.problemTitle.clone();
+            p.description = content["description"].to_string();
+            p.time_limit = content["time_limit"]["value"].to_string().parse::<u64>().unwrap();
+            p.memory_limit = content["memory_limit"]["value"].to_string().parse::<u64>().unwrap();
+            p.samples.input = content["samples"][0]["input"].to_string();
+            p.samples.output = content["samples"][0]["output"].to_string();
+            p.hint = content["hint"].to_string();
+            p.source = content["source"].to_string();
+            p.difficulty = "Mid".to_string();
+            p.statistic_info = 0;
+            let problemRes = ProblemRes {
+                data: p,
+                error: "".to_string(),
+            };
             return HttpResponse::Ok()
                 .content_type(ContentType::json())
-                .body(serde_json::to_string_pretty(&p).unwrap());
+                .body(serde_json::to_string_pretty(&problemRes).unwrap());
         },
         None => {
+            let problemRes = ProblemRes {
+                data: p,
+                error: "Problem does not exist".to_string(),
+            };
             return HttpResponse::Ok()
                 .content_type(ContentType::json())
-                .body(serde_json::to_string_pretty(&p).unwrap());
+                .body(serde_json::to_string_pretty(&problemRes).unwrap());
         }
     }
 }
