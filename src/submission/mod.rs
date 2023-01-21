@@ -27,7 +27,6 @@ pub mod RESULTS{
     pub const PARTIALLY_ACCEPTED:i8 = 8;
 }
 
-
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct Statistic_info{
     pub time_cost:u32,
@@ -41,10 +40,10 @@ pub struct Submission{
    pub id:u32,
    pub contest:u32,
    pub problem:u32,
-   pub language:String,
-   pub username:String,
-   pub code:String,
    pub create_time:String,
+   pub username:String,
+   pub language:String,
+   pub code:String,
    pub result:i8,
    pub time_cost:u32,
    pub memory_cost:u32,

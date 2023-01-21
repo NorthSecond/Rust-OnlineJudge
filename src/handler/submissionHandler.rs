@@ -1,20 +1,16 @@
 // submission handler
 
+use std::collections::HashMap;
 use super::super::config::Config;
 use actix_web::http::header::ContentType;
 use actix_web::{get, post, put, web, HttpResponse, Responder};
-use chrono::DateTime;
-use mysql::prelude::*;
 use mysql::*;
 use serde::{Deserialize, Serialize};
 use serde_json;
-use std::collections::HashMap;
-use std::fmt::format;
 use tokio::sync::Mutex;
 
-use crate::error_log::SUBMISSION;
-use crate::runner::{self, *};
-use crate::submission::{self, RESULTS, *};
+use crate::runner::{self};
+use crate::submission::{self, *};
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionWeb {
@@ -92,7 +88,7 @@ pub struct SubmissionData {
 }
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
-pub struct submissionExistsRes {
+pub struct SubmissionExistsRes {
     pub data: bool,
     pub error: String,
 }
@@ -310,7 +306,7 @@ async fn submissionExists(
     match submissions {
         Ok(submissions) => {
             if submissions.len() > 0 {
-                let mut res = submissionExistsRes {
+                let mut res = SubmissionExistsRes {
                     data: true,
                     error: String::from(""),
                 };
@@ -318,7 +314,7 @@ async fn submissionExists(
                     .content_type(ContentType::json())
                     .body(serde_json::to_string(&res).unwrap())
             } else {
-                let mut res = submissionExistsRes {
+                let mut res = SubmissionExistsRes {
                     data: false,
                     error: String::from(""),
                 };
@@ -328,7 +324,7 @@ async fn submissionExists(
             }
         }
         Err(_) => {
-            let mut res = submissionExistsRes {
+            let mut res = SubmissionExistsRes {
                 data: false,
                 error: String::from(""),
             };
