@@ -2,7 +2,6 @@
 mod tests {
     use mysql::*;
     use mysql::prelude::*;
-    use chrono::prelude::*; // 用来处理日期
     
     //查询数据
     #[test]

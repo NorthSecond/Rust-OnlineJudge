@@ -149,7 +149,7 @@ pub async fn createSubmission(
     let mut conn=pool.lock().await.get_conn().unwrap();
     // 检查username是否存在
 
-    let r=conn.exec_drop(
+    let _r=conn.exec_drop(
         "insert into `tb_submission`(`id`,`contest`, `problem`, `username`,`language`,`code`,`result`,`create_time`) values (null,:c, :p, :u,:lang,:code,:r,now());", 
         params!{
                 "c" => contest, 

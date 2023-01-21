@@ -55,7 +55,7 @@ impl SubmissionWeb{
         submissionWeb.info = info;
         submissionWeb.language = submission.language.clone();
         submissionWeb.shared = false;
-        submissionWeb.statistic_info = String::from("");
+        submissionWeb.statistic_info = StatisticInfo::default();
         submissionWeb.ip = String::from("");
         submissionWeb
     }
@@ -173,7 +173,7 @@ async fn submit_code(
         None => Submission::default(),
     };
     let mut id = sub.id;
-    let res = runner::judge(&pool, config, data, sub);
+    // let res = runner::judge(&pool, config, data, sub);
 
     let mut res = SubmissionRes {
         data: SubmitId { submission_id: id },
@@ -198,8 +198,10 @@ async fn submit_code(
     let subWeb=SubmissionWeb::transfer(&sub);
     // let mut res = SubmissionRes::default();
 
+    let subID = SubmitId { submission_id: sub.id };
+
     let res=SubmissionRes{
-        data:subWeb,
+        data:subID,
         error:"".to_string()
     };
 
