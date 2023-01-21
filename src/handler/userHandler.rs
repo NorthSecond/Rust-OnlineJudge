@@ -1,4 +1,3 @@
-
 use std::ptr::null;
 
 use actix_web::http::header::ContentType;
@@ -104,7 +103,6 @@ async fn tfaRequiredCheck(
 }
 
 
-
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct RegisterInfo{
     pub username:String,
@@ -135,7 +133,7 @@ async fn registerUser(
 
 
 
-#[get("/api/path")]
+#[get("/path")]
 async fn extractor_multiple(p: web::Path<(String, String)>, q: web::Query<LoginInfo>) -> String {
     log::info!("p={:?}, q={:?}", p, q);
 
