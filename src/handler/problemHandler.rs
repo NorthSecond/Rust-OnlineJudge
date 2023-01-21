@@ -54,7 +54,7 @@ pub struct Detailed_Problem {
     description: String,
     input_description: String,
     output_description: String,
-    samples: Sample,
+    samples: Vec<Sample>,
     test_case_id: String,
     test_case_score: TestCaseScore,
     hint: String,
@@ -106,11 +106,6 @@ pub struct ProblemRes {
     error: String,
 }
 
-// #[derive(Deserialize, Serialize, Clone, Default, Debug)]
-// pub struct languages{
-//     pub const languages: [&str; 5] = ["C", "C++", "Java", "Python", "Go"];
-// }
-
 #[get("/api/problem")]
 async fn getProblemList(
     pool: Data<Mutex<Pool>>,
@@ -149,7 +144,12 @@ async fn getProblemList(
 
                 p._id = problem._id.clone();
                 p.title = problem.problemTitle.clone();
-                p.description = content["description"].to_string();
+                let mut description = content["description"].to_string();
+                // delete the first and last "
+                description = description[1..description.len() - 1].to_string();
+                p.description = description.replace("\\r", "\r").replace("\\n", "\n").replace("\\\"", "\"").replace("\\t", "\t");
+
+
                 p.time_limit = content["time_limit"]["value"]
                     .to_string()
                     .parse::<f32>()
@@ -158,18 +158,29 @@ async fn getProblemList(
                     .to_string()
                     .parse::<u64>()
                     .unwrap();
-                p.samples.input = content["samples"][0]["input"].to_string();
-                p.samples.output = content["samples"][0]["output"].to_string();
-                p.hint = content["hint"].to_string();
+                p.samples = vec![];
+                let mut sample = Sample::default();
+                let mut input = content["samples"][0]["input"].to_string();
+                // delete the first and last "
+                input = input[1..input.len() - 1].to_string();
+                sample.input = input.replace("\\r", "\r").replace("\\n", "\n").replace("\\\"", "\"").replace("\\t", "\t");
+                let mut output = content["samples"][0]["output"].to_string();
+                // delete the first and last "
+                output = output[1..output.len() - 1].to_string();
+                sample.output = output.replace("\\r", "\r").replace("\\n", "\n").replace("\\\"", "\"").replace("\\t", "\t");
+                p.samples.push(sample);
+                let mut hint = content["hint"].to_string();
+                if hint == "null" {
+                    hint = "".to_string();
+                }
+                p.hint = hint;
                 p.source = content["source"].to_string();
                 p.difficulty = "Mid".to_string();
                 p.statistic_info = 0;
                 p.languages = vec![
                     "C".to_string(),
                     "C++".to_string(),
-                    "Java".to_string(),
-                    "Python".to_string(),
-                    "Go".to_string(),
+                    "Rust".to_string(),
                 ];
                 let problemRes = ProblemRes {
                     data: p,
