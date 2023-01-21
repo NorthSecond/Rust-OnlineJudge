@@ -8,10 +8,14 @@ use mysql::*;
 use mysql::prelude::*;
 use tokio::sync::Mutex;
 
+
+use base64::encode;
+use base64::decode;
+use  std::str;
 use crate::config::{Problem, Language};
 
 
-mod RESULTS{
+pub mod RESULTS{
     pub const COMPILE_ERROR:i8 = -2;
     pub const WRONG_ANSWER:i8 = -1;
     pub const ACCEPTED:i8 = 0;
@@ -24,6 +28,7 @@ mod RESULTS{
     pub const JUDGING:i8 = 7;
     pub const PARTIALLY_ACCEPTED:i8 = 8;
 }
+
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct Statistic_info{
@@ -79,7 +84,7 @@ impl Submission {
 
 
 pub async fn get(
-    pool: web::Data<Mutex<Pool>>,
+    pool: &web::Data<Mutex<Pool>>,
     condition:&String
 ) -> Result<Vec<Submission>> {
     let mut conn=pool.lock().await.get_conn().unwrap();
@@ -99,7 +104,10 @@ pub async fn get(
             err_info   ,
             score ,
         )|
-        { 
+        {   
+
+            let code=&decode::<String>(code).unwrap()[..];
+            let code =str::from_utf8(code).unwrap().to_string();
             log::info!("{}",create_time);
             Submission { id: id, contest: contest, problem: problem, create_time:create_time, username: username, language:language ,code: code, result:result, time_cost: time_cost, memory_cost:memory_cost, err_info: err_info, score:score }
         },
@@ -108,11 +116,11 @@ pub async fn get(
 }
 
 pub async fn getById(
-    pool: web::Data<Mutex<Pool>>,
+    pool: &web::Data<Mutex<Pool>>,
     id:u32
 )->Option<Submission>{
     let Robjs=
-    get(pool, &format!("where id={}",id)).await;
+    get(&pool, &format!("where id={}",id)).await;
 
     match Robjs{
         Ok(objs)=>objs.get(0).cloned(),
@@ -120,7 +128,7 @@ pub async fn getById(
     }
 }
 
-pub async fn getLatest(pool :web::Data<Mutex<Pool>>)->Option<Submission>{
+pub async fn getLatest(pool :&web::Data<Mutex<Pool>>)->Option<Submission>{
     let Robjs=
     get(pool, &format!("order by -id limit 1")).await;
     match Robjs{
@@ -131,12 +139,12 @@ pub async fn getLatest(pool :web::Data<Mutex<Pool>>)->Option<Submission>{
 
 
 pub async fn createSubmission(
-    pool: web::Data<Mutex<Pool>>,
+    pool: &web::Data<Mutex<Pool>>,
     contest:u32,
     problem:u32,
-    username:String,
-    language:String,
-    code:String,
+    username:&String,
+    language:&String,
+    code:&String,
 ) ->Option<Submission> {
     log::info!("Create Summission...");
     log::info!("contest:{}, problem:{}, username:{}", contest, problem, username);
@@ -150,12 +158,12 @@ pub async fn createSubmission(
                 "p" => problem, 
                 "u" => username,
                 "lang"=>language,
-                "code"=>code,
+                "code"=>encode(code),
                 "r" => RESULTS::PENDING,
     });
     
-    let obj =getLatest(pool);
-    obj.await   
+    let mut obj =getLatest(pool).await;
+    obj  
 }
 
 
@@ -180,6 +188,6 @@ pub async fn getByProblemId(
     pool: web::Data<Mutex<Pool>>,
     problem_id:u32
 ) -> Result<Vec<Submission>> {
-    let subs = get(pool, &format!("where problem={}",problem_id)).await;
+    let subs = get(&pool, &format!("where problem={}",problem_id)).await;
     subs
 }

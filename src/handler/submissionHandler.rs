@@ -9,10 +9,12 @@ use tokio::sync::Mutex;
 use chrono::DateTime;
 use serde_json;
 use std::collections::HashMap;
+use std::fmt::format;
 use actix_web::http::header::ContentType;
 
 use crate::runner::*;
-use crate::submission::*;
+use crate::submission::{*,self, RESULTS};
+use crate::error_log::SUBMISSION;
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
 pub struct SubmissionData{
@@ -24,10 +26,10 @@ pub struct SubmissionData{
           contest_id: this.contestID
         }
     */
-    problem_id: u64,
+    problem_id: u32,
     language: String,
     code: String,
-    contest_id: u64,
+    contest_id: u32,
 }
 
 #[derive(Deserialize, Serialize, Clone, Default, Debug)]
@@ -89,6 +91,29 @@ async fn submitCode(
     let mut submission = SubmissionWeb::default();
     // insert submission to database
 
+    let username=("username").to_string();
+    let mut sub= match createSubmission(
+        &pool,
+        body.contest_id,
+        body.problem_id,
+        &username,
+        &body.language,
+        &body.code,
+    ).await{
+        Some(one)=>one,
+        _=>{
+            
+            Submission::default()
+        }
+    };
+
+
+
+    update(pool, format!("result = {}",RESULTS::JUDGING),format!("id = {}",sub.id));
+    compileForSub(&sub, &config);
+
+
+    // compile(body, config, sub.id);
     // return result
     HttpResponse::Ok().content_type(ContentType::json()).body(serde_json::to_string(&submission).unwrap())
 }
@@ -103,7 +128,7 @@ async fn getSubmission(
     let mut id = query.get("id").unwrap_or(&"10".to_string()).parse::<u32>().unwrap();
     
     // should be a Submission
-    let submissionOpt = getById(pool, id).await;
+    let submissionOpt = getById(&pool, id).await;
 
     let submission = match submissionOpt{
         Some(submission) => submission,
@@ -146,7 +171,7 @@ async fn getSubmissionsList(
     let mut limit = query.get("limit").unwrap_or(&"10".to_string()).parse::<u64>().unwrap();
     let mut offsite = query.get("offsite").unwrap_or(&"0".to_string()).parse::<u64>().unwrap();
     
-    let mut submissions = match get(pool, &format!("1")).await {
+    let mut submissions = match get(&pool, &format!("1")).await {
         Ok(submissions) => submissions,
         Err(_) => Vec::new(),
     };

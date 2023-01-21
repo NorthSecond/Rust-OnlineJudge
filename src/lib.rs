@@ -72,12 +72,13 @@ mod submissionTest{
     async fn subInsert(){
         let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
         let pool = Pool::new(url).unwrap(); // 获取连接池
+        let pool=Data::new(
+            Mutex::new(pool.clone()));
         // Data::
         let sub=submission::createSubmission(
-            Data::new(
-                Mutex::new(pool.clone())), 
+            &pool, 
             1, 1, 
-        "1203".to_string(),"Rust".to_string() ,"123".to_string()).await;
+        &"1203".to_string(),&"Rust".to_string() ,&"1xxxxxsdsadfa\"23".to_string()).await;
 
         match sub {
             Some(s)=>println!("{:?}",s),
@@ -89,8 +90,9 @@ mod submissionTest{
     async fn get(){
         let url = "mysql://RUST-OJ:123456@localhost:3306/rustoj";
         let pool = Pool::new(url).unwrap();
-        let sub= getById(Data::new(
-            Mutex::new(pool.clone())),1);
+        let pool=Data::new(
+            Mutex::new(pool.clone()));
+        let sub= getById(&pool,1);
         // println!("{:?}",sub.await.unwrap());
         match sub.await {
             Some(s)=>println!("{:?}",s),

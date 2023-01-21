@@ -34,3 +34,20 @@ impl LOGIN  {
         })
     }
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct SUBMISSION {
+    error: u32,
+    data: &'static str,
+    message: String,
+}
+
+impl  SUBMISSION {
+    pub fn SUBMIT_FAILE(message: &str)-> HttpResponse{
+        HttpResponse::Ok().json(LOGIN{
+            error:4,
+            data:"submit failed",
+            message:message.to_string(),
+        })
+    }
+}
