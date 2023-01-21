@@ -9,9 +9,9 @@ mod problem;
 
 
 #[cfg(test)]
-mod compileTest {
+mod runnerTest {
     use std::fs;
-    use crate::job::PostJob;
+    use crate::{job::PostJob, runner, problem};
 
     // use std::io::BufReader;
     use super::runner::compile;
@@ -40,10 +40,51 @@ mod compileTest {
     }
 
     #[test]
-    fn another() {
-        
+    fn run_bin() {
+        let id=10;
+        let problem=1;
+        let index=1;;
+        let time_limit=10000;
+        let mem_limit=1000000;
+        let bin_path=format!("oj_runtime_dir/job_{}/job.exe", id);
+        let out_path=format!("oj_runtime_dir/job_{}/", id);
+        let input_path=format!("problems/{}",problem);
+        let res=runner::run(index, input_path, bin_path, out_path, time_limit, mem_limit);
+        match res {
+            Ok(time)=>{
+                log::info!("{} problem time is {}",problem,time);
+            }
+            Err(result)=>{
+                log::warn!("{} problem runtime error {}",problem,result);
+            }
+        }
     }
+
+    use walkdir::*;
+    #[test]
+    fn dir_get() {
+
+
+        let problem=1;
+
+        let input_path=format!("problems/{}",problem);
+       
+        let mut counter=0;
+        for entry in WalkDir::new(input_path)
+            .into_iter()
+            .filter_map(Result::ok)
+            .filter(|e| !e.file_type().is_dir()) {
+                let f_name = String::from(entry.file_name().to_string_lossy());
+                if f_name.ends_with(".in") {
+                    counter += 1;
+                    println!("{}", f_name);
+                }   
+            }
+        }   
+
+
 }
+
 
 
 
@@ -109,6 +150,9 @@ mod submissionTest{
             Mutex::new(pool.clone()));
         submission::update(&pool, format!("result=0"), format!("id=3")).await;
     }
+
+
+    
 
 
 }

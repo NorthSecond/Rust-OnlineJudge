@@ -194,8 +194,15 @@ pub async fn updateResult(
     result:i8,
     id:u32,
 )->bool{
-    update(&pool, format!("result = {}",result),format!("id = {}",id)).await
+    update(pool, format!("result = {}",result),format!("id = {}",id)).await
+}
 
+pub async fn updateScore(
+    pool: &web::Data<Mutex<Pool>>,
+    score:i8,
+    id:u32,
+)->bool{
+    update(pool,format!(" score={} ",score), format!("id={}",id)).await
 }
 
 
