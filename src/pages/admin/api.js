@@ -320,7 +320,7 @@ function ajax (url, method, options) {
       data
     }).then(res => {
       // API正常返回(status=20x), 是否错误通过有无error判断
-      if (res.data.error !== null) {
+      if (res.data.error !== '') {
         Vue.prototype.$error(res.data.data)
         reject(res)
         // // 若后端返回为登录，则为session失效，应退出当前登录用户
